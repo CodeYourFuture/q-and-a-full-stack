@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "title": "How to get things done?",
+      "question": "I have many things to get done, but I don't know how to do them. Can you give any recommendations?",
+      "Date": "2017-11-23"
+    },
+    {
+      "id": 2,
+      "title": "How to connect to Postgres?",
+      "question": "I have been trying to connect to postgress server but I keep getting an error on my console and my Node app crashes. help please",
+      "Date": "2017-11-23"
+    },
+    {
+      "id": 3,
+      "title": "How to create a responsive design?",
+      "question": "Hi, I have been trying to make my page responsive using media queries but it's not working, please help.",
+      "Date": "2017-11-23"
+    }
+  ]
+  
