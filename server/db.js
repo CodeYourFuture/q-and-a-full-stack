@@ -14,10 +14,10 @@ if (process.env.DATABASE_URL) { //it's set in Heroku
 	};
 } else { //default local config
 	config = {
-		user: "postgres",
+		user: "qa-admin",
 		host: "localhost",
 		database: "qa",
-		password: "password",
+		password: "qa-admin",
 		port: 5432,
 	};
 }
