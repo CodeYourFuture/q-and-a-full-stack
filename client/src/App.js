@@ -1,6 +1,7 @@
+/* eslint-disable linebreak-style */
 import React, { useEffect, useState } from "react";
-import List from "../Components/List";
-import AskQuestion from "../Components/AskQuestion";
+import List from "./Components/TestList";
+import AskQuestion from "./Components/AskQuestion";
 
 import "./App.css";
 // import { getMessage } from "./service";

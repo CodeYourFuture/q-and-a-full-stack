@@ -21,7 +21,7 @@ router.get("/test", (_, res, next) => {
 		if (err) {
 			return next(err);
 		}
-		res.json({ message:result.rows });
+		res.json(result.rows);
 	});
 });
 
