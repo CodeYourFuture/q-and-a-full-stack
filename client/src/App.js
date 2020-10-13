@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import List from "./Components/TestList";
 import AskQuestion from "./Components/AskQuestion";
 
@@ -26,13 +26,13 @@ import "./App.css";
 
 function App() {
 	return (
-	  <div className="App">
-		<div className="container">
+		<div className="App">
+			<div className="container">
 		  <AskQuestion />
 		  <List />
-		</div>
-	  </div>
+			</div>
+	  	</div>
 	);
-  }
+}
 
 export default App;
