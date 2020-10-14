@@ -3,16 +3,22 @@
 import { getQuestions } from "../service";
 import React,{ useState,useEffect } from "react";
 
-const TestList = ()=>{
+const TestList = ({ title })=>{
 	const [data,setData] = useState([]);
 
 	useEffect(() => {
 		getQuestions().then((questions) => setData(questions));
 	},[]);
 
+	useEffect(() => {
+		let newQ = { title: title, id:1111111 };
+		let arr = [...data, newQ];
+		setData(arr);
+	},[title]);
+
 	return (
 		<ul className="list-group">
-			{data.map((question) => (
+			{data.reverse().map((question) => (
 				<div key={question.id}>
 					<li className="list-group-item d-flex my-2 bg-light">
 						<span className="mr-auto p-2">{question.title}</span>
