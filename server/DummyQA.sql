@@ -16,7 +16,7 @@ CREATE TABLE questions (
   -- user_id INTEGER,
   title VARCHAR(150) NOT NULL,
   context VARCHAR(300) NOT NULL,	
-  question_date  DATE NOT NULL
+  question_date timestamp default current_timestamp
   -- foreign key (user_id) references users(id)
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE comments (
   -- user_id INTEGER,
   question_id INTEGER,
   comment VARCHAR(300) NOT NULL,
-  comment_date DATE NOT NULL,
+  comment_date timestamp default current_timestamp,
   foreign key (question_id) references questions(id)
 );
 
