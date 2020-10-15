@@ -9,3 +9,11 @@ export const getQuestions = async () => {
 	const response = await get("/test");
 	return response.data;
 };
+export const postQuestion = async (data) => {
+	const response = await post("/question",data);
+	return response.data;
+};
+export const postComment = async (data) => {
+	const response = await post("/comment",data);
+	return response.data;
+};

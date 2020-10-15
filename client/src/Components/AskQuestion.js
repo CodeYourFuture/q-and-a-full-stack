@@ -1,53 +1,98 @@
+/* eslint-disable indent */
+/* eslint-disable linebreak-style */
 import React, { useState } from "react";
+// import { postQuestion } from "../service";
 
-const AskQuestion = () => {
+const AskQuestion = ({ postQuestion, formMonitor }) => {
   const [open, setOpen] = useState(false);
+  const [formData,setFormData] = useState({
+    title:"",
+    context:"",
+  });
 
-  const handleClick = (e) => {
-    setOpen(true);
+  const showQuickForm = () => {
+    setOpen(!open);
+  };
+
+  const handleSubmit = (e)=>{
+    console.log(formData);
+    e.preventDefault();
+    postQuestion({ title: formData.title, context:formData.context })
+    .then(()=>{
+      formMonitor();
+      setOpen(!open);
+      setFormData({
+        title:"",
+        context:"",
+      });
+    })
+    .catch((error) => {
+    console.error("Error:", error);
+      });
+  };
+
+  const handleChange = (e) => {
+    console.log(formData);
+    const updatedFormData = {
+      ...formData,
+      [e.target.name]: e.target.value,
+    };
+    setFormData(updatedFormData);
   };
 
   return (
     <>
       <button
-        onClick={handleClick}
+        onClick={showQuickForm}
         type="button"
         className="btn btn-info m-3"
       >
         Ask a question
       </button>
       {open && (
-        <form className="my-4 w-75 mx-auto p-3 bg-secondary text-left text-white">
+        <form className="my-4 w-75 mx-auto p-3 bg-secondary text-left text-white" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="lead" >Title</label>
-            <br></br>
-            <label >
+            <label className="lead" htmlFor={"title"}>Title
+            <br />
+            <span>
               Be specific and imagine you’re asking a question to another person
-            </label>
+            </span>
+            <br />
             <input
+              name="title"
               type="text"
               className="form-control"
-              id="exampleInputEmail1"
+              id="title"
+              onChange={handleChange}
+              value={formData.title}
               aria-describedby="emailHelp"
               placeholder="Enter Title"
-            ></input>
+            ></input></label>
+            <br />
+
           </div>
           <div className="form-group">
-            <label className="lead">Body</label>
+            <label className="lead" htmlFor="context" >Body
             <br></br>
-            <label >
+            <span >
               Include all the information someone would need to answer your
               question
-            </label>
+            </span>
+            <br />
             <textarea
+              onChange={handleChange}
+              value={formData.context}
+              name="context"
               type="text"
               className="form-control"
               rows="5"
+              id="context"
               placeholder="Enter Question"
-            ></textarea>
+            ></textarea></label>
+
           </div>
 
-          <button type="submit" className="btn btn-info">
+          <button type="submit"  className="btn btn-info">
             Submit
           </button>
         </form>

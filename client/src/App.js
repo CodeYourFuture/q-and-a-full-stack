@@ -1,38 +1,30 @@
 /* eslint-disable linebreak-style */
-import React, { useEffect, useState } from "react";
-import List from "./Components/TestList";
+import React ,{ useState,useEffect } from "react";
+import List from "./Components/List";
 import AskQuestion from "./Components/AskQuestion";
-
 import "./App.css";
-// import { getMessage } from "./service";
-// import logo from "./logo.svg";
-
-// export function App() {
-// 	const [message, setMessage] = useState("Loading...");
-
-// 	useEffect(() => {
-// 		getMessage().then((message) => setMessage(message));
-// 	}, []);
-
-// 	return (
-// 		<main role="main">
-// 			<div>
-// 				<img className="logo" data-qa="logo" src={logo} alt="Just the React logo" />
-// 				<h1 className="message" data-qa="message">{message} local mesage</h1>
-// 			</div>
-// 		</main>
-// 	);
-// }
+import { getQuestions,postQuestion,postComment } from "./service";
 
 function App() {
+
+	const [data,setData] = useState([]);
+	const [formData,setFormData] = useState(false);
+
+	useEffect(() => {
+		getQuestions().then((questions) => setData(questions));
+	},[formData]);
+
+	const formMonitor = ()=>{
+		setFormData(!formData);
+	};
 	return (
-	  <div className="App">
-		<div className="container">
-		  <AskQuestion />
-		  <List />
-		</div>
+		<div className="App">
+			<div className="container">
+		  <AskQuestion formMonitor={formMonitor} postQuestion={postQuestion} />
+		  <List data={data} />
+			</div>
 	  </div>
 	);
-  }
+}
 
 export default App;

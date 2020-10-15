@@ -18,7 +18,7 @@ router.get("/", (_, res, next) => {
 
 router.get("/test", (_, res, next) => {
 
-	Connection.query("select * from questions", (err,result) => {
+	Connection.query("select * from questions order by id DESC", (err,result) => {
 		if (err) {
 			return next(err);
 		}
