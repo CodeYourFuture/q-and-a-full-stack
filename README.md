@@ -27,6 +27,13 @@ Pick one member of the team to own the repository and pipeline. That person shou
  7. Go to the "Deploy" tab, select "Connect to GitHub" and choose your repo.
  8. Click "Enable automatic deploys".
 
+### Note: running locally
+you need to create a new user to your local postgress server useing the following command
+```
+createuser -U postgres -P -d qa-admin
+```
+Then you need to create a database named "qa" and run ` \include DummyQA.sql` after you connect to it.
+
 Whenever you commit to master (or e.g. merge a [pull request]) it will get automatically deployed!
 
 You should now make sure all of the project team are [collaborators] on the repository.

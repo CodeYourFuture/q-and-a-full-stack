@@ -1,28 +1,29 @@
 /* eslint-disable linebreak-style */
-import React, { useState } from "react";
-import List from "./Components/TestList";
+import React, { useState, useEffect } from "react";
+import List from "./Components/List";
 import AskQuestion from "./Components/AskQuestion";
-
 import "./App.css";
+import { getQuestions, postQuestion, postComment } from "./service";
 
 function App() {
-	const [title, setTitle] = useState("");
-	const [body, setBody] = useState("");
+  const [data, setData] = useState([]);
+  const [formData, setFormData] = useState(false);
 
-	const handleTitle = (newTitle) =>{
-		setTitle(newTitle);
-	};
-	const handleBody = (newBody) =>{
-		setBody(newBody);
-	};
-	return (
-		<div className="App">
-			<div className="container">
-		  <AskQuestion handleTitle={handleTitle} handleBody={handleBody} />
-		  <List title={title} body={body} />
-			</div>
-	  	</div>
-	);
+  useEffect(() => {
+    getQuestions().then((questions) => setData(questions));
+  }, [formData]);
+
+  const formMonitor = () => {
+    setFormData(!formData);
+  };
+  return (
+    <div className="App">
+      <div className="container">
+        <AskQuestion formMonitor={formMonitor} postQuestion={postQuestion} />
+        <List data={data} postComment={postComment} />
+      </div>
+    </div>
+  );
 }
 
 export default App;
