@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 /* eslint-disable linebreak-style */
 import React, { useState } from "react";
-// import { postQuestion } from "../service";
 
 const AskQuestion = ({ postQuestion, formMonitor }) => {
   const [open, setOpen] = useState(false);
