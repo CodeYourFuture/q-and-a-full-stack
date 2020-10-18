@@ -13,7 +13,6 @@ export const Comment = ({ id, postComment }) => {
     };
     setComment(updatedComment);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     postComment({ questionId: comment.questionId, comment: comment.comment })
