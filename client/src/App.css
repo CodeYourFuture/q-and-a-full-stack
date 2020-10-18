@@ -11,14 +11,5 @@
 } */
 
 .App {
-    text-align: center;
-  }
-
-.hidden {
-    display: none;
+  text-align: center;
 }
-
-.visible {
-    display: block;
-}
-  

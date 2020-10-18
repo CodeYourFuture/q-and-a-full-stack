@@ -4,6 +4,7 @@ import List from "./Components/List";
 import AskQuestion from "./Components/AskQuestion";
 import "./App.css";
 import { getQuestions, postQuestion, postComment } from "./service";
+import NavMenu from "./Components/NavMenu";
 
 function App() {
   const [data, setData] = useState([]);
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className="App">
       <div className="container">
+        <NavMenu />
         <AskQuestion formMonitor={formMonitor} postQuestion={postQuestion} />
         <List data={data} postComment={postComment} />
       </div>

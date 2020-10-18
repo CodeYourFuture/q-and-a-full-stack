@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 /* eslint-disable linebreak-style */
 import React, { useState } from "react";
-// import { postQuestion } from "../service";
+import PropTypes from "prop-types";
 
 const AskQuestion = ({ postQuestion, formMonitor }) => {
   const [open, setOpen] = useState(false);
@@ -32,7 +32,6 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
   };
 
   const handleChange = (e) => {
-    console.log(formData);
     const updatedFormData = {
       ...formData,
       [e.target.name]: e.target.value,
@@ -100,6 +99,11 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
       )}
     </>
   );
+};
+
+AskQuestion.propTypes = {
+  postQuestion: PropTypes.func,
+  formMonitor: PropTypes.func,
 };
 
 export default AskQuestion;
