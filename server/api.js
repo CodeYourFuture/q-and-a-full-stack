@@ -38,16 +38,6 @@ router.post("/question", (req, res, next) => {
     }
     res.status(200).json(result.rows);
   });
-
-  Connection.query(
-    "select * from questions order by id DESC",
-    (err, result) => {
-      if (err) {
-        return next(err);
-      }
-      res.status(200).json(result.rows);
-    }
-  );
 });
 
 router.post("/question", (req, res, next) => {

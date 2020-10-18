@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 //import AskQuestion from "./AskQuestion";
 
 const NavMenu = () => {
@@ -9,12 +10,14 @@ const NavMenu = () => {
         expand="lg"
         variant="dark"
         bg="secondary"
-        className="justify-content-center display-4 p-2"
+        className="justify-content-center p-2"
       >
         <Navbar.Text href="#" className="text-white">
-          The Gradutes Q&A
+          <Link to="/home">The Gradutes Q&A</Link>
         </Navbar.Text>
-        {/* <AskQuestion /> */}
+        <Link to="/ask" type="button" className="btn btn-info m-3">
+          Ask a question
+        </Link>
       </Navbar>
     </Container>
   );
