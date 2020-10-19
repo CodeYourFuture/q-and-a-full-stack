@@ -1,9 +1,16 @@
 /* eslint-disable linebreak-style */
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import List from "./Components/List";
 import AskQuestion from "./Components/AskQuestion";
 import "./App.css";
-import { getQuestions, postQuestion, postComment } from "./service";
+import {
+  getQuestions,
+  postQuestion,
+  postComment,
+  getComments,
+} from "./service";
+import NavMenu from "./Components/NavMenu";
 
 function App() {
   const [data, setData] = useState([]);
@@ -17,12 +24,28 @@ function App() {
     setFormData(!formData);
   };
   return (
-    <div className="App">
-      <div className="container">
-        <AskQuestion formMonitor={formMonitor} postQuestion={postQuestion} />
-        <List data={data} postComment={postComment} />
+    <Router>
+      <div className="App">
+        <div className="container">
+          <NavMenu />
+          <Switch>
+            <Route exact path="/ask">
+              <AskQuestion
+                formMonitor={formMonitor}
+                postQuestion={postQuestion}
+              />
+            </Route>
+            <Route exact path="/home">
+              <List
+                data={data}
+                getComments={getComments}
+                postComment={postComment}
+              />
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

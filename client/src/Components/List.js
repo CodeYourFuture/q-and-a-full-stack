@@ -1,14 +1,19 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import ListItem from "./ListItem";
-import { propTypes } from "react-bootstrap/esm/Image";
+import ShowContext from "./ShowContext";
 
-const List = ({ data, postComment }) => {
+const List = ({ data, postComment, getComments }) => {
   return (
     <div className="">
       {data.map((item) => (
-        <ListItem postComment={postComment} key={item.id} {...item} />
+        <ShowContext
+          postComment={postComment}
+          getComments={getComments}
+          key={item.id}
+          {...item}
+        />
       ))}
     </div>
   );
@@ -24,6 +29,7 @@ List.propTypes = {
     })
   ),
   postComment: PropTypes.func,
+  getComments: PropTypes.func,
 };
 
 export default List;
