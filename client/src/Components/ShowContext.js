@@ -5,20 +5,14 @@ import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
 
 const ShowContext = ({ id, title, context, postComment, getComments }) => {
-  const [showComment, setShowComment] = useState(false);
-
   const [comments, setComments] = useState([]);
+  const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     getComments(id).then((data) => {
       setComments(data);
-      console.log(data);
     });
-  }, []);
-
-  const handleSubmit = () => {
-    setShowComment(!showComment);
-  };
+  }, [refresh]);
 
   return (
     <Accordion className="p-2" defaultActiveKey="1">
@@ -43,9 +37,10 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
                   Answer this Question
                 </Button>
               </Accordion.Toggle>
-              <Accordion.Collapse eventKey="0">
+              <Accordion.Collapse eventKey={refresh ? "0" : "1"}>
                 <Comment
-                  handleSubmit={handleSubmit}
+                  setRefresh={setRefresh}
+                  refresh={refresh}
                   postComment={postComment}
                   id={id}
                 />
