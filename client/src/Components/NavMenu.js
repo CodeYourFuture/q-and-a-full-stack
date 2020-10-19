@@ -10,10 +10,15 @@ const NavMenu = () => {
         expand="lg"
         variant="dark"
         bg="secondary"
-        className="justify-content-center p-2"
+        className="justify-content-around p-2 my-2"
       >
+        <Link to="/">
+          <button type="button" className="btn btn-success">
+            All Questions
+          </button>
+        </Link>
         <Navbar.Text href="#" className="text-white">
-          <Link to="/home">The Gradutes Q&A</Link>
+          <h2 className="display-4">The Gradutes Q&A</h2>
         </Navbar.Text>
         <Link to="/ask" type="button" className="btn btn-info m-3">
           Ask a question
