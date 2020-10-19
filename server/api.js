@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable linebreak-style */
 
 import { Router } from "express";
@@ -11,11 +12,11 @@ router.get("/", (_, res, next) => {
     if (err) {
       return next(err);
     }
-    res.status(200).json({ message: "Hello, osman!" });
+    res.status(200).json({ message: "Hello, Team!" });
   });
 });
 
-router.get("/test", (_, res, next) => {
+router.get("/questions", (_, res, next) => {
   Connection.query(
     "select * from questions order by id DESC",
     (err, result) => {
@@ -27,17 +28,20 @@ router.get("/test", (_, res, next) => {
   );
 });
 
-router.post("/question", (req, res, next) => {
-  let title = req.body.title,
-    context = req.body.context;
-  let sql =
-    "insert into questions (title, context)" + "values ($1,$2) returning id";
-  Connection.query(sql, [title, context], (err, result) => {
-    if (err) {
-      return next(err);
-    }
-    res.status(200).json(result.rows);
-  });
+router.get("/comments/:id", (req, res, next) => {
+  if (req.params.id) {
+    const questionId = parseInt(req.params.id);
+    Connection.query(
+      "select * from comments where question_id = $1 order by id DESC",
+      [questionId],
+      (err, result) => {
+        if (err) {
+          return next(err);
+        }
+        res.status(200).json(result.rows);
+      }
+    );
+  }
 });
 
 router.post("/question", (req, res, next) => {

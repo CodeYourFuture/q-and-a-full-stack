@@ -4,7 +4,12 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import List from "./Components/List";
 import AskQuestion from "./Components/AskQuestion";
 import "./App.css";
-import { getQuestions, postQuestion, postComment } from "./service";
+import {
+  getQuestions,
+  postQuestion,
+  postComment,
+  getComments,
+} from "./service";
 import NavMenu from "./Components/NavMenu";
 
 function App() {
@@ -31,7 +36,11 @@ function App() {
               />
             </Route>
             <Route exact path="/home">
-              <List data={data} postComment={postComment} />
+              <List
+                data={data}
+                getComments={getComments}
+                postComment={postComment}
+              />
             </Route>
           </Switch>
         </div>
