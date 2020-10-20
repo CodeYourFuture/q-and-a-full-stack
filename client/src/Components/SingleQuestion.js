@@ -1,22 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
 
-export default function SingleQuestion({ data }) {
-  const { questionId } = useParams();
-
+export default function SingleQuestion({ context }) {
+  console.log(context);
   return (
-    <div className="container">Single Question Display Under Construction</div>
+    // <div className="container">Single Question Display Under Construction</div>
+    <>
+      <div>{context}</div>
+      {/* <ShowContext
+        postComment={postComment}
+        getComments={getComments}
+        id={id}
+        title={title}
+        context={context}
+      /> */}
+    </>
   );
 }
 
 SingleQuestion.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string,
-      question_date: PropTypes.string,
-      context: PropTypes.string,
-    })
-  ),
+  context: PropTypes.string,
 };

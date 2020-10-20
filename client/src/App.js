@@ -43,13 +43,19 @@ function App() {
                 postComment={postComment}
               />
             </Route>
-            <Route path="/question/:questionId">
-              <SingleQuestion
-                data={data}
-                getComments={getComments}
-                postComment={postComment}
-              />
-            </Route>
+            <Route
+              path="/question/:questionId"
+              render={({ match }) => {
+                let question = data.find(
+                  (q) => q.id === parseInt(match.params.questionId)
+                );
+                // console.log(
+                //   data.find((q) => q.id === parseInt(match.params.questionId))
+                // );
+                <SingleQuestion {...question} />;
+                // data.find((q) => q.id === match.params.questionId);
+              }}
+            />
           </Switch>
         </div>
       </div>
