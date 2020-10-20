@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import List from "./Components/List";
 import AskQuestion from "./Components/AskQuestion";
 import "./App.css";
@@ -43,13 +43,16 @@ function App() {
                 postComment={postComment}
               />
             </Route>
-            <Route path="/question/:questionId">
-              <SingleQuestion
-                data={data}
-                getComments={getComments}
-                postComment={postComment}
-              />
-            </Route>
+            <Route
+              path="/question/:questionId"
+              render={({ match }) => {
+                let question = data.find(
+                  (q) => q.id === parseInt(match.params.questionId)
+                );
+
+                return <SingleQuestion {...question} />;
+              }}
+            />
           </Switch>
         </div>
       </div>
