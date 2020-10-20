@@ -13,17 +13,9 @@ const NavMenu = () => {
           bg="secondary"
           className="justify-content-around p-2 my-2"
         >
-          {/* <Link to="/">
-            <button type="button" className="btn btn-success">
-              All Questions
-            </button>
-          </Link> */}
           <Navbar.Text href="#" className="text-white">
             <h2 className="display-4">The Graduates</h2>
           </Navbar.Text>
-          {/* <Link to="/ask" type="button" className="btn btn-info m-3">
-            Ask a question
-          </Link> */}
         </Navbar>
       </Container>
       <Container>
