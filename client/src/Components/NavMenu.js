@@ -27,7 +27,7 @@ const NavMenu = () => {
         </Navbar>
       </Container>
       <Container>
-        <div class="WelcomeSection">
+        <div className="WelcomeSection">
           <h1>Welcome to the Q&A app</h1>
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
