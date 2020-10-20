@@ -2,18 +2,21 @@
 /* eslint-disable linebreak-style */
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 const AskQuestion = ({ postQuestion, formMonitor }) => {
   const [formData, setFormData] = useState({
     title: "",
     context: "",
   });
+  const [redirect, setRedirect] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     postQuestion({ title: formData.title, context: formData.context })
       .then(() => {
         formMonitor();
+        setRedirect(true);
         setFormData({
           title: "",
           context: "",
@@ -34,14 +37,7 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
 
   return (
     <>
-      {/* <button
-        onClick={showQuickForm}
-        type="button"
-        className="btn btn-info m-3"
-      >
-        Ask a question
-      </button> */}
-      {/* {open && ( */}
+      {redirect && <Redirect to="/" />}
       <form
         className="my-4 w-75 mx-auto p-3 bg-secondary text-left text-white"
         onSubmit={handleSubmit}

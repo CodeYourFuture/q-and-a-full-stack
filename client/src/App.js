@@ -11,6 +11,7 @@ import {
   getComments,
 } from "./service";
 import NavMenu from "./Components/NavMenu";
+import SingleQuestion from "./Components/SingleQuestion";
 
 function App() {
   const [data, setData] = useState([]);
@@ -37,6 +38,13 @@ function App() {
             </Route>
             <Route exact path="/">
               <List
+                data={data}
+                getComments={getComments}
+                postComment={postComment}
+              />
+            </Route>
+            <Route path="/question/:questionId">
+              <SingleQuestion
                 data={data}
                 getComments={getComments}
                 postComment={postComment}
