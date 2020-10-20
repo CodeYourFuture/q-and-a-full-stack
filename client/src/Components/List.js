@@ -6,7 +6,7 @@ import ShowContext from "./ShowContext";
 
 const List = ({ data, postComment, getComments }) => {
   return (
-    <div className="">
+    <div className="container">
       {data.map((item) => (
         <ShowContext
           postComment={postComment}

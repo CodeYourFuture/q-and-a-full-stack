@@ -35,7 +35,7 @@ function App() {
                 postQuestion={postQuestion}
               />
             </Route>
-            <Route exact path="/home">
+            <Route exact path="/">
               <List
                 data={data}
                 getComments={getComments}
