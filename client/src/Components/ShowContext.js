@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
+import { useParams, Link } from "react-router-dom";
 
 const ShowContext = ({ id, title, context, postComment, getComments }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
+  const { questionId } = useParams();
 
   useEffect(() => {
     getComments(id).then((data) => {
@@ -25,6 +27,9 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
             className="py-3"
           >
             {title}
+            <Link to={`/question/${questionId}`} className="float-right">
+              No:{id}
+            </Link>
           </Accordion.Toggle>
         </Card.Header>
         <Accordion.Collapse eventKey="0">
