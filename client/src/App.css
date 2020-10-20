@@ -13,3 +13,13 @@
 .App {
   text-align: center;
 }
+
+.WelcomeSection {
+  padding: 5% 10% 5% 1%;
+  text-align: left;
+}
+
+h1 {
+  text-decoration: underline;
+  padding-bottom: 5%;
+}
