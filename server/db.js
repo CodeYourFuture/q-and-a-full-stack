@@ -16,7 +16,7 @@ if (process.env.DATABASE_URL) {
 } else {
   //default local config
   config = {
-    user: "postgres",
+    user: "qa-admin",
     host: "localhost",
     database: "qa",
     password: "qa-admin",

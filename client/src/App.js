@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import List from "./Components/List";
 import AskQuestion from "./Components/AskQuestion";
 import "./App.css";
@@ -49,11 +49,8 @@ function App() {
                 let question = data.find(
                   (q) => q.id === parseInt(match.params.questionId)
                 );
-                // console.log(
-                //   data.find((q) => q.id === parseInt(match.params.questionId))
-                // );
-                <SingleQuestion {...question} />;
-                // data.find((q) => q.id === match.params.questionId);
+
+                return <SingleQuestion {...question} />;
               }}
             />
           </Switch>
