@@ -15,12 +15,12 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
   });
   const [redirect, setRedirect] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  console.log(formData);
+
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     const updatedContext = {
       ...formData,
-      [context]: convertToRaw(editorState.getCurrentContent()),
+      context: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     };
     setFormData(updatedContext);
   };
@@ -81,23 +81,13 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
               Include all the information someone would need to answer your
               question
             </p>
-            <textarea
-              onChange={handleChange}
-              value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-              name="context"
-              type="text"
-              className="form-control"
-              rows="1"
-              id="context"
-              placeholder="Enter Question"
-            ></textarea>
+            <Editor
+              editorState={editorState}
+              onEditorStateChange={onEditorStateChange}
+            />
           </label>
         </div>
 
-        <Editor
-          editorState={editorState}
-          onEditorStateChange={onEditorStateChange}
-        />
         <button type="submit" className="btn btn-info">
           Submit
         </button>
