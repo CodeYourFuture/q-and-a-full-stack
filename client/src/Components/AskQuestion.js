@@ -3,6 +3,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
+import { EditorState, convertToRaw } from "draft-js";
+import Editor from "./Editor";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
 
 const AskQuestion = ({ postQuestion, formMonitor }) => {
   const [formData, setFormData] = useState({
@@ -10,6 +14,16 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
     context: "",
   });
   const [redirect, setRedirect] = useState(false);
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  console.log(formData);
+  const onEditorStateChange = (editorState) => {
+    setEditorState(editorState);
+    const updatedContext = {
+      ...formData,
+      [context]: convertToRaw(editorState.getCurrentContent()),
+    };
+    setFormData(updatedContext);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,17 +83,21 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
             </p>
             <textarea
               onChange={handleChange}
-              value={formData.context}
+              value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
               name="context"
               type="text"
               className="form-control"
-              rows="5"
+              rows="1"
               id="context"
               placeholder="Enter Question"
             ></textarea>
           </label>
         </div>
 
+        <Editor
+          editorState={editorState}
+          onEditorStateChange={onEditorStateChange}
+        />
         <button type="submit" className="btn btn-info">
           Submit
         </button>
