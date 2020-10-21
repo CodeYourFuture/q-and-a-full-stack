@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
+import { Link } from "react-router-dom";
 
 const ShowContext = ({ id, title, context, postComment, getComments }) => {
   const [comments, setComments] = useState([]);
@@ -25,6 +26,9 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
             className="py-3"
           >
             {title}
+            <Link to={`/question/${id}`} className="float-right">
+              No:{id}
+            </Link>
           </Accordion.Toggle>
         </Card.Header>
         <Accordion.Collapse eventKey="0">
