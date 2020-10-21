@@ -9,6 +9,10 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
 
+  function createMarkup() {
+    return { __html: context };
+  }
+
   useEffect(() => {
     getComments(id).then((data) => {
       setComments(data);
@@ -33,7 +37,10 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
         </Card.Header>
         <Accordion.Collapse eventKey="0">
           <Card.Body>
-            <Card.Text className="text-left py-2">{context}</Card.Text>
+            <Card.Text
+              dangerouslySetInnerHTML={createMarkup()}
+              className="text-left py-2"
+            />
             <ShowComments comments={comments} />
             <Accordion defaultActiveKey="1">
               <Accordion.Toggle as="div" variant="link" eventKey="0">
@@ -60,8 +67,6 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
 ShowContext.propTypes = {
   id: PropTypes.number,
   title: PropTypes.string,
-  //comment: PropTypes.string,
-  //question_date: PropTypes.string,
   context: PropTypes.string,
   getComments: PropTypes.func,
   postComment: PropTypes.func,
