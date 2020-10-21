@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ShowContext from "./ShowContext";
+import Search from "./Search";
 
 const List = ({ data, postComment, getComments }) => {
   return (
     <div className="container">
+      <Search />
       {data.map((item) => (
         <ShowContext
           postComment={postComment}
