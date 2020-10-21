@@ -15,7 +15,7 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
   });
   const [redirect, setRedirect] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  console.log(formData);
+
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     const updatedContext = {
