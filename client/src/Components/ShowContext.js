@@ -3,10 +3,20 @@ import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
+import { Link } from "react-router-dom";
 
 const ShowContext = ({ id, title, context, postComment, getComments }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
+  const [showEdit, setShowEdit] = useState(false);
+
+  const handleClick = () => {
+    setShowEdit(true);
+  };
+
+  function createMarkup() {
+    return { __html: context };
+  }
 
   useEffect(() => {
     getComments(id).then((data) => {
@@ -25,21 +35,32 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
             className="py-3"
           >
             {title}
+            <Link to={`/question/${id}`} className="float-right">
+              No:{id}
+            </Link>
           </Accordion.Toggle>
         </Card.Header>
         <Accordion.Collapse eventKey="0">
           <Card.Body>
-            <Card.Text className="text-left py-2">{context}</Card.Text>
+            <Card.Text
+              dangerouslySetInnerHTML={createMarkup()}
+              className="text-left py-2"
+            />
             <ShowComments comments={comments} />
             <Accordion defaultActiveKey="1">
               <Accordion.Toggle as="div" variant="link" eventKey="0">
-                <Button className="float-right mb-3" variant="info">
+                <Button
+                  onClick={handleClick}
+                  className="float-right mb-3"
+                  variant="info"
+                >
                   Answer this Question
                 </Button>
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={refresh ? "0" : "1"}>
                 <Comment
                   setRefresh={setRefresh}
+                  showEdit={showEdit}
                   refresh={refresh}
                   postComment={postComment}
                   id={id}
@@ -56,8 +77,6 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
 ShowContext.propTypes = {
   id: PropTypes.number,
   title: PropTypes.string,
-  //comment: PropTypes.string,
-  //question_date: PropTypes.string,
   context: PropTypes.string,
   getComments: PropTypes.func,
   postComment: PropTypes.func,
