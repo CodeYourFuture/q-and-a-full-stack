@@ -64,7 +64,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.10.5",
-    "@solid-soda/evolutions": "^0.1.2",
     "bootstrap": "^4.5.3",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
