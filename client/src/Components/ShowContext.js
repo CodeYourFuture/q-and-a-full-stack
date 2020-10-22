@@ -48,7 +48,11 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
             />
             <ShowComments comments={comments} />
             <Accordion defaultActiveKey="1">
-              <Accordion.Toggle as="div" variant="link" eventKey="0">
+              <Accordion.Toggle
+                as="div"
+                variant="link"
+                eventKey={refresh ? "0" : "1"}
+              >
                 <Button
                   onClick={handleClick}
                   className="float-right mb-3"
