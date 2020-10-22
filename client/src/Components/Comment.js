@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, ContentState } from "draft-js";
 import Editor from "./Editor";
 import draftToHtml from "draftjs-to-html";
 
@@ -24,8 +24,10 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
       .then(() => {
         setComment({ ...comment, context: "" });
         setRefresh(!refresh);
+        setEditorState(
+          EditorState.push(editorState, ContentState.createFromText(""))
+        );
       })
-      .then()
       .catch((error) => {
         console.error("Error:", error);
       });
