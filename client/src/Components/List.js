@@ -6,10 +6,29 @@ import ShowContext from "./ShowContext";
 import Search from "./Search";
 
 const List = ({ data, postComment, getComments }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  console.log(searchTerm);
+  const searchChange = (searchValue) => {
+    setSearchTerm(searchValue);
+  };
+
+  const filteredQuestions = data.filter((item) =>
+    item.title.includes(searchTerm)
+  );
+
   return (
     <div className="container">
-      <Search />
-      {data.map((item) => (
+      <Search searchChange={searchChange} />
+      {!searchTerm &&
+        data.map((item) => (
+          <ShowContext
+            postComment={postComment}
+            getComments={getComments}
+            key={item.id}
+            {...item}
+          />
+        ))}
+      {filteredQuestions.map((item) => (
         <ShowContext
           postComment={postComment}
           getComments={getComments}
