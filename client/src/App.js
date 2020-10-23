@@ -38,7 +38,7 @@ function App() {
             </Route>
             <Route exact path="/">
               <List
-                data={data}
+                questions={data}
                 getComments={getComments}
                 postComment={postComment}
               />
