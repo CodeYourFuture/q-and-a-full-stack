@@ -5,22 +5,22 @@ import PropTypes from "prop-types";
 import ShowContext from "./ShowContext";
 import Search from "./Search";
 
-const List = ({ data, postComment, getComments }) => {
+const List = ({ questions, postComment, getComments }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  console.log(searchTerm);
+
   const searchChange = (searchValue) => {
     setSearchTerm(searchValue);
   };
 
-  const filteredQuestions = data.filter((item) =>
-    item.title.includes(searchTerm)
+  const filteredQuestions = questions.filter(({ title }) =>
+    title.includes(searchTerm)
   );
 
   return (
     <div className="container">
       <Search searchChange={searchChange} />
       {!searchTerm &&
-        data.map((item) => (
+        questions.map((item) => (
           <ShowContext
             postComment={postComment}
             getComments={getComments}
@@ -41,7 +41,7 @@ const List = ({ data, postComment, getComments }) => {
 };
 
 List.propTypes = {
-  data: PropTypes.arrayOf(
+  questions: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       title: PropTypes.string,
