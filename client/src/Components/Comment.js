@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, ContentState } from "draft-js";
 import Editor from "./Editor";
 import draftToHtml from "draftjs-to-html";
 
-export const Comment = ({ id, postComment, setRefresh, refresh }) => {
+export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
   const [comment, setComment] = useState({ questionId: id, comment: "" });
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
@@ -18,35 +18,36 @@ export const Comment = ({ id, postComment, setRefresh, refresh }) => {
     setComment(updatedComment);
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     postComment({ questionId: comment.questionId, comment: comment.comment })
       .then(() => {
         setComment({ ...comment, context: "" });
         setRefresh(!refresh);
+        setEditorState(
+          EditorState.push(editorState, ContentState.createFromText(""))
+        );
       })
-      .then()
       .catch((error) => {
         console.error("Error:", error);
       });
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="commentForm.textArea">
-          <Form.Label>Answer goes here:</Form.Label>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="commentForm.textArea">
+        <Form.Label>Answer goes here:</Form.Label>
+        {showEdit && (
           <Editor
             editorState={editorState}
             onEditorStateChange={onEditorStateChange}
           />
-        </Form.Group>
-        <Button className="float-left mb-3" variant="info" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </>
+        )}
+      </Form.Group>
+      <Button className="float-left mb-3" variant="info" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
 
@@ -55,4 +56,5 @@ Comment.propTypes = {
   postComment: PropTypes.func,
   setRefresh: PropTypes.func,
   refresh: PropTypes.bool,
+  showEdit: PropTypes.bool,
 };

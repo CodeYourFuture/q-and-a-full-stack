@@ -8,6 +8,11 @@ import { Link } from "react-router-dom";
 const ShowContext = ({ id, title, context, postComment, getComments }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
+  const [showEdit, setShowEdit] = useState(false);
+
+  const handleClick = () => {
+    setShowEdit(true);
+  };
 
   function createMarkup() {
     return { __html: context };
@@ -43,14 +48,23 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
             />
             <ShowComments comments={comments} />
             <Accordion defaultActiveKey="1">
-              <Accordion.Toggle as="div" variant="link" eventKey="0">
-                <Button className="float-right mb-3" variant="info">
+              <Accordion.Toggle
+                as="div"
+                variant="link"
+                eventKey={refresh ? "0" : "1"}
+              >
+                <Button
+                  onClick={handleClick}
+                  className="float-right mb-3"
+                  variant="info"
+                >
                   Answer this Question
                 </Button>
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={refresh ? "0" : "1"}>
                 <Comment
                   setRefresh={setRefresh}
+                  showEdit={showEdit}
                   refresh={refresh}
                   postComment={postComment}
                   id={id}
