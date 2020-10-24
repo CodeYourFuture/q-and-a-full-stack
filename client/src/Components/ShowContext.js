@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import Moment from "react-moment";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
 import { Link } from "react-router-dom";
 
-const ShowContext = ({ id, title, context, postComment, getComments }) => {
+const ShowContext = ({
+  id,
+  title,
+  context,
+  postComment,
+  getComments,
+  question_date,
+}) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
   const [showEdit, setShowEdit] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const handleClick = () => {
     setShowEdit(true);
@@ -25,7 +35,11 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
   }, [refresh]);
 
   return (
-    <Accordion className="p-2" defaultActiveKey="1">
+    <Accordion
+      className="p-2"
+      defaultActiveKey="1"
+      onClick={() => setOpen(!open)}
+    >
       <Card className=" bg-light">
         <Card.Header className="text-left lead font-weight-bold">
           <Accordion.Toggle
@@ -35,9 +49,16 @@ const ShowContext = ({ id, title, context, postComment, getComments }) => {
             className="py-3"
           >
             {title}
-            <Link to={`/question/${id}`} className="float-right">
-              No:{id}
-            </Link>
+
+            {open ? (
+              <FaChevronDown className="float-right" />
+            ) : (
+              <FaChevronUp className="float-right" />
+            )}
+
+            <Moment fromNow className="text-muted d-block font-weight-lighter">
+              {question_date}
+            </Moment>
           </Accordion.Toggle>
         </Card.Header>
         <Accordion.Collapse eventKey="0">
@@ -84,6 +105,7 @@ ShowContext.propTypes = {
   context: PropTypes.string,
   getComments: PropTypes.func,
   postComment: PropTypes.func,
+  question_date: PropTypes.string,
 };
 
 export default ShowContext;

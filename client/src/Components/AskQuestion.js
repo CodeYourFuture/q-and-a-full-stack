@@ -15,7 +15,7 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
   });
   const [redirect, setRedirect] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
+  const [isError, setIsError] = useState(false);
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     const updatedContext = {
@@ -37,12 +37,13 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
               title: "",
               context: "",
             });
+            setIsError(false);
           })
           .catch((error) => {
             console.error("Error:", error);
           });
       } else {
-        alert("Please fill in the question title field");
+        setIsError(!isError);
       }
     }
   };
@@ -78,6 +79,11 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
               aria-describedby="emailHelp"
               placeholder="Enter Title"
             ></input>
+            {isError && (
+              <div className="alert alert-danger w-50 mx-auto" role="alert">
+                <strong>Oh snap!</strong> Please add a title
+              </div>
+            )}
           </label>
         </div>
         <div className="form-group">

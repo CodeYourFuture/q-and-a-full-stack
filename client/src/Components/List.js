@@ -13,7 +13,7 @@ const List = ({ questions, postComment, getComments }) => {
   };
 
   const filteredQuestions = questions.filter(({ title }) =>
-    title.includes(searchTerm)
+    title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (

@@ -8,7 +8,7 @@ import draftToHtml from "draftjs-to-html";
 export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
   const [comment, setComment] = useState({ questionId: id, comment: "" });
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
+  const [isError, setIsError] = useState(false);
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     const updatedComment = {
@@ -28,12 +28,13 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
           setEditorState(
             EditorState.push(editorState, ContentState.createFromText(""))
           );
+          setIsError(false);
         })
         .catch((error) => {
           console.error("Error:", error);
         });
     } else {
-      alert("please fill in the reply field");
+      setIsError(!isError);
     }
   };
 
@@ -48,6 +49,12 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
           />
         )}
       </Form.Group>
+
+      {isError && (
+        <div className="alert alert-danger w-50 mx-auto" role="alert">
+          <strong>Oh snap!</strong> Please add an answer
+        </div>
+      )}
       <Button className="float-left mb-3" variant="info" type="submit">
         Submit
       </Button>
