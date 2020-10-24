@@ -14,19 +14,21 @@ const NavMenu = () => {
           className="justify-content-around p-2 my-2"
         >
           <Navbar.Text href="#" className="text-white">
-            <h2 className="display-4">The Graduates</h2>
+            <h2 className="display-4">CYF Q&A Portal</h2>
           </Navbar.Text>
         </Navbar>
       </Container>
       <Container>
         <div className="WelcomeSection">
-          <h1>Welcome to the Q&A app</h1>
+          <h1>Welcome</h1>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries,
+            This product is in beta. That means that everything you post in here
+            could be lost at some point.
+          </p>
+
+          <p>
+            Please give us your feedback via{" "}
+            <a href="https://forms.gle/drxvYH88GJFgo8R39"> this form </a>
           </p>
           <Link to="/">
             <button type="button" className="btn btn-success">

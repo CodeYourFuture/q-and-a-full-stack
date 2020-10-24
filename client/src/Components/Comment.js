@@ -20,17 +20,21 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postComment({ questionId: comment.questionId, comment: comment.comment })
-      .then(() => {
-        setComment({ ...comment, context: "" });
-        setRefresh(!refresh);
-        setEditorState(
-          EditorState.push(editorState, ContentState.createFromText(""))
-        );
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    if (comment.comment.trim().length > 7) {
+      postComment({ questionId: comment.questionId, comment: comment.comment })
+        .then(() => {
+          setComment({ ...comment, context: "" });
+          setRefresh(!refresh);
+          setEditorState(
+            EditorState.push(editorState, ContentState.createFromText(""))
+          );
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      alert("please fill in the reply field");
+    }
   };
 
   return (

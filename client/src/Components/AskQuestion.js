@@ -27,18 +27,24 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postQuestion({ title: formData.title, context: formData.context })
-      .then(() => {
-        formMonitor();
-        setRedirect(true);
-        setFormData({
-          title: "",
-          context: "",
-        });
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    {
+      if (formData.title.trim().length > 0) {
+        postQuestion({ title: formData.title, context: formData.context })
+          .then(() => {
+            formMonitor();
+            setRedirect(true);
+            setFormData({
+              title: "",
+              context: "",
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      } else {
+        alert("Please fill in the question title field");
+      }
+    }
   };
 
   const handleChange = (e) => {
