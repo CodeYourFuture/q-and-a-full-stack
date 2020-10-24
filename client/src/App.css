@@ -27,3 +27,21 @@ h1 {
 .rdw-editor-main {
   background-color: white !important;
 }
+
+.alert {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.card-header {
+  cursor: pointer;
+}
+
+.card-header:hover {
+  background-color: #5cb85c;
+}
+
+.text-muted {
+  font-size: small;
+}
