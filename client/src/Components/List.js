@@ -19,23 +19,35 @@ const List = ({ questions, postComment, getComments }) => {
   return (
     <div className="container">
       <Search searchChange={searchChange} />
-      {!searchTerm &&
-        questions.map((item) => (
-          <ShowContext
-            postComment={postComment}
-            getComments={getComments}
-            key={item.id}
-            {...item}
-          />
-        ))}
-      {filteredQuestions.map((item) => (
-        <ShowContext
-          postComment={postComment}
-          getComments={getComments}
-          key={item.id}
-          {...item}
-        />
-      ))}
+      {questions.length > 0 ? (
+        searchTerm.length === 0 ? (
+          questions.map((item) => (
+            <ShowContext
+              postComment={postComment}
+              getComments={getComments}
+              key={item.id}
+              {...item}
+            />
+          ))
+        ) : filteredQuestions.length > 0 ? (
+          filteredQuestions.map((item) => (
+            <ShowContext
+              postComment={postComment}
+              getComments={getComments}
+              key={item.id}
+              {...item}
+            />
+          ))
+        ) : (
+          <div className="border border-danger">
+            Nothing matches your search
+          </div>
+        )
+      ) : (
+        <div className="border border-danger">
+          There are no questions to display
+        </div>
+      )}
     </div>
   );
 };
