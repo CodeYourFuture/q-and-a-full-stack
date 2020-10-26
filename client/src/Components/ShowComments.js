@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
+import Moment from "react-moment";
 
 export default function ShowComments({ comments }) {
   function createMarkup(comment) {
@@ -17,6 +18,12 @@ export default function ShowComments({ comments }) {
                 <Card.Text
                   dangerouslySetInnerHTML={createMarkup(comment.comment)}
                 />
+                <Moment
+                  fromNow
+                  className="text-muted d-block font-weight-lighter"
+                >
+                  {comment.comment_date}
+                </Moment>
               </Card.Body>
             </Card>
           ))

@@ -35,13 +35,12 @@ const ShowContext = ({
   }, [refresh]);
 
   return (
-    <Accordion
-      className="p-2"
-      defaultActiveKey="1"
-      onClick={() => setOpen(!open)}
-    >
+    <Accordion className="p-2" defaultActiveKey="1">
       <Card className=" bg-light">
-        <Card.Header className="text-left lead font-weight-bold">
+        <Card.Header
+          onClick={() => setOpen(!open)}
+          className="text-left lead font-weight-bold"
+        >
           <Accordion.Toggle
             as="div"
             variant="link"
