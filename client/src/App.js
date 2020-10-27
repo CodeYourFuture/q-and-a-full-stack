@@ -12,6 +12,7 @@ import {
 } from "./service";
 import NavMenu from "./Components/NavMenu";
 import SingleQuestion from "./Components/SingleQuestion";
+import ScrollHandler from "./Components/ScrollHandler";
 
 function App() {
   const [data, setData] = useState([]);
@@ -26,36 +27,37 @@ function App() {
   };
   return (
     <Router>
-      <div className="App">
-        <div className="container">
-          <NavMenu />
-          <Switch>
-            <Route exact path="/ask">
-              <AskQuestion
-                formMonitor={formMonitor}
-                postQuestion={postQuestion}
+      <ScrollHandler>
+        <div className="App">
+          <div className="container">
+            <NavMenu />
+            <Switch>
+              <Route exact path="/ask">
+                <AskQuestion
+                  formMonitor={formMonitor}
+                  postQuestion={postQuestion}
+                />
+              </Route>
+              <Route exact path="/">
+                <List
+                  questions={data}
+                  getComments={getComments}
+                  postComment={postComment}
+                />
+              </Route>
+              <Route
+                path="/question/:questionId"
+                render={({ match }) => {
+                  let question = data.find(
+                    (q) => q.id === parseInt(match.params.questionId)
+                  );
+                  return <SingleQuestion {...question} />;
+                }}
               />
-            </Route>
-            <Route exact path="/">
-              <List
-                questions={data}
-                getComments={getComments}
-                postComment={postComment}
-              />
-            </Route>
-            <Route
-              path="/question/:questionId"
-              render={({ match }) => {
-                let question = data.find(
-                  (q) => q.id === parseInt(match.params.questionId)
-                );
-
-                return <SingleQuestion {...question} />;
-              }}
-            />
-          </Switch>
+            </Switch>
+          </div>
         </div>
-      </div>
+      </ScrollHandler>
     </Router>
   );
 }
