@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import SignIn from "./SignIn";
 //import AskQuestion from "./AskQuestion";
 
 const NavMenu = () => {
@@ -16,6 +17,7 @@ const NavMenu = () => {
           <Navbar.Text href="#" className="text-white">
             <h2 className="display-4">CYF Q&A Portal</h2>
           </Navbar.Text>
+          <SignIn />
         </Navbar>
       </Container>
       <Container>
