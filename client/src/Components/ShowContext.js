@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaLink } from "react-icons/fa";
 import Moment from "react-moment";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
-import { Link } from "react-router-dom";
 
 const ShowContext = ({
   id,
@@ -38,6 +37,8 @@ const ShowContext = ({
     <Accordion className="p-2" defaultActiveKey="1">
       <Card className=" bg-light">
         <Card.Header
+          as="header"
+          id={`${id}`}
           onClick={() => setOpen(!open)}
           className="text-left lead font-weight-bold"
         >
@@ -48,7 +49,14 @@ const ShowContext = ({
             className="py-3"
           >
             {title}
-
+            <p>
+              <small>
+                <a href={`/#${id}`} className="xs">
+                  copy link&nbsp;
+                  <FaLink className="text-dark" />
+                </a>
+              </small>
+            </p>
             {open ? (
               <FaChevronDown className="float-right" />
             ) : (
