@@ -5,42 +5,76 @@ import * as firebase from "firebase";
 import { Redirect } from "react-router-dom";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDCnn6mfzVroh7VQcln9atjfaa8nIEZUlQ",
-  authDomain: "q-and-a-342c1.firebaseapp.com",
-  databaseURL: "https://q-and-a-342c1.firebaseio.com",
-  projectId: "q-and-a-342c1",
-  storageBucket: "q-and-a-342c1.appspot.com",
-  messagingSenderId: "248622209912",
-  appId: "1:248622209912:web:fbfcb6ec6e58e198f8c68d",
-  measurementId: "G-8JVYMM2GNB",
-};
+let firebaseConfig;
+if (process.env.DATABASE_URL) {
+  firebaseConfig = {
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    databaseURL: process.env.databaseURL,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId,
+    measurementId: process.env.measurementId,
+  };
+} else {
+  firebaseConfig = require("./FireConfig");
+}
 
 firebase.initializeApp(firebaseConfig);
 
-const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: "popup",
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: "/signedIn",
-  // We will display Google and Facebook as auth providers.
-  signInOptions: [firebase.auth.GithubAuthProvider.PROVIDER_ID],
-};
-
+// ======================= with change state ===============
 class SignIn extends React.Component {
+  state = {
+    isSignedIn: false, // Local signed-in state.
+  };
+  uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [firebase.auth.GithubAuthProvider.PROVIDER_ID],
+    callbacks: {
+      signInSuccessWithAuthResult: () => false,
+    },
+  };
+
+  componentDidMount() {
+    this.unregisterAuthObserver = firebase
+      .auth()
+      .onAuthStateChanged((user) => this.setState({ isSignedIn: !!user }));
+  }
+
+  componentWillUnmount() {
+    this.unregisterAuthObserver();
+  }
+
   render() {
+    this.state.isSignedIn ? console.log(firebase.auth()) : null;
+
+    if (!this.state.isSignedIn) {
+      return (
+        <div>
+          <p>Sign in to post</p>
+          <FirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        </div>
+      );
+    }
     return (
       <div>
         <h1>My App</h1>
-        <p>Please sign-in:</p>
-        <StyledFirebaseAuth
-          uiConfig={uiConfig}
-          firebaseAuth={firebase.auth()}
-        />
+        <p>
+          Welcome {firebase.auth().currentUser.email}! You are now signed-in!
+        </p>
+        <a className="btn btn-danger" onClick={() => firebase.auth().signOut()}>
+          Sign-out
+        </a>
       </div>
     );
   }
 }
+
+// ======================= trying function based component =============
 // function SignIn() {
 //   const [isSignedIn, setIsSingedIn] = useState(false);
 
