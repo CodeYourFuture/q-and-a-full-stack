@@ -27,3 +27,35 @@ h1 {
 .rdw-editor-main {
   background-color: white !important;
 }
+
+.DraftEditor-root {
+  min-height: 12rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.public-DraftStyleDefault-block {
+  margin: 0.3rem 0.3rem 0.3rem 0.3rem;
+}
+
+.rdw-editor-wrapper {
+  margin-top: 2rem;
+}
+
+.alert {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.card-header {
+  cursor: pointer;
+}
+
+.card-header:hover {
+  background-color: #5cb85c;
+}
+
+.text-muted {
+  font-size: small;
+}

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, ContentState } from "draft-js";
 import Editor from "./Editor";
 import draftToHtml from "draftjs-to-html";
 
 export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
   const [comment, setComment] = useState({ questionId: id, comment: "" });
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
+  const [isError, setIsError] = useState(false);
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     const updatedComment = {
@@ -20,15 +20,22 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postComment({ questionId: comment.questionId, comment: comment.comment })
-      .then(() => {
-        setComment({ ...comment, context: "" });
-        setRefresh(!refresh);
-      })
-      .then()
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    if (comment.comment.trim().length > 7) {
+      postComment({ questionId: comment.questionId, comment: comment.comment })
+        .then(() => {
+          setComment({ ...comment, context: "" });
+          setRefresh(!refresh);
+          setEditorState(
+            EditorState.push(editorState, ContentState.createFromText(""))
+          );
+          setIsError(false);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    } else {
+      setIsError(!isError);
+    }
   };
 
   return (
@@ -42,6 +49,12 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
           />
         )}
       </Form.Group>
+
+      {isError && (
+        <div className="alert alert-danger w-50 mx-auto" role="alert">
+          <strong>Oh snap!</strong> Please add an answer
+        </div>
+      )}
       <Button className="float-left mb-3" variant="info" type="submit">
         Submit
       </Button>
