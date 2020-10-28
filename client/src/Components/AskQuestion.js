@@ -1,12 +1,12 @@
 /* eslint-disable indent */
 /* eslint-disable linebreak-style */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { EditorState, convertToRaw } from "draft-js";
 import Editor from "./Editor";
 import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
+import UserContext from "./Context";
 
 const AskQuestion = ({ postQuestion, formMonitor }) => {
   const [formData, setFormData] = useState({
@@ -16,6 +16,8 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
   const [redirect, setRedirect] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [isError, setIsError] = useState(false);
+  const user = useContext(UserContext);
+
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     const updatedContext = {
@@ -55,7 +57,7 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
     };
     setFormData(updatedFormData);
   };
-
+  console.log(user);
   return (
     <>
       {redirect && <Redirect to="/" />}
@@ -88,6 +90,9 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
         </div>
         <div className="form-group">
           <label className="lead w-100" htmlFor="context">
+            <UserContext.Consumer>
+              {(user) => user && <div>This is {user.email}</div>}
+            </UserContext.Consumer>
             <span className="font-weight-bold">Context</span>
             <p>
               Include all the information someone would need to answer your

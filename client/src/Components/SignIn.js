@@ -1,27 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../App.css";
 import { FirebaseAuth } from "react-firebaseui";
 import * as firebase from "firebase";
-import { Redirect } from "react-router-dom";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-
-let firebaseConfig;
-if (process.env.DATABASE_URL) {
-  firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    databaseURL: process.env.databaseURL,
-    projectId: process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
-    measurementId: process.env.measurementId,
-  };
-} else {
-  firebaseConfig = require("./FireConfig");
-}
-
-firebase.initializeApp(firebaseConfig);
 
 // ======================= with change state ===============
 class SignIn extends React.Component {
@@ -47,8 +27,6 @@ class SignIn extends React.Component {
   }
 
   render() {
-    this.state.isSignedIn ? console.log(firebase.auth()) : null;
-
     if (!this.state.isSignedIn) {
       return (
         <div>
@@ -59,18 +37,18 @@ class SignIn extends React.Component {
           />
         </div>
       );
+    } else {
+      return (
+        <div>
+          <a
+            className="btn btn-danger"
+            onClick={() => firebase.auth().signOut()}
+          >
+            Sign out
+          </a>
+        </div>
+      );
     }
-    return (
-      <div>
-        <h1>My App</h1>
-        <p>
-          Welcome {firebase.auth().currentUser.email}! You are now signed-in!
-        </p>
-        <a className="btn btn-danger" onClick={() => firebase.auth().signOut()}>
-          Sign-out
-        </a>
-      </div>
-    );
   }
 }
 
