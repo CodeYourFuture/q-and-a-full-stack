@@ -40,8 +40,10 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="commentForm.textArea">
-        <Form.Label>Answer goes here:</Form.Label>
+      <Form.Group controlId="commentForm.textArea" className="mt-3">
+        <Form.Label className="pl-4 pt-2">
+          Your answer will be displayed here:
+        </Form.Label>
         {showEdit && (
           <Editor
             editorState={editorState}
@@ -55,7 +57,11 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
           <strong>Oh snap!</strong> Please add an answer
         </div>
       )}
-      <Button className="float-left mb-3" variant="info" type="submit">
+      <Button
+        className="float-left mb-3 p-3 font-weight-bold"
+        variant="info"
+        type="submit"
+      >
         Submit
       </Button>
     </Form>
