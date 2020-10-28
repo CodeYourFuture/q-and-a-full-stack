@@ -41,9 +41,6 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="commentForm.textArea" className="mt-3">
-        <Form.Label className="pl-4 pt-2">
-          Your answer will be displayed here:
-        </Form.Label>
         {showEdit && (
           <Editor
             editorState={editorState}

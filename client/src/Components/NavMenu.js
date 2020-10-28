@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SignIn from "./SignIn";
-
+import UserContext from "./Context";
 
 const NavMenu = () => {
+  const user = useContext(UserContext);
   return (
     <div>
       <Navbar>
@@ -44,13 +45,15 @@ const NavMenu = () => {
               View all Questions
             </button>
           </Link>
-          <Link
-            to="/ask"
-            type="button"
-            className="btn btn-info m-3 p-3 font-weight-bold"
-          >
-            Ask a question
-          </Link>
+          {user && (
+            <Link
+              to="/ask"
+              type="button"
+              className="btn btn-info m-3 p-3 font-weight-bold"
+            >
+              Ask a question
+            </Link>
+          )}
         </div>
       </Container>
     </div>

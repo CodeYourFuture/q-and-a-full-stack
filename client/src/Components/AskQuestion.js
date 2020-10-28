@@ -9,14 +9,15 @@ import draftToHtml from "draftjs-to-html";
 import UserContext from "./Context";
 
 const AskQuestion = ({ postQuestion, formMonitor }) => {
+  const user = useContext(UserContext);
   const [formData, setFormData] = useState({
     title: "",
     context: "",
+    email: user.email,
   });
   const [redirect, setRedirect] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [isError, setIsError] = useState(false);
-  const user = useContext(UserContext);
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -31,13 +32,18 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
     e.preventDefault();
     {
       if (formData.title.trim().length > 0) {
-        postQuestion({ title: formData.title, context: formData.context })
+        postQuestion({
+          title: formData.title,
+          context: formData.context,
+          email: formData.email,
+        })
           .then(() => {
             formMonitor();
             setRedirect(true);
             setFormData({
               title: "",
               context: "",
+              email: user.email,
             });
             setIsError(false);
           })
@@ -90,9 +96,9 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
         </div>
         <div className="form-group">
           <label className="lead w-100" htmlFor="context">
-            <UserContext.Consumer>
+            {/* <UserContext.Consumer>
               {(user) => user && <div>This is {user.email}</div>}
-            </UserContext.Consumer>
+            </UserContext.Consumer> */}
             <span className="font-weight-bold">Context</span>
             <p>
               Include all the information someone would need to answer your

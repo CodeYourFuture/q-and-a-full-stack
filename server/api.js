@@ -46,10 +46,11 @@ router.get("/comments/:id", (req, res, next) => {
 
 router.post("/question", (req, res, next) => {
   let title = req.body.title,
-    context = req.body.context;
+    context = req.body.context,
+    email = req.body.email;
   let sql =
-    "insert into questions (title, context)" + "values ($1,$2) returning id";
-  Connection.query(sql, [title, context], (err, result) => {
+    "insert into questions (title, context,email)" + "values ($1,$2,$3) returning id";
+  Connection.query(sql, [title, context,email], (err, result) => {
     if (err) {
       return next(err);
     }
@@ -71,4 +72,18 @@ router.post("/comment", (req, res, next) => {
   });
 });
 
+router.post("/newuser", (req, res, next) => {
+  let userId = req.body.userId,
+    email = req.body.email;
+
+  let insertsql =
+    "insert into users (userid, email)" + "values ($1,$2) returning id";
+
+  Connection.query(insertsql, [userId, email], (err, result) => {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json(result.rows);
+  });
+});
 export default router;

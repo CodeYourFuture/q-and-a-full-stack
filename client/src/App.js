@@ -9,6 +9,7 @@ import {
   postQuestion,
   postComment,
   getComments,
+  postUser,
 } from "./service";
 import NavMenu from "./Components/NavMenu";
 import SingleQuestion from "./Components/SingleQuestion";
@@ -42,6 +43,15 @@ function App() {
   firebase.auth().onAuthStateChanged((user) => setUser(user));
 
   useEffect(() => {
+    user
+      ? postUser({
+          userId: user.uid,
+          email: user.email,
+        })
+      : null;
+  }, [user]);
+
+  useEffect(() => {
     getQuestions().then((questions) => setData(questions));
   }, [formData]);
 
@@ -56,12 +66,14 @@ function App() {
             <div className="container">
               <NavMenu />
               <Switch>
-                <Route exact path="/ask">
-                  <AskQuestion
-                    formMonitor={formMonitor}
-                    postQuestion={postQuestion}
-                  />
-                </Route>
+                {user && (
+                  <Route exact path="/ask">
+                    <AskQuestion
+                      formMonitor={formMonitor}
+                      postQuestion={postQuestion}
+                    />
+                  </Route>
+                )}
                 <Route exact path="/">
                   <List
                     questions={data}
@@ -69,7 +81,7 @@ function App() {
                     postComment={postComment}
                   />
                 </Route>
-                <Route
+                {/* <Route
                   path="/question/:questionId"
                   render={({ match }) => {
                     let question = data.find(
@@ -77,7 +89,7 @@ function App() {
                     );
                     return <SingleQuestion {...question} />;
                   }}
-                />
+                /> */}
               </Switch>
             </div>
           </div>
