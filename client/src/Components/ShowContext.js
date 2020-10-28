@@ -72,7 +72,7 @@ const ShowContext = ({
           <Card.Body>
             <Card.Text
               dangerouslySetInnerHTML={createMarkup()}
-              className="text-left py-2"
+              className="text-left py-2 ml-2"
             />
             <ShowComments comments={comments} />
             <Accordion defaultActiveKey="1">
@@ -83,7 +83,7 @@ const ShowContext = ({
               >
                 <Button
                   onClick={handleClick}
-                  className="float-right mb-3"
+                  className="float-left mb-3 mt-3 p-3 font-weight-bold"
                   variant="info"
                 >
                   Answer this Question

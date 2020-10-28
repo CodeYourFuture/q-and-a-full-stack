@@ -10,9 +10,9 @@
     background-color: yellow;
 } */
 
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 .WelcomeSection {
   padding: 5% 10% 5% 1%;
@@ -39,7 +39,7 @@ h1 {
 }
 
 .rdw-editor-wrapper {
-  margin-top: 2rem;
+  margin-top: 4rem;
 }
 
 .alert {
