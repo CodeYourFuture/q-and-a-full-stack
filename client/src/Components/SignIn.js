@@ -1,12 +1,11 @@
 import React from "react";
 import "../App.css";
-import { FirebaseAuth } from "react-firebaseui";
+import { StyledFirebaseAuth } from "react-firebaseui";
 import * as firebase from "firebase";
 
-// ======================= with change state ===============
 class SignIn extends React.Component {
   state = {
-    isSignedIn: false, // Local signed-in state.
+    isSignedIn: false,
   };
   uiConfig = {
     signInFlow: "popup",
@@ -29,9 +28,8 @@ class SignIn extends React.Component {
   render() {
     if (!this.state.isSignedIn) {
       return (
-        <div>
-          <p>Sign in to post</p>
-          <FirebaseAuth
+        <div className="">
+          <StyledFirebaseAuth
             uiConfig={this.uiConfig}
             firebaseAuth={firebase.auth()}
           />
@@ -41,7 +39,8 @@ class SignIn extends React.Component {
       return (
         <div>
           <a
-            className="btn btn-danger"
+            className="btn btn-danger mr-4 mt-3"
+            height="40"
             onClick={() => firebase.auth().signOut()}
           >
             Sign out
@@ -51,50 +50,5 @@ class SignIn extends React.Component {
     }
   }
 }
-
-// ======================= trying function based component =============
-// function SignIn() {
-//   const [isSignedIn, setIsSingedIn] = useState(false);
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-//   const uiConfig = {
-//     signInFlow: "popup",
-//     signInOptions: [firebase.auth.GithubAuthProvider.PROVIDER_ID],
-//     callbacks: {
-//       signInSuccessWithAuthResult: () => false,
-//     },
-//   };
-
-//   useEffect(() => {
-//     firebase.auth().onAuthStateChanged((user) => {
-//       setIsSingedIn({ isSignedIn: !!user });
-//     });
-//   }, []);
-
-//   return (
-//     <div>
-//       {isSignedIn ? (
-//         <Redirect to={{ pathname: "/" }} />
-//       ) : (
-//         <div className="section">
-//           <div className="container">
-//             <div className="row">
-//               <div className="col-md-12">
-//                 <div className="section-title">
-//                   <h2 className="title">Sign In</h2>
-//                 </div>
-//                 <StyledFirebaseAuth
-//                   uiConfig={uiConfig}
-//                   firebaseAuth={firebase.auth()}
-//                 />
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
 
 export default SignIn;

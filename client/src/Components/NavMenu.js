@@ -2,25 +2,28 @@ import React from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SignIn from "./SignIn";
-//import AskQuestion from "./AskQuestion";
+
 
 const NavMenu = () => {
   return (
     <div>
-      <Container>
-        <Navbar
-          expand="lg"
-          className="justify-content-around p-2 my-2 bg-light"
-        >
-          <div className="float-left">
-            <img
-              src="client/src/Assets/CYFLogo.png"
-              alt="CYF Logo"
-              width="15%"
-            />
-          </div>
-        </Navbar>
-      </Container>
+      <Navbar>
+        <Navbar.Brand href="#home">
+          <img
+            src="client/src/Assets/CYFLogo.png"
+            className="d-inline-block align-top"
+            alt="CYF Logo"
+            width="180"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <SignIn />
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
+
       <Container>
         <div className="WelcomeSection">
           <h1>Welcome to the Q&A App</h1>
