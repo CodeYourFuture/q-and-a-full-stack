@@ -1,25 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-//import AskQuestion from "./AskQuestion";
+import SignIn from "./SignIn";
+import UserContext from "./Context";
 
 const NavMenu = () => {
+  const user = useContext(UserContext);
   return (
     <div>
-      <Container>
-        <Navbar
-          expand="lg"
-          className="justify-content-around p-2 my-2 bg-light"
-        >
-          <div className="float-left">
-            <img
-              src="client/src/Assets/CYFLogo.png"
-              alt="CYF Logo"
-              width="15%"
-            />
-          </div>
-        </Navbar>
-      </Container>
+      <Navbar>
+        <Navbar.Brand href="#home">
+          <img
+            src="client/src/Assets/CYFLogo.png"
+            className="d-inline-block align-top"
+            alt="CYF Logo"
+            width="180"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <SignIn />
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Navbar>
+
       <Container>
         <div className="WelcomeSection">
           <h1>Welcome to the Q&A App</h1>
@@ -40,13 +45,15 @@ const NavMenu = () => {
               View all Questions
             </button>
           </Link>
-          <Link
-            to="/ask"
-            type="button"
-            className="btn btn-info m-3 p-3 font-weight-bold"
-          >
-            Ask a question
-          </Link>
+          {user && (
+            <Link
+              to="/ask"
+              type="button"
+              className="btn btn-info m-3 p-3 font-weight-bold"
+            >
+              Ask a question
+            </Link>
+          )}
         </div>
       </Container>
     </div>
