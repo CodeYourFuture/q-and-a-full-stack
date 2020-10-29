@@ -17,21 +17,17 @@ import ScrollHandler from "./Components/ScrollHandler";
 import * as firebase from "firebase";
 import UserContext from "./Components/Context";
 
-let firebaseConfig;
-if (process.env.DATABASE_URL) {
-  firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    databaseURL: process.env.databaseURL,
-    projectId: process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
-    measurementId: process.env.measurementId,
+
+  let firebaseConfig = {
+    apiKey: "AIzaSyDCnn6mfzVroh7VQcln9atjfaa8nIEZUlQ",
+    authDomain: "q-and-a-342c1.firebaseapp.com",
+    databaseURL: "https://q-and-a-342c1.firebaseio.com",
+    projectId: "q-and-a-342c1",
+    storageBucket: "q-and-a-342c1.appspot.com",
+    messagingSenderId: "248622209912",
+    appId: "1:248622209912:web:fbfcb6ec6e58e198f8c68d",
+    measurementId: "G-8JVYMM2GNB",
   };
-} else {
-  firebaseConfig = require("./Components/FireConfig");
-}
 
 firebase.initializeApp(firebaseConfig);
 
