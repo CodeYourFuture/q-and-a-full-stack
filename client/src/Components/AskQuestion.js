@@ -8,6 +8,7 @@ import Editor from "./Editor";
 import draftToHtml from "draftjs-to-html";
 import UserContext from "./Context";
 
+
 const AskQuestion = ({ postQuestion, formMonitor }) => {
   const user = useContext(UserContext);
   const [formData, setFormData] = useState({
@@ -32,11 +33,16 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
     e.preventDefault();
     {
       if (formData.title.trim().length > 0) {
-        postQuestion({
-          title: formData.title,
-          context: formData.context,
-          email: formData.email,
-        })
+        user
+          ?.getIdToken()
+          .then((token) => {
+            return postQuestion({
+              title: formData.title,
+              context: formData.context,
+              email: formData.email,
+              token: token,
+            });
+          })
           .then(() => {
             formMonitor();
             setRedirect(true);
