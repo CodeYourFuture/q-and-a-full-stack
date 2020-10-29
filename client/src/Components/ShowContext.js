@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { FaChevronDown, FaChevronUp, FaLink } from "react-icons/fa";
 import Moment from "react-moment";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
+import UserContext from "./Context";
 
 const ShowContext = ({
   id,
@@ -19,6 +20,7 @@ const ShowContext = ({
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
   const [hidden, setHidden] = useState(false);
+  const user = useContext(UserContext);
 
   const handleClick = () => {
     setShowEdit(true);
@@ -87,10 +89,10 @@ const ShowContext = ({
                 variant="link"
                 eventKey={refresh ? "0" : "1"}
               >
-                {!hidden && (
+                {user && (
                   <Button
                     onClick={handleClick}
-                    className="float-left mb-3 p-3"
+                    className="float-left mb-3 mt-3 p-3 font-weight-bold"
                     variant="info"
                   >
                     Answer this Question
