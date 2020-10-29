@@ -19,16 +19,11 @@ const ShowContext = ({
   const [refresh, setRefresh] = useState(true);
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
-  const [hidden, setHidden] = useState(false);
+
   const user = useContext(UserContext);
 
   const handleClick = () => {
     setShowEdit(true);
-    setHidden(true);
-  };
-
-  const handleCancelClick = (state) => {
-    setHidden(state);
   };
 
   function createMarkup() {
@@ -106,8 +101,6 @@ const ShowContext = ({
                   refresh={refresh}
                   postComment={postComment}
                   id={id}
-                  handleCancelClick={handleCancelClick}
-                  setShowEdit={setShowEdit}
                 />
               </Accordion.Collapse>
             </Accordion>

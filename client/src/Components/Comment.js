@@ -47,44 +47,26 @@ export const Comment = ({
     }
   };
 
-  const handleClick = () => {
-    setRefresh(!refresh);
-    handleCancelClick(false);
-  };
-
   return (
-    <>
-      {showEdit && (
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="commentForm.textArea">
-            <Form.Label>Your answer will be displayed here:</Form.Label>
-            {showEdit && (
-              <Editor
-                editorState={editorState}
-                onEditorStateChange={onEditorStateChange}
-              />
-            )}
-          </Form.Group>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="commentForm.textArea" className="mt-3">
+        {showEdit && (
+          <Editor
+            editorState={editorState}
+            onEditorStateChange={onEditorStateChange}
+          />
+        )}
+      </Form.Group>
 
-          {isError && (
-            <div className="alert alert-danger w-50 mx-auto" role="alert">
-              <strong>Oh snap!</strong> Please add an answer
-            </div>
-          )}
-          <Button className="float-left mb-3 p-3" variant="info" type="submit">
-            Submit
-          </Button>
-          <Button
-            onClick={handleClick}
-            className="float-left mb-3 ml-3 bg-light text-info p-3"
-            variant="info"
-            type="submit"
-          >
-            Cancel
-          </Button>
-        </Form>
+      {isError && (
+        <div className="alert alert-danger w-50 mx-auto" role="alert">
+          <strong>Oh snap!</strong> Please add an answer
+        </div>
       )}
-    </>
+      <Button className="float-left mb-3 p-3" variant="info" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
 
