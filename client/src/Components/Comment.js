@@ -5,10 +5,19 @@ import { EditorState, convertToRaw, ContentState } from "draft-js";
 import Editor from "./Editor";
 import draftToHtml from "draftjs-to-html";
 
-export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
+export const Comment = ({
+  id,
+  postComment,
+  setRefresh,
+  refresh,
+  showEdit,
+  handleCancelClick,
+  setShowEdit,
+}) => {
   const [comment, setComment] = useState({ questionId: id, comment: "" });
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [isError, setIsError] = useState(false);
+
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     const updatedComment = {
@@ -29,6 +38,7 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
             EditorState.push(editorState, ContentState.createFromText(""))
           );
           setIsError(false);
+          handleCancelClick(false);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -38,27 +48,47 @@ export const Comment = ({ id, postComment, setRefresh, refresh, showEdit }) => {
     }
   };
 
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="commentForm.textArea">
-        <Form.Label>Answer goes here:</Form.Label>
-        {showEdit && (
-          <Editor
-            editorState={editorState}
-            onEditorStateChange={onEditorStateChange}
-          />
-        )}
-      </Form.Group>
+  const handleClick = () => {
+    //when i click on cancel button
+    // setShowEdit(!showEdit);
+    setRefresh(!refresh);
+    handleCancelClick(false); //ask a question button isn't hidden - works
+    console.log("Show Editor State --->", showEdit);
+  }; // the problem is when I click on answer this question button, form doesn't show
 
-      {isError && (
-        <div className="alert alert-danger w-50 mx-auto" role="alert">
-          <strong>Oh snap!</strong> Please add an answer
-        </div>
+  return (
+    <>
+      {showEdit && (
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="commentForm.textArea">
+            <Form.Label>Answer goes here:</Form.Label>
+            {showEdit && (
+              <Editor
+                editorState={editorState}
+                onEditorStateChange={onEditorStateChange}
+              />
+            )}
+          </Form.Group>
+
+          {isError && (
+            <div className="alert alert-danger w-50 mx-auto" role="alert">
+              <strong>Oh snap!</strong> Please add an answer
+            </div>
+          )}
+          <Button className="float-left mb-3" variant="info" type="submit">
+            Submit
+          </Button>
+          <Button
+            onClick={handleClick}
+            className="float-left mb-3 ml-3 bg-light text-info"
+            variant="info"
+            type="submit"
+          >
+            Cancel
+          </Button>
+        </Form>
       )}
-      <Button className="float-left mb-3" variant="info" type="submit">
-        Submit
-      </Button>
-    </Form>
+    </>
   );
 };
 

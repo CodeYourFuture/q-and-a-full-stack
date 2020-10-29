@@ -18,9 +18,22 @@ const ShowContext = ({
   const [refresh, setRefresh] = useState(true);
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
+  const [hidden, setHidden] = useState(false);
+  //when I click on ask a question button, button is hidden - works
+  //1. when I click on cancel button, form is hidden - works
+  //2. and ask a question button is hidden - works
+  //3. problem is when I click on Ask a question again,
+  //textEditor doesn't appear
 
   const handleClick = () => {
     setShowEdit(true);
+    setHidden(true);
+    console.log("Show Editor State --->", showEdit);
+  };
+
+  const handleCancelClick = (state) => {
+    setHidden(state);
+    console.log("Show Editor State --->", showEdit);
   };
 
   function createMarkup() {
@@ -81,13 +94,15 @@ const ShowContext = ({
                 variant="link"
                 eventKey={refresh ? "0" : "1"}
               >
-                <Button
-                  onClick={handleClick}
-                  className="float-right mb-3"
-                  variant="info"
-                >
-                  Answer this Question
-                </Button>
+                {!hidden && (
+                  <Button
+                    onClick={handleClick}
+                    className="float-right mb-3"
+                    variant="info"
+                  >
+                    Answer this Question
+                  </Button>
+                )}
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={refresh ? "0" : "1"}>
                 <Comment
@@ -96,6 +111,8 @@ const ShowContext = ({
                   refresh={refresh}
                   postComment={postComment}
                   id={id}
+                  handleCancelClick={handleCancelClick}
+                  setShowEdit={setShowEdit}
                 />
               </Accordion.Collapse>
             </Accordion>
