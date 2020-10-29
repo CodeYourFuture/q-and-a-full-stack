@@ -3,6 +3,7 @@ import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SignIn from "./SignIn";
 import UserContext from "./Context";
+import CYFLogo from "./../Assets/CYFLogo.png";
 
 const NavMenu = () => {
   const user = useContext(UserContext);
@@ -11,7 +12,7 @@ const NavMenu = () => {
       <Navbar>
         <Navbar.Brand href="#home">
           <img
-            src="client/src/Assets/CYFLogo.png"
+            src={CYFLogo}
             className="d-inline-block align-top"
             alt="CYF Logo"
             width="180"
