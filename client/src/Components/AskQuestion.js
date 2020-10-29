@@ -63,7 +63,6 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
     };
     setFormData(updatedFormData);
   };
-  console.log(user);
   return (
     <>
       {redirect && <Redirect to="/" />}
