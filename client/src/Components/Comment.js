@@ -57,7 +57,7 @@ export const Comment = ({
       {showEdit && (
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="commentForm.textArea">
-            <Form.Label>Answer goes here:</Form.Label>
+            <Form.Label>Your answer will be displayed here:</Form.Label>
             {showEdit && (
               <Editor
                 editorState={editorState}
@@ -84,7 +84,18 @@ export const Comment = ({
           </Button>
         </Form>
       )}
+<<<<<<< HEAD
     </>
+=======
+      <Button
+        className="float-left mb-3 p-3 font-weight-bold"
+        variant="info"
+        type="submit"
+      >
+        Submit
+      </Button>
+    </Form>
+>>>>>>> dev
   );
 };
 

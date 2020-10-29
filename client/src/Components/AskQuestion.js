@@ -100,7 +100,7 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
           </label>
         </div>
 
-        <button type="submit" className="btn btn-info">
+        <button type="submit" className="btn btn-info p-3 font-weight-bold">
           Submit
         </button>
       </form>

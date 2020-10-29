@@ -78,7 +78,7 @@ const ShowContext = ({
           <Card.Body>
             <Card.Text
               dangerouslySetInnerHTML={createMarkup()}
-              className="text-left py-2"
+              className="text-left py-2 ml-2"
             />
             <ShowComments comments={comments} />
             <Accordion defaultActiveKey="1">
@@ -87,6 +87,7 @@ const ShowContext = ({
                 variant="link"
                 eventKey={refresh ? "0" : "1"}
               >
+<<<<<<< HEAD
                 {!hidden && (
                   <Button
                     onClick={handleClick}
@@ -96,6 +97,15 @@ const ShowContext = ({
                     Answer this Question
                   </Button>
                 )}
+=======
+                <Button
+                  onClick={handleClick}
+                  className="float-left mb-3 mt-3 p-3 font-weight-bold"
+                  variant="info"
+                >
+                  Answer this Question
+                </Button>
+>>>>>>> dev
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={refresh ? "0" : "1"}>
                 <Comment

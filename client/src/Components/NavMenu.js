@@ -9,18 +9,20 @@ const NavMenu = () => {
       <Container>
         <Navbar
           expand="lg"
-          variant="dark"
-          bg="secondary"
-          className="justify-content-around p-2 my-2"
+          className="justify-content-around p-2 my-2 bg-light"
         >
-          <Navbar.Text href="#" className="text-white">
-            <h2 className="display-4">CYF Q&A Portal</h2>
-          </Navbar.Text>
+          <div className="float-left">
+            <img
+              src="client/src/Assets/CYFLogo.png"
+              alt="CYF Logo"
+              width="15%"
+            />
+          </div>
         </Navbar>
       </Container>
       <Container>
         <div className="WelcomeSection">
-          <h1>Welcome</h1>
+          <h1>Welcome to the Q&A App</h1>
           <p>
             This product is in beta. That means that everything you post in here
             could be lost at some point.
@@ -31,11 +33,18 @@ const NavMenu = () => {
             <a href="https://forms.gle/drxvYH88GJFgo8R39"> this form </a>
           </p>
           <Link to="/">
-            <button type="button" className="btn btn-success">
-              All Questions
+            <button
+              type="button"
+              className="btn btn-success p-3 font-weight-bold"
+            >
+              View all Questions
             </button>
           </Link>
-          <Link to="/ask" type="button" className="btn btn-info m-3">
+          <Link
+            to="/ask"
+            type="button"
+            className="btn btn-info m-3 p-3 font-weight-bold"
+          >
             Ask a question
           </Link>
         </div>
