@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { EditorState, convertToRaw, ContentState } from "draft-js";
 import Editor from "./Editor";
 import draftToHtml from "draftjs-to-html";
+import UserContext from "./Context";
 
 export const Comment = ({
   id,
@@ -13,7 +14,12 @@ export const Comment = ({
   showEdit,
   handleCancelClick,
 }) => {
-  const [comment, setComment] = useState({ questionId: id, comment: "" });
+  const user = useContext(UserContext);
+  const [comment, setComment] = useState({
+    questionId: id,
+    comment: "",
+    email: "",
+  });
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [isError, setIsError] = useState(false);
 
@@ -29,7 +35,16 @@ export const Comment = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (comment.comment.trim().length > 7) {
-      postComment({ questionId: comment.questionId, comment: comment.comment })
+      user
+        ?.getIdToken()
+        .then((token) => {
+          return postComment({
+            questionId: comment.questionId,
+            comment: comment.comment,
+            email: user.email,
+            token: token,
+          });
+        })
         .then(() => {
           setComment({ ...comment, context: "" });
           setRefresh(!refresh);
@@ -76,4 +91,5 @@ Comment.propTypes = {
   setRefresh: PropTypes.func,
   refresh: PropTypes.bool,
   showEdit: PropTypes.bool,
+  handleCancelClick: PropTypes.func,
 };
