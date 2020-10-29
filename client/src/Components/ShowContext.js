@@ -19,11 +19,6 @@ const ShowContext = ({
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
   const [hidden, setHidden] = useState(false);
-  //when I click on ask a question button, button is hidden - works
-  //1. when I click on cancel button, form is hidden - works
-  //2. and ask a question button is hidden - works
-  //3. problem is when I click on Ask a question again,
-  //textEditor doesn't appear
 
   const handleClick = () => {
     setShowEdit(true);

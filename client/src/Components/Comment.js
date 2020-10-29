@@ -12,7 +12,6 @@ export const Comment = ({
   refresh,
   showEdit,
   handleCancelClick,
-  setShowEdit,
 }) => {
   const [comment, setComment] = useState({ questionId: id, comment: "" });
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -49,12 +48,9 @@ export const Comment = ({
   };
 
   const handleClick = () => {
-    //when i click on cancel button
-    // setShowEdit(!showEdit);
     setRefresh(!refresh);
-    handleCancelClick(false); //ask a question button isn't hidden - works
-    console.log("Show Editor State --->", showEdit);
-  }; // the problem is when I click on answer this question button, form doesn't show
+    handleCancelClick(false);
+  };
 
   return (
     <>
