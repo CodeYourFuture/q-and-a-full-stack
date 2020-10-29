@@ -23,12 +23,10 @@ const ShowContext = ({
   const handleClick = () => {
     setShowEdit(true);
     setHidden(true);
-    console.log("Show Editor State --->", showEdit);
   };
 
   const handleCancelClick = (state) => {
     setHidden(state);
-    console.log("Show Editor State --->", showEdit);
   };
 
   function createMarkup() {
