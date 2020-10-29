@@ -87,25 +87,15 @@ const ShowContext = ({
                 variant="link"
                 eventKey={refresh ? "0" : "1"}
               >
-<<<<<<< HEAD
                 {!hidden && (
                   <Button
                     onClick={handleClick}
-                    className="float-right mb-3"
+                    className="float-left mb-3 p-3"
                     variant="info"
                   >
                     Answer this Question
                   </Button>
                 )}
-=======
-                <Button
-                  onClick={handleClick}
-                  className="float-left mb-3 mt-3 p-3 font-weight-bold"
-                  variant="info"
-                >
-                  Answer this Question
-                </Button>
->>>>>>> dev
               </Accordion.Toggle>
               <Accordion.Collapse eventKey={refresh ? "0" : "1"}>
                 <Comment

@@ -71,12 +71,12 @@ export const Comment = ({
               <strong>Oh snap!</strong> Please add an answer
             </div>
           )}
-          <Button className="float-left mb-3" variant="info" type="submit">
+          <Button className="float-left mb-3 p-3" variant="info" type="submit">
             Submit
           </Button>
           <Button
             onClick={handleClick}
-            className="float-left mb-3 ml-3 bg-light text-info"
+            className="float-left mb-3 ml-3 bg-light text-info p-3"
             variant="info"
             type="submit"
           >
@@ -84,18 +84,7 @@ export const Comment = ({
           </Button>
         </Form>
       )}
-<<<<<<< HEAD
     </>
-=======
-      <Button
-        className="float-left mb-3 p-3 font-weight-bold"
-        variant="info"
-        type="submit"
-      >
-        Submit
-      </Button>
-    </Form>
->>>>>>> dev
   );
 };
 
