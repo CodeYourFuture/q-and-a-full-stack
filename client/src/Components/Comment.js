@@ -62,7 +62,7 @@ export const Comment = ({
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     e.preventDefault();
     setRefresh(!refresh);
     handleCancelClick(false);
