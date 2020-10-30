@@ -61,8 +61,8 @@ const ShowContext = ({
             <p>
               <small>
                 <a href={`/#${id}`} className="xs">
-                  copy link&nbsp;
-                  <FaLink className="text-dark" />
+                  {/* copy link&nbsp; */}
+                  <FaLink />
                 </a>
               </small>
             </p>

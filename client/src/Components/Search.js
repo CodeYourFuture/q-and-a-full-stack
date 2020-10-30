@@ -2,7 +2,12 @@ import React from "react";
 import { Form, FormControl } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-const Search = ({ searchChange, questions }) => {
+const Search = ({
+  searchChange,
+  questions,
+  userOnlyQuestions,
+  filteredQuestions,
+}) => {
   const handleChange = (e) => {
     searchChange(e.target.value);
   };
@@ -10,9 +15,11 @@ const Search = ({ searchChange, questions }) => {
   return (
     <div className="container p-2 mb-3 bg-light d-flex justify-content-between">
       <h2 className="ml-3 ">
-        {questions.length > 1
-          ? `${questions.length} Questions`
-          : `${questions.length} Question`}
+        {filteredQuestions
+          ? `${filteredQuestions.length} Questions`
+          : userOnlyQuestions
+          ? `${userOnlyQuestions.length} Questions`
+          : `${questions.length} Questions`}
       </h2>
       <Form inline>
         <FormControl
@@ -32,11 +39,21 @@ Search.propTypes = {
     PropTypes.shape({
       id: PropTypes.number,
       title: PropTypes.string,
+      email: PropTypes.string,
       question_date: PropTypes.string,
       context: PropTypes.string,
     })
   ),
-  searchChange: PropTypes.bool,
+  userOnlyQuestions: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      question_date: PropTypes.string,
+      email: PropTypes.string,
+      context: PropTypes.string,
+    })
+  ),
+  searchChange: PropTypes.func,
 };
 
 export default Search;

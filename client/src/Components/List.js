@@ -8,6 +8,7 @@ import UserContext from "./Context";
 
 const List = ({ questions, postComment, getComments }) => {
   let userOnlyQuestions = [];
+  let filteredQuestions;
   const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [userQuestions, setUserQuestions] = useState(false);
@@ -20,29 +21,38 @@ const List = ({ questions, postComment, getComments }) => {
     setSearchTerm(searchValue);
   };
 
-  const filteredQuestions = questions.filter(({ title }) =>
-    title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   user
     ? (userOnlyQuestions = questions.filter(({ email }) => email == user.email))
     : null;
 
-  console.log(userOnlyQuestions);
+  userQuestions
+    ? (filteredQuestions = userOnlyQuestions.filter(({ title }) =>
+        title.toLowerCase().includes(searchTerm.toLowerCase())
+      ))
+    : (filteredQuestions = questions.filter(({ title }) =>
+        title.toLowerCase().includes(searchTerm.toLowerCase())
+      ));
+
+  console.log(userOnlyQuestions.length, questions.length);
 
   return (
     <div className="container">
-      {user && (
-        <button
-          className="btn btn-dark p-3 mb-3 font-weight-bold"
-          onClick={handleUserQuestions}
-        >
-          {userQuestions ? "See All Questions" : "See My Questions"}
-        </button>
-      )}
-      {!userQuestions && (
-        <Search searchChange={searchChange} questions={questions} />
-      )}
+      <div className="d-flex">
+        <Search
+          searchChange={searchChange}
+          questions={questions}
+          userOnlyQuestions={userOnlyQuestions}
+          filteredQuestions={filteredQuestions}
+        />
+        {user && (
+          <button
+            className="btn btn-dark my-2 ml-3 font-weight-bold"
+            onClick={handleUserQuestions}
+          >
+            {userQuestions ? "See All Questions" : "See My Questions"}
+          </button>
+        )}
+      </div>
       {userQuestions && userOnlyQuestions.length > 0 ? (
         userOnlyQuestions.map((item) => (
           <ShowContext

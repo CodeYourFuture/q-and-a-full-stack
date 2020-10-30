@@ -51,7 +51,7 @@ const NavMenu = () => {
                 className="btn btn-success p-3 font-weight-bold"
                 onClick={handleBtn}
               >
-                View all Questions
+                See All Questions
               </button>
             )}
           </Link>
@@ -59,7 +59,7 @@ const NavMenu = () => {
             <Link
               to="/ask"
               type="button"
-              className="btn btn-info m-3 p-3 font-weight-bold"
+              className="btn btn-info p-3 mt-3 font-weight-bold"
               onClick={handleBtn}
             >
               Ask a question
