@@ -5,12 +5,25 @@ import { Router } from "express";
 import * as admin from "firebase-admin";
 import { Connection } from "./db";
 
-// const serviceAccount = require("./ServiceAccount.json");
-
-admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
-  databaseURL: "https://q-and-a-342c1.firebaseio.com",
-});
+if (process.env.DATABASE_URL) {
+  const serviceAccount = require("./ServiceAccount.json");
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://q-and-a-342c1.firebaseio.com",
+  });
+} else {
+  admin.initializeApp({
+    credential: admin.credential.cert(
+      JSON.parse(
+        Buffer.from(
+          process.env.GOOGLE_APPLICATION_CREDENTIALS,
+          "base64"
+        ).toString("ascii")
+      )
+    ),
+    databaseURL: "https://q-and-a-342c1.firebaseio.com",
+  });
+}
 
 const router = new Router();
 
