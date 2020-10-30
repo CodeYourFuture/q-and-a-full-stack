@@ -5,7 +5,7 @@ import { Router } from "express";
 import * as admin from "firebase-admin";
 import { Connection } from "./db";
 
-if (process.env.DATABASE_URL) {
+if (!process.env.DATABASE_URL) {
   const serviceAccount = require("./ServiceAccount.json");
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
