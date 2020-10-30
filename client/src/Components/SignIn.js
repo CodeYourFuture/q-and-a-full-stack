@@ -39,7 +39,7 @@ class SignIn extends React.Component {
       return (
         <div>
           <a
-            className="btn btn-danger mr-4 mt-3"
+            className="btn btn-danger font-weight-bold text-white mr-4 mt-3"
             height="40"
             onClick={() => firebase.auth().signOut()}
           >
