@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SignIn from "./SignIn";
@@ -7,6 +7,12 @@ import CYFLogo from "./../Assets/CYFLogo.png";
 
 const NavMenu = () => {
   const user = useContext(UserContext);
+  const [hideBtn, setHideBtn] = useState(false);
+
+  const handleBtn = () => {
+    setHideBtn(!hideBtn);
+  };
+
   return (
     <div>
       <Navbar>
@@ -39,18 +45,22 @@ const NavMenu = () => {
             <a href="https://forms.gle/drxvYH88GJFgo8R39"> this form </a>
           </p>
           <Link to="/">
-            <button
-              type="button"
-              className="btn btn-success p-3 font-weight-bold"
-            >
-              View all Questions
-            </button>
+            {hideBtn && (
+              <button
+                type="button"
+                className="btn btn-success p-3 font-weight-bold"
+                onClick={handleBtn}
+              >
+                View all Questions
+              </button>
+            )}
           </Link>
-          {user && (
+          {user && !hideBtn && (
             <Link
               to="/ask"
               type="button"
               className="btn btn-info m-3 p-3 font-weight-bold"
+              onClick={handleBtn}
             >
               Ask a question
             </Link>

@@ -1,12 +1,20 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import ShowContext from "./ShowContext";
 import Search from "./Search";
+import UserContext from "./Context";
 
 const List = ({ questions, postComment, getComments }) => {
+  let userOnlyQuestions = [];
+  const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const [userQuestions, setUserQuestions] = useState(false);
+
+  const handleUserQuestions = () => {
+    setUserQuestions(!userQuestions);
+  };
 
   const searchChange = (searchValue) => {
     setSearchTerm(searchValue);
@@ -16,10 +24,35 @@ const List = ({ questions, postComment, getComments }) => {
     title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  user
+    ? (userOnlyQuestions = questions.filter(({ email }) => email == user.email))
+    : null;
+
+  console.log(userOnlyQuestions);
+
   return (
     <div className="container">
-      <Search searchChange={searchChange} />
-      {questions.length > 0 ? (
+      {user && (
+        <button
+          className="btn btn-dark p-3 mb-3 font-weight-bold"
+          onClick={handleUserQuestions}
+        >
+          {userQuestions ? "See All Questions" : "See My Questions"}
+        </button>
+      )}
+      {!userQuestions && (
+        <Search searchChange={searchChange} questions={questions} />
+      )}
+      {userQuestions && userOnlyQuestions.length > 0 ? (
+        userOnlyQuestions.map((item) => (
+          <ShowContext
+            postComment={postComment}
+            getComments={getComments}
+            key={item.id}
+            {...item}
+          />
+        ))
+      ) : questions.length > 0 ? (
         searchTerm.length === 0 ? (
           questions.map((item) => (
             <ShowContext
