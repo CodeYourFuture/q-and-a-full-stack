@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Accordion, Card, Button } from "react-bootstrap";
+import { Accordion, Card, Button, Container } from "react-bootstrap";
 import { FaChevronDown, FaChevronUp, FaLink } from "react-icons/fa";
 import Moment from "react-moment";
 import { Comment } from "./Comment";
@@ -19,11 +19,13 @@ const ShowContext = ({
   const [refresh, setRefresh] = useState(true);
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
+  const [hidden, setHidden] = useState(false);
 
   const user = useContext(UserContext);
 
   const handleClick = () => {
     setShowEdit(true);
+    setHidden(true);
   };
 
   function createMarkup() {
@@ -35,6 +37,10 @@ const ShowContext = ({
       setComments(data);
     });
   }, [refresh]);
+
+  const handleCancelClick = (state) => {
+    setHidden(state);
+  };
 
   return (
     <Accordion className="p-2" defaultActiveKey="1">
@@ -84,7 +90,7 @@ const ShowContext = ({
                 variant="link"
                 eventKey={refresh ? "0" : "1"}
               >
-                {user && (
+                {user && !hidden && (
                   <Button
                     onClick={handleClick}
                     className="float-left mb-3 mt-3 p-3 font-weight-bold"
@@ -101,6 +107,8 @@ const ShowContext = ({
                   refresh={refresh}
                   postComment={postComment}
                   id={id}
+                  handleCancelClick={handleCancelClick}
+                  setShowEdit={setShowEdit}
                 />
               </Accordion.Collapse>
             </Accordion>

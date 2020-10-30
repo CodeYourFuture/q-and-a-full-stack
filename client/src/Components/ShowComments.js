@@ -11,7 +11,9 @@ export default function ShowComments({ comments }) {
   return (
     <div>
       <p className="lead text-left font-weight-bold ml-1">
-        {comments.length} Replies:
+        {comments.length == 1
+          ? `${comments.length} Reply`
+          : `${comments.length} Replies:`}
       </p>
       {comments.length >= 1
         ? comments.map((comment, index) => (
