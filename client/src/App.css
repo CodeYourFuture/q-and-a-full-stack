@@ -60,19 +60,3 @@ h1 {
 .text-muted {
   font-size: small;
 }
-
-.xs {
-  color: black;
-}
-.xs:hover {
-  color: white;
-}
-
-#rdw-wrapper-5934
-  > div.rdw-editor-toolbar.text-dark
-  > div.rdw-image-wrapper
-  > div.rdw-image-modal
-  > div.rdw-image-modal-header
-  > span {
-  background-color: aqua;
-}
