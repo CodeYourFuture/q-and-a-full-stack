@@ -41,16 +41,16 @@ const NavMenu = () => {
           <Link to="/">
             <button
               type="button"
-              className="btn btn-success p-3 font-weight-bold"
+              className="btn btn-success p-3 mt-3 font-weight-bold"
             >
-              View all Questions
+              Home
             </button>
           </Link>
           {user && (
             <Link
               to="/ask"
               type="button"
-              className="btn btn-info m-3 p-3 font-weight-bold"
+              className="btn btn-info p-3 mt-3 ml-4 font-weight-bold"
             >
               Ask a question
             </Link>

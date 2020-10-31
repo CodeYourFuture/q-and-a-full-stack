@@ -1,25 +1,67 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import ShowContext from "./ShowContext";
 import Search from "./Search";
+import UserContext from "./Context";
 
 const List = ({ questions, postComment, getComments }) => {
+  let userOnlyQuestions = [];
+  let filteredQuestions;
+  const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const [userQuestions, setUserQuestions] = useState(false);
+
+  const handleUserQuestions = () => {
+    setUserQuestions(!userQuestions);
+  };
 
   const searchChange = (searchValue) => {
     setSearchTerm(searchValue);
   };
 
-  const filteredQuestions = questions.filter(({ title }) =>
-    title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  user
+    ? (userOnlyQuestions = questions.filter(({ email }) => email == user.email))
+    : null;
+
+  user && userQuestions
+    ? (filteredQuestions = userOnlyQuestions.filter(({ title }) =>
+        title.toLowerCase().includes(searchTerm.toLowerCase())
+      ))
+    : (filteredQuestions = questions.filter(({ title }) =>
+        title.toLowerCase().includes(searchTerm.toLowerCase())
+      ));
+
+  console.log(userOnlyQuestions.length, questions.length);
 
   return (
     <div className="container">
-      <Search searchChange={searchChange} />
-      {questions.length > 0 ? (
+      <div className="d-flex">
+        <Search
+          searchChange={searchChange}
+          questions={questions}
+          filteredQuestions={filteredQuestions}
+        />
+        {user && (
+          <button
+            className="btn btn-dark my-2 ml-3 font-weight-bold"
+            onClick={handleUserQuestions}
+          >
+            {userQuestions ? "See All Questions" : "See My Questions"}
+          </button>
+        )}
+      </div>
+      {userQuestions && userOnlyQuestions.length > 0 ? (
+        userOnlyQuestions.map((item) => (
+          <ShowContext
+            postComment={postComment}
+            getComments={getComments}
+            key={item.id}
+            {...item}
+          />
+        ))
+      ) : questions.length > 0 ? (
         searchTerm.length === 0 ? (
           questions.map((item) => (
             <ShowContext

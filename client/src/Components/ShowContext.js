@@ -70,8 +70,13 @@ const ShowContext = ({
             eventKey="0"
             className="py-3"
           >
+            <small>
+              <a href={`/#${id}`} className="xs">
+                <FaLink />
+              </a>
+            </small>
+            &nbsp;
             {title}
-
             {open ? (
               <FaChevronDown className="float-right ml-5" />
             ) : (
@@ -93,15 +98,6 @@ const ShowContext = ({
                 <p>Views </p>
               </div>
             </div>
-            <p>
-              <small>
-                <a href={`/#${id}`} className="xs">
-                  copy link&nbsp;
-                  <FaLink className="text-dark" />
-                </a>
-              </small>
-            </p>
-
             <Moment fromNow className="text-muted d-block font-weight-lighter">
               {question_date}
             </Moment>
