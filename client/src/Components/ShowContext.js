@@ -78,14 +78,6 @@ const ShowContext = ({
             </small>
             &nbsp;
             {title}
-<<<<<<< HEAD
-            {open ? (
-              <FaChevronDown className="float-right" />
-            ) : (
-              <FaChevronUp className="float-right" />
-            )}
-=======
-
             {open ? (
               <FaChevronDown className="float-right ml-5" />
             ) : (
@@ -115,8 +107,6 @@ const ShowContext = ({
                 </a>
               </small>
             </p>
-
->>>>>>> dev
             <Moment fromNow className="text-muted d-block font-weight-lighter">
               {question_date}
             </Moment>
