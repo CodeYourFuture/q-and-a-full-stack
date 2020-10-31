@@ -72,7 +72,6 @@ const ShowContext = ({
           >
             <small>
               <a href={`/#${id}`} className="xs">
-                {/* copy link&nbsp; */}
                 <FaLink />
               </a>
             </small>
@@ -99,14 +98,6 @@ const ShowContext = ({
                 <p>Views </p>
               </div>
             </div>
-            <p>
-              <small>
-                <a href={`/#${id}`} className="xs">
-                  copy link&nbsp;
-                  <FaLink className="text-dark" />
-                </a>
-              </small>
-            </p>
             <Moment fromNow className="text-muted d-block font-weight-lighter">
               {question_date}
             </Moment>
