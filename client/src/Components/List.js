@@ -25,7 +25,7 @@ const List = ({ questions, postComment, getComments }) => {
     ? (userOnlyQuestions = questions.filter(({ email }) => email == user.email))
     : null;
 
-  userQuestions
+  user && userQuestions
     ? (filteredQuestions = userOnlyQuestions.filter(({ title }) =>
         title.toLowerCase().includes(searchTerm.toLowerCase())
       ))
@@ -41,7 +41,6 @@ const List = ({ questions, postComment, getComments }) => {
         <Search
           searchChange={searchChange}
           questions={questions}
-          userOnlyQuestions={userOnlyQuestions}
           filteredQuestions={filteredQuestions}
         />
         {user && (

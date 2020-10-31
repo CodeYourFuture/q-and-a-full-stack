@@ -53,7 +53,8 @@ h1 {
 }
 
 .card-header:hover {
-  background-color: #5cb85c;
+  background-color: #dadada;
+  /* color: white; */
 }
 
 .text-muted {
@@ -65,4 +66,13 @@ h1 {
 }
 .xs:hover {
   color: white;
+}
+
+#rdw-wrapper-5934
+  > div.rdw-editor-toolbar.text-dark
+  > div.rdw-image-wrapper
+  > div.rdw-image-modal
+  > div.rdw-image-modal-header
+  > span {
+  background-color: aqua;
 }
