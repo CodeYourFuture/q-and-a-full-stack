@@ -7,7 +7,7 @@ import { EditorState, convertToRaw } from "draft-js";
 import Editor from "./Editor";
 import draftToHtml from "draftjs-to-html";
 import UserContext from "./Context";
-
+import { Link } from "react-router-dom";
 
 const AskQuestion = ({ postQuestion, formMonitor }) => {
   const user = useContext(UserContext);
@@ -119,6 +119,13 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
         <button type="submit" className="btn btn-info p-3 font-weight-bold">
           Submit
         </button>
+        <Link
+          to="/"
+          type="button"
+          className="btn m-3 p-3 font-weight-bold bg-light text-info"
+        >
+          Cancel
+        </Link>
       </form>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Accordion, Card, Button, Container } from "react-bootstrap";
-import { FaChevronDown, FaChevronUp, FaLink } from "react-icons/fa";
+import { Accordion, Card, Button } from "react-bootstrap";
+import { FaChevronDown, FaChevronUp, FaLink, FaHeart } from "react-icons/fa";
 import Moment from "react-moment";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
@@ -21,6 +21,9 @@ const ShowContext = ({
   const [open, setOpen] = useState(true);
   const [hidden, setHidden] = useState(false);
 
+  const [likeCounter, setLikeCounter] = useState(0);
+  const [viewsCounter, setViewsCounter] = useState(0);
+
   const user = useContext(UserContext);
 
   const handleClick = () => {
@@ -38,8 +41,18 @@ const ShowContext = ({
     });
   }, [refresh]);
 
+  useEffect(() => {
+    !open ? setViewsCounter(viewsCounter + 1) : setViewsCounter(viewsCounter);
+  }, [open]);
+
   const handleCancelClick = (state) => {
     setHidden(state);
+  };
+
+  const handleLikeClick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setLikeCounter(likeCounter + 1);
   };
 
   return (
@@ -58,6 +71,28 @@ const ShowContext = ({
             className="py-3"
           >
             {title}
+
+            {open ? (
+              <FaChevronDown className="float-right ml-5" />
+            ) : (
+              <FaChevronUp className="float-right ml-5" />
+            )}
+            <div className="flexDirection: row float-right text-secondary text-muted mt-5 mr-5">
+              <div className="pl-2 flexDirection: column text-secondary text-muted">
+                <p ml-3>{comments.length} </p>
+                <p> Replies </p>
+              </div>
+
+              <div className="flexDirection: column pr-5 pl-5">
+                <p>{likeCounter}</p>
+                <FaHeart onClick={handleLikeClick} />
+              </div>
+
+              <div className="flexDirection: column pr-2">
+                <p>{viewsCounter}</p>
+                <p>Views </p>
+              </div>
+            </div>
             <p>
               <small>
                 <a href={`/#${id}`} className="xs">
@@ -66,11 +101,6 @@ const ShowContext = ({
                 </a>
               </small>
             </p>
-            {open ? (
-              <FaChevronDown className="float-right" />
-            ) : (
-              <FaChevronUp className="float-right" />
-            )}
 
             <Moment fromNow className="text-muted d-block font-weight-lighter">
               {question_date}
@@ -84,6 +114,7 @@ const ShowContext = ({
               className="text-left py-2 ml-2"
             />
             <ShowComments comments={comments} />
+
             <Accordion defaultActiveKey="1">
               <Accordion.Toggle
                 as="div"
