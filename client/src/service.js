@@ -21,3 +21,7 @@ export const postComment = async (data) => {
   const response = await post("/comment", data);
   return response.data;
 };
+export const postUser = async (data) => {
+  const response = await post("/newuser", data);
+  return response.data;
+};

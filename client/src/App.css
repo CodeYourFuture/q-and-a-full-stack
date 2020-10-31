@@ -10,9 +10,9 @@
     background-color: yellow;
 } */
 
-.App {
+/* .App {
   text-align: center;
-}
+} */
 
 .WelcomeSection {
   padding: 5% 10% 5% 1%;
@@ -39,7 +39,7 @@ h1 {
 }
 
 .rdw-editor-wrapper {
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .alert {
@@ -53,7 +53,8 @@ h1 {
 }
 
 .card-header:hover {
-  background-color: #5cb85c;
+  background-color: #dadada;
+  /* color: white; */
 }
 
 .text-muted {

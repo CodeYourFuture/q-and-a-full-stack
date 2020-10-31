@@ -4,10 +4,8 @@ import { useEffect } from "react";
 
 const ScrollHandler = ({ children, location }) => {
   useEffect(() => {
-    console.log(location);
     let hash = window.decodeURI(location.hash.replace("#", ""));
     let element = document.getElementById(hash);
-    console.log(element);
     if (element) {
       setTimeout(() => {
         element.scrollIntoView();

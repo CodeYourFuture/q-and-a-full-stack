@@ -1,26 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
-//import AskQuestion from "./AskQuestion";
+import SignIn from "./SignIn";
+import UserContext from "./Context";
+import CYFLogo from "./../Assets/CYFLogo.png";
 
 const NavMenu = () => {
+  const user = useContext(UserContext);
   return (
     <div>
-      <Container>
-        <Navbar
-          expand="lg"
-          variant="dark"
-          bg="secondary"
-          className="justify-content-around p-2 my-2"
-        >
-          <Navbar.Text href="#" className="text-white">
-            <h2 className="display-4">CYF Q&A Portal</h2>
+      <Navbar>
+        <Navbar.Brand href="#home">
+          <img
+            src={CYFLogo}
+            className="d-inline-block align-top"
+            alt="CYF Logo"
+            width="180"
+          />
+        </Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse className="justify-content-end">
+          <Navbar.Text>
+            <SignIn />
           </Navbar.Text>
-        </Navbar>
-      </Container>
+        </Navbar.Collapse>
+      </Navbar>
+
       <Container>
         <div className="WelcomeSection">
-          <h1>Welcome</h1>
+          <h1>Welcome to the Q&A App</h1>
           <p>
             This product is in beta. That means that everything you post in here
             could be lost at some point.
@@ -31,13 +39,22 @@ const NavMenu = () => {
             <a href="https://forms.gle/drxvYH88GJFgo8R39"> this form </a>
           </p>
           <Link to="/">
-            <button type="button" className="btn btn-success">
-              All Questions
+            <button
+              type="button"
+              className="btn btn-success p-3 mt-3 font-weight-bold"
+            >
+              Home
             </button>
           </Link>
-          <Link to="/ask" type="button" className="btn btn-info m-3">
-            Ask a question
-          </Link>
+          {user && (
+            <Link
+              to="/ask"
+              type="button"
+              className="btn btn-info p-3 mt-3 ml-4 font-weight-bold"
+            >
+              Ask a question
+            </Link>
+          )}
         </div>
       </Container>
     </div>
