@@ -11,12 +11,14 @@ const NavMenu = () => {
     <div>
       <Navbar>
         <Navbar.Brand href="#home">
-          <img
-            src={CYFLogo}
-            className="d-inline-block align-top"
-            alt="CYF Logo"
-            width="180"
-          />
+          <Link to="/">
+            <img
+              src={CYFLogo}
+              className="d-inline-block align-top"
+              alt="CYF Logo"
+              width="180"
+            />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
@@ -33,26 +35,18 @@ const NavMenu = () => {
             This product is in beta. That means that everything you post in here
             could be lost at some point.
           </p>
-
           <p>
             Please give us your feedback via{" "}
             <a href="https://forms.gle/drxvYH88GJFgo8R39"> this form </a>
           </p>
-          <Link to="/">
-            <button
-              type="button"
-              className="btn btn-success p-3 mt-3 font-weight-bold"
-            >
-              Home
-            </button>
-          </Link>
           {user && (
-            <Link
-              to="/ask"
-              type="button"
-              className="btn btn-info p-3 mt-3 ml-4 font-weight-bold"
-            >
-              Ask a question
+            <Link to="/ask">
+              <button
+                type="button"
+                className="btn btn-info mt-3 font-weight-bold"
+              >
+                Ask a question
+              </button>
             </Link>
           )}
         </div>

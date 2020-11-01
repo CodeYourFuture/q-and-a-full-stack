@@ -1,6 +1,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
+import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import PropTypes from "prop-types";
 import ShowContext from "./ShowContext";
 import Search from "./Search";
@@ -13,8 +14,8 @@ const List = ({ questions, postComment, getComments }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [userQuestions, setUserQuestions] = useState(false);
 
-  const handleUserQuestions = () => {
-    setUserQuestions(!userQuestions);
+  const handleUserQuestions = (e) => {
+    setUserQuestions(e.target.value);
   };
 
   const searchChange = (searchValue) => {
@@ -44,12 +45,23 @@ const List = ({ questions, postComment, getComments }) => {
           filteredQuestions={filteredQuestions}
         />
         {user && (
-          <button
+          /* <button
             className="btn btn-dark my-2 ml-3 font-weight-bold"
             onClick={handleUserQuestions}
           >
             {userQuestions ? "See All Questions" : "See My Questions"}
-          </button>
+          </button> */
+          <>
+            <ToggleButtonGroup
+              onClick={handleUserQuestions}
+              type="radio"
+              name="options"
+              defaultValue={false}
+            >
+              <ToggleButton value={false}>All</ToggleButton>
+              <ToggleButton value={true}>Mine</ToggleButton>
+            </ToggleButtonGroup>
+          </>
         )}
       </div>
       {userQuestions && userOnlyQuestions.length > 0 ? (

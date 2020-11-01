@@ -1,18 +1,6 @@
-/* .logo {
-    width: 100px;
+* {
+  font-family: "Raleway", sans-serif;
 }
-
-.message {
-    color: blue;
-}
-
-.message:hover {
-    background-color: yellow;
-} */
-
-/* .App {
-  text-align: center;
-} */
 
 .WelcomeSection {
   padding: 5% 10% 5% 1%;
@@ -60,3 +48,7 @@ h1 {
 .text-muted {
   font-size: small;
 }
+
+/* .btn {
+  height: 3rem;
+} */
