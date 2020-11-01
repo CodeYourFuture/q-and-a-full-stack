@@ -84,7 +84,7 @@ const ShowContext = ({
             )}
             <div className="flexDirection: row float-right text-secondary text-muted mt-5 mr-5">
               <div className="pl-2 flexDirection: column text-secondary text-muted">
-                <p ml-3>{comments.length} </p>
+                <p className="ml-3">{comments.length} </p>
                 <p> Replies </p>
               </div>
 

@@ -10,7 +10,7 @@ const NavMenu = () => {
   return (
     <div>
       <Navbar>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand>
           <Link to="/">
             <img
               src={CYFLogo}
