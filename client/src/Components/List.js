@@ -93,6 +93,11 @@ const List = ({ questions, postComment, getComments }) => {
           There are no questions to display
         </div>
       )}
+      {searchTerm && filteredQuestions.length === 0 && (
+        <div className="border border-danger">
+          Sorry, No match for the search.
+        </div>
+      )}
     </div>
   );
 };
