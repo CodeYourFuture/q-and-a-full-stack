@@ -36,7 +36,7 @@ h1 {
   text-align: center;
 }
 
-.card-header {
+.quest-title {
   cursor: pointer;
 }
 
@@ -51,4 +51,19 @@ h1 {
 
 .btn {
   height: 3.25rem;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #fbb03b;
+  border-color: #fbb03b;
+  box-shadow: none;
+}
+
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
+  border-color: #fbb03b;
+  box-shadow: none;
+}
+
+.custom-switch {
+  display: inline-flex !important;
 }
