@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, FormControl } from "react-bootstrap";
 import PropTypes from "prop-types";
+import UserContext from "./Context";
 
 const Search = ({
   searchChange,
@@ -9,13 +10,13 @@ const Search = ({
   userQuestions,
   setUserQuestions,
 }) => {
+  const user = useContext(UserContext);
   const handleChange = (e) => {
     searchChange(e.target.value);
   };
 
-  const handleUserQuestions = (e) => {
+  const handleUserQuestions = () => {
     setUserQuestions(!userQuestions);
-    console.log(e.target.value);
   };
 
   return (
@@ -33,13 +34,15 @@ const Search = ({
           placeholder="Search questions"
           onChange={handleChange}
         />
-        <Form.Check
-          type="switch"
-          id="default-checkout"
-          label="Mine"
-          onChange={handleUserQuestions}
-          value={userQuestions}
-        />
+        {user && (
+          <Form.Check
+            type="switch"
+            id="default-checkout"
+            label="Mine"
+            onChange={handleUserQuestions}
+            value={userQuestions}
+          />
+        )}
       </Form>
     </div>
   );
