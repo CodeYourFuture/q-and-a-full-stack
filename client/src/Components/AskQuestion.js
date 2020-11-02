@@ -73,10 +73,10 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
     <>
       {redirect && <Redirect to="/" />}
       <form
-        className="my-4 w-75 mx-auto p-3 bg-secondary text-left text-white"
+        className="my-4 w-75 mx-auto p-3 bg-secondary text-left text-white rounded"
         onSubmit={handleSubmit}
       >
-        <div className="form-group">
+        <div className="form-group rounded">
           <label className="lead w-100" htmlFor={"title"}>
             <span className="font-weight-bold">Title</span>
             <p>
