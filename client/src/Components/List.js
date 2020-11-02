@@ -1,7 +1,6 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from "react";
-import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import PropTypes from "prop-types";
 import ShowContext from "./ShowContext";
 import Search from "./Search";
@@ -13,10 +12,6 @@ const List = ({ questions, postComment, getComments }) => {
   const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [userQuestions, setUserQuestions] = useState(false);
-
-  const handleUserQuestions = (e) => {
-    setUserQuestions(e.target.value);
-  };
 
   const searchChange = (searchValue) => {
     setSearchTerm(searchValue);
@@ -41,25 +36,9 @@ const List = ({ questions, postComment, getComments }) => {
           searchChange={searchChange}
           questions={questions}
           filteredQuestions={filteredQuestions}
+          userQuestions={userQuestions}
+          setUserQuestions={setUserQuestions}
         />
-        {user && (
-          <ToggleButtonGroup
-            onClick={handleUserQuestions}
-            type="radio"
-            name="options"
-            defaultValue={false}
-          >
-            <ToggleButton className="w-50 pt-3 font-weight-bold" value={false}>
-              All
-            </ToggleButton>
-            <ToggleButton
-              className="w-50 pt-3 pl-2 font-weight-bold"
-              value={true}
-            >
-              Mine
-            </ToggleButton>
-          </ToggleButtonGroup>
-        )}
       </div>
       {filteredQuestions ? (
         filteredQuestions.map((item) => (
@@ -93,10 +72,17 @@ const List = ({ questions, postComment, getComments }) => {
           There are no questions to display
         </div>
       )}
-      {searchTerm && filteredQuestions.length === 0 && (
-        <div className="border border-danger">
+      {searchTerm && filteredQuestions.length === 0 ? (
+        <div className="border border-danger p-2 text-center">
           Sorry, No match for the search.
         </div>
+      ) : (
+        !searchTerm &&
+        questions.length === 0 && (
+          <div className="border border-danger p-2 text-center">
+            There are no questions to display
+          </div>
+        )
       )}
     </div>
   );
