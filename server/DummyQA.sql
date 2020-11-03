@@ -14,6 +14,8 @@ CREATE TABLE questions (
   title VARCHAR(150) NOT NULL,
   context TEXT NOT NULL,	
   question_date timestamp default current_timestamp,
+  likes INTEGER NOT NULL default 0,
+  views INTEGER default 0,
   foreign key (email) references users(email)
 );
 

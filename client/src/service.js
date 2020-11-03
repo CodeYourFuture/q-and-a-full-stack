@@ -25,3 +25,11 @@ export const postUser = async (data) => {
   const response = await post("/newuser", data);
   return response.data;
 };
+export const incrementLikes = async (data) => {
+  const response = await put(`questions/${data}/increment-likes`);
+  return response.data;
+};
+export const incrementViews = async (data) => {
+  const response = await put(`questions/${data}/increment-views`);
+  return response.data;
+};

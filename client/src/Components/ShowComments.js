@@ -21,7 +21,7 @@ export default function ShowComments({ comments }) {
       {comments.length >= 1
         ? comments.map((comment, index) => (
             <Card bg="light" key={index} className="mb-2 text-left">
-              <Card.Body>
+              <Card.Body className="bg-white">
                 <Card.Text
                   dangerouslySetInnerHTML={createMarkup(comment.comment)}
                 />
