@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
 import { FaChevronDown, FaChevronUp, FaLink, FaHeart } from "react-icons/fa";
+import { FcLike } from "react-icons/fc";
 import Moment from "react-moment";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
@@ -14,15 +15,19 @@ const ShowContext = ({
   postComment,
   getComments,
   question_date,
+  incrementLikes,
+  likes,
+  incrementViews,
+  views,
 }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
   const [hidden, setHidden] = useState(false);
-
-  const [likeCounter, setLikeCounter] = useState(0);
-  const [viewsCounter, setViewsCounter] = useState(0);
+  const [likeCounter, setLikeCounter] = useState(likes);
+  const [viewsCounter, setViewsCounter] = useState(views);
+  const [heartClicked, setHeartClicked] = useState(likes > 0);
 
   const user = useContext(UserContext);
 
@@ -50,9 +55,19 @@ const ShowContext = ({
   };
 
   const handleLikeClick = (event) => {
+    incrementLikes(id).then((response) => {
+      setLikeCounter(response);
+
+      setHeartClicked(response > 0);
+    });
     event.preventDefault();
     event.stopPropagation();
-    setLikeCounter(likeCounter + 1);
+  };
+
+  const viewsController = () => {
+    incrementViews(id).then((response) => {
+      setViewsCounter(response);
+    });
   };
 
   return (
@@ -61,54 +76,81 @@ const ShowContext = ({
         <Card.Header
           as="header"
           id={`${id}`}
-          onClick={() => setOpen(!open)}
           className="text-left lead font-weight-bold"
         >
           <Accordion.Toggle
             as="div"
             variant="link"
             eventKey="0"
-            className="py-3"
+            className="quest-title py-3 border border-light rounded px-2 mb-5"
+            onClick={() => {
+              setOpen(!open);
+              if (open) {
+                viewsController();
+              }
+            }}
           >
-            <small>
-              <a href={`/#${id}`} className="xs">
-                <FaLink />
-              </a>
-            </small>
-            &nbsp;
-            {title}
-            {open ? (
-              <FaChevronDown className="float-right ml-5" />
-            ) : (
-              <FaChevronUp className="float-right ml-5" />
-            )}
-            <div className="flexDirection: row float-right text-secondary text-muted mt-5 mr-5">
-              <div className="pl-2 flexDirection: column text-secondary text-muted">
-                <p className="ml-3">{comments.length} </p>
-                <p> Replies </p>
+            <div className="p-2">
+              <small>
+                <a href={`/#${id}`} className="xs">
+                  <FaLink />
+                </a>
+              </small>
+              &nbsp;
+              {title}
+              {open ? (
+                <FaChevronDown className="float-right ml-5" />
+              ) : (
+                <FaChevronUp className="float-right ml-5" />
+              )}
+              <Moment
+                fromNow
+                className="text-muted d-block font-weight-lighter"
+              >
+                {question_date}
+              </Moment>
+            </div>
+
+            <div className="d-flex flex-row float-right text-secondary text-muted mt-4 mr-5 ">
+              <div className="pl-2 d-flex flex-column text-secondary text-muted">
+                <p className="text-muted ml-3">{comments.length} </p>
+                <p className="text-muted"> Replies </p>
               </div>
 
-              <div className="flexDirection: column pr-5 pl-5">
-                <p>{likeCounter}</p>
-                <FaHeart onClick={handleLikeClick} />
+              <div
+                onClick={handleLikeClick}
+                className="d-flex flex-column px-5"
+              >
+                <p className="text-muted">{likeCounter}</p>
+                {heartClicked ? (
+                  <FcLike size={18} className="text-muted" />
+                ) : (
+                  <FaHeart size={16} className="text-muted" />
+                )}
               </div>
-
-              <div className="flexDirection: column pr-2">
-                <p>{viewsCounter}</p>
-                <p>Views </p>
+              <div className="d-flex flex-column pr-2">
+                <p className="text-muted">{viewsCounter}</p>
+                <p className="text-muted">Views</p>
               </div>
             </div>
-            <Moment fromNow className="text-muted d-block font-weight-lighter">
-              {question_date}
-            </Moment>
           </Accordion.Toggle>
         </Card.Header>
         <Accordion.Collapse eventKey="0">
           <Card.Body>
             <Card.Text
               dangerouslySetInnerHTML={createMarkup()}
-              className="text-left py-2 ml-2"
+              className="text-left py-2 ml-2 bg-white"
             />
+            {user && (
+              <div className="d-flex justify-content-end">
+                <a href="" className="mr-3">
+                  edit
+                </a>
+                <a href="" className="mr-3">
+                  delete
+                </a>
+              </div>
+            )}
             <ShowComments comments={comments} />
 
             <Accordion defaultActiveKey="1">
@@ -120,8 +162,8 @@ const ShowContext = ({
                 {user && !hidden && (
                   <Button
                     onClick={handleClick}
-                    className="float-left mb-3 mt-3 p-3 font-weight-bold"
-                    variant="info"
+                    className="primary-color float-left mb-3 mt-3 font-weight-bold text-white"
+                    variant="button"
                   >
                     Answer this Question
                   </Button>

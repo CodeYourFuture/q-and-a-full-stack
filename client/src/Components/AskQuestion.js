@@ -70,10 +70,10 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
     setFormData(updatedFormData);
   };
   return (
-    <>
+    <div className="mb-5">
       {redirect && <Redirect to="/" />}
       <form
-        className="my-4 w-75 mx-auto p-3 bg-secondary text-left text-white rounded"
+        className="my-4 mx-auto p-3 bg-secondary text-left text-white rounded"
         onSubmit={handleSubmit}
       >
         <div className="form-group rounded">
@@ -85,7 +85,7 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
             <input
               name="title"
               type="text"
-              className="form-control"
+              className="input-field form-control"
               id="title"
               onChange={handleChange}
               value={formData.title}
@@ -116,18 +116,19 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
           </label>
         </div>
 
-        <button type="submit" className="btn btn-info p-3 font-weight-bold">
+        <button
+          type="submit"
+          className="secondary-color btn font-weight-bold text-white"
+        >
           Submit
         </button>
-        <Link
-          to="/"
-          type="button"
-          className="btn m-3 p-3 font-weight-bold bg-light text-info"
-        >
-          Cancel
+        <Link to="/">
+          <button type="button" className="tertiary btn m-3 font-weight-bold">
+            Cancel
+          </button>
         </Link>
       </form>
-    </>
+    </div>
   );
 };
 
