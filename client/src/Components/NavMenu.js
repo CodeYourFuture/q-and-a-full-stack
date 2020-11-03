@@ -9,7 +9,7 @@ const NavMenu = () => {
   const user = useContext(UserContext);
   return (
     <div>
-      <Navbar>
+      <Navbar className="nav-bar">
         <Navbar.Brand>
           <Link to="/">
             <img
@@ -24,13 +24,18 @@ const NavMenu = () => {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
             <SignIn />
+            {!user && (
+              <p className="text-muted ml-2">
+                Sign-in to ask question and post reply
+              </p>
+            )}
           </Navbar.Text>
         </Navbar.Collapse>
       </Navbar>
 
       <Container>
         <div className="WelcomeSection">
-          <h1>Welcome to the Q&A App</h1>
+          <h1 className="mb-4">Welcome to the Q&A App</h1>
           <p>
             This product is in beta. That means that everything you post in here
             could be lost at some point.
@@ -43,7 +48,7 @@ const NavMenu = () => {
             <Link to="/ask">
               <button
                 type="button"
-                className="btn btn-info mt-3 font-weight-bold"
+                className="primary-color text-white btn mt-3 font-weight-bold"
               >
                 Ask a question
               </button>

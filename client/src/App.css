@@ -1,5 +1,10 @@
 * {
   font-family: "Raleway", sans-serif;
+  font-size: 16px;
+}
+
+ul {
+  list-style: none;
 }
 
 .WelcomeSection {
@@ -9,7 +14,8 @@
 
 h1 {
   text-decoration: underline;
-  padding-bottom: 5%;
+  text-decoration-color: #ed4343;
+  font-weight: bold;
 }
 
 .rdw-editor-main {
@@ -42,7 +48,7 @@ h1 {
 
 .card-header:hover {
   background-color: #dadada;
-  /* color: white; */
+  transition: all 0.3s ease-out;
 }
 
 .text-muted {
@@ -50,7 +56,13 @@ h1 {
 }
 
 .btn {
-  height: 3.25rem;
+  height: 3rem;
+  font-weight: bold;
+}
+
+.searchBar,
+.input-field {
+  height: 3rem;
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {
@@ -66,4 +78,71 @@ h1 {
 
 .custom-switch {
   display: inline-flex !important;
+}
+
+a {
+  color: #ed4343;
+}
+
+a:hover {
+  color: #b71111;
+}
+
+.primary-color {
+  background-color: #ed4343;
+  border-color: #ed4343;
+}
+
+.primary-color:hover {
+  background-color: #b71111;
+  border-color: #b71111;
+}
+
+.secondary-color {
+  background-color: #fbb03b;
+  border-color: #fbb03b;
+}
+
+.secondary-color:hover {
+  background-color: #f39604;
+  border-color: #f39604;
+}
+
+.tertiary {
+  color: #fbb03b;
+  border: 0px;
+}
+
+.tertiary:hover {
+  color: #f39604;
+  border: 0px;
+}
+
+.firebaseui-idp-button {
+  height: 3rem !important;
+  box-shadow: none !important;
+  font-weight: bold !important;
+  border-radius: 0.25rem !important;
+}
+
+.nav-bar {
+  background-color: #dadada;
+  border-radius: 0.25rem;
+}
+
+.moment-date {
+  display: inline !important;
+}
+
+.text-dark {
+  border-radius: 0.25rem;
+}
+
+.switch-key {
+  height: 100%;
+  border-radius: 0.25rem;
+}
+
+.custom-control-label {
+  margin-left: 0.5rem;
 }

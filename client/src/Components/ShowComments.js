@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
 import Moment from "react-moment";
+import UserContext from "./Context";
 
 export default function ShowComments({ comments }) {
   function createMarkup(comment) {
     return { __html: comment };
   }
+
+  const user = useContext(UserContext);
 
   return (
     <div>
@@ -24,10 +27,20 @@ export default function ShowComments({ comments }) {
                 />
                 <Moment
                   fromNow
-                  className="text-muted d-block font-weight-lighter"
+                  className="moment-date text-muted d-block font-weight-lighter"
                 >
                   {comment.comment_date}
                 </Moment>
+                {user && (
+                  <div className="float-right">
+                    <a href="" className="pr-3 text-sm">
+                      edit
+                    </a>
+                    <a href="" className="">
+                      delete
+                    </a>
+                  </div>
+                )}
               </Card.Body>
             </Card>
           ))

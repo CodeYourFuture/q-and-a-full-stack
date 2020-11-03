@@ -20,7 +20,7 @@ const Search = ({
   };
 
   return (
-    <div className="container p-2 mb-3 bg-light d-flex justify-content-between">
+    <div className="container p-2 mb-3 bg-light d-flex justify-content-between rounded">
       <h2 className="ml-3 ">
         {filteredQuestions
           ? `${filteredQuestions.length} Questions`
@@ -28,7 +28,7 @@ const Search = ({
       </h2>
       <Form inline>
         <FormControl
-          className="searchBar mr-sm-2"
+          className="searchBar mr-1"
           type="text"
           aria-label="search bar"
           placeholder="Search questions"
@@ -36,6 +36,7 @@ const Search = ({
         />
         {user && (
           <Form.Check
+            className="switch-key bg-dark text-white pr-2 font-weight-bold"
             type="switch"
             id="default-checkout"
             label="Mine"
