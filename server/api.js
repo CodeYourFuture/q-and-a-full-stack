@@ -69,12 +69,13 @@ router.post("/question", (req, res, next) => {
     context = req.body.context,
     email = req.body.email,
     token = req.body.token;
+
   admin
     .auth()
     .verifyIdToken(token)
     .then(() => {
       let sql =
-        "insert into questions (title, context,email)" +
+        "insert into questions (title, context, email)" +
         "values ($1,$2,$3) returning id";
       Connection.query(sql, [title, context, email], (err, result) => {
         if (err) {
@@ -124,6 +125,34 @@ router.post("/newuser", (req, res, next) => {
       }
     })
     .then((result) => res.status(200).json(result.rows))
+    .catch((e) => {
+      console.log(e.stack);
+      next(e);
+    });
+});
+
+router.put("/questions/:id/increment-likes", (req, res, next) => {
+  let questionId = req.params.id;
+  let updateSql =
+    "update questions set likes = likes + 1 where id = $1 returning likes";
+  Connection.query(updateSql, [questionId])
+    .then((result) => {
+      res.status(200).json(result.rows[0].likes);
+    })
+    .catch((e) => {
+      console.log(e.stack);
+      next(e);
+    });
+});
+
+router.put("/questions/:id/increment-views", (req, res, next) => {
+  let questionId = req.params.id;
+  let updateSql =
+    "update questions set views = views + 1 where id = $1 returning views";
+  Connection.query(updateSql, [questionId])
+    .then((result) => {
+      res.status(200).json(result.rows[0].views);
+    })
     .catch((e) => {
       console.log(e.stack);
       next(e);

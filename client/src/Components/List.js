@@ -6,7 +6,13 @@ import ShowContext from "./ShowContext";
 import Search from "./Search";
 import UserContext from "./Context";
 
-const List = ({ questions, postComment, getComments }) => {
+const List = ({
+  questions,
+  postComment,
+  getComments,
+  incrementLikes,
+  incrementViews,
+}) => {
   let userOnlyQuestions = [];
   let filteredQuestions = [];
   const user = useContext(UserContext);
@@ -45,6 +51,8 @@ const List = ({ questions, postComment, getComments }) => {
           <ShowContext
             postComment={postComment}
             getComments={getComments}
+            incrementLikes={incrementLikes}
+            incrementViews={incrementViews}
             key={item.id}
             {...item}
           />
@@ -54,6 +62,8 @@ const List = ({ questions, postComment, getComments }) => {
           <ShowContext
             postComment={postComment}
             getComments={getComments}
+            incrementLikes={incrementLikes}
+            incrementViews={incrementViews}
             key={item.id}
             {...item}
           />
@@ -63,6 +73,8 @@ const List = ({ questions, postComment, getComments }) => {
           <ShowContext
             postComment={postComment}
             getComments={getComments}
+            incrementLikes={incrementLikes}
+            incrementViews={incrementViews}
             key={item.id}
             {...item}
           />

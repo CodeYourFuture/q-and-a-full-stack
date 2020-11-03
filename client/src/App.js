@@ -10,6 +10,8 @@ import {
   postComment,
   getComments,
   postUser,
+  incrementLikes,
+  incrementViews,
 } from "./service";
 import NavMenu from "./Components/NavMenu";
 import SingleQuestion from "./Components/SingleQuestion";
@@ -75,6 +77,8 @@ function App() {
                     questions={data}
                     getComments={getComments}
                     postComment={postComment}
+                    incrementLikes={incrementLikes}
+                    incrementViews={incrementViews}
                   />
                 </Route>
                 {/* <Route

@@ -15,15 +15,19 @@ const ShowContext = ({
   postComment,
   getComments,
   question_date,
+  incrementLikes,
+  likes,
+  incrementViews,
+  views,
 }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
   const [hidden, setHidden] = useState(false);
-  const [likeCounter, setLikeCounter] = useState(0);
-  const [viewsCounter, setViewsCounter] = useState(0);
-  const [heartClicked, setHeartClicked] = useState(false);
+  const [likeCounter, setLikeCounter] = useState(likes);
+  const [viewsCounter, setViewsCounter] = useState(views);
+  const [heartClicked, setHeartClicked] = useState(likes > 0);
 
   const user = useContext(UserContext);
 
@@ -51,10 +55,19 @@ const ShowContext = ({
   };
 
   const handleLikeClick = (event) => {
+    incrementLikes(id).then((response) => {
+      setLikeCounter(response);
+
+      setHeartClicked(response > 0);
+    });
     event.preventDefault();
     event.stopPropagation();
-    setLikeCounter(likeCounter + 1);
-    setHeartClicked(!heartClicked);
+  };
+
+  const viewsController = () => {
+    incrementViews(id).then((response) => {
+      setViewsCounter(response);
+    });
   };
 
   return (
@@ -70,7 +83,12 @@ const ShowContext = ({
             variant="link"
             eventKey="0"
             className="quest-title py-3 border border-light rounded px-2 mb-5"
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setOpen(!open);
+              if (open) {
+                viewsController();
+              }
+            }}
           >
             <div className="p-2">
               <small>
@@ -99,37 +117,22 @@ const ShowContext = ({
                 <p className="text-muted"> Replies </p>
               </div>
 
-              {!heartClicked ? (
-                <div
-                  onClick={handleLikeClick}
-                  className="d-flex flex-column px-5"
-                >
-                  <p className="text-muted">{likeCounter}</p>
-                  <FaHeart size={16} className="text-muted" />
-                </div>
-              ) : (
-                <div
-                  className="d-flex flex-column px-5"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    setLikeCounter(likeCounter - 1);
-                    setHeartClicked(!heartClicked);
-                  }}
-                >
-                  <p className="text-muted">{likeCounter}</p>
+              <div
+                onClick={handleLikeClick}
+                className="d-flex flex-column px-5"
+              >
+                <p className="text-muted">{likeCounter}</p>
+                {heartClicked ? (
                   <FcLike size={18} className="text-muted" />
-                </div>
-              )}
-
+                ) : (
+                  <FaHeart size={16} className="text-muted" />
+                )}
+              </div>
               <div className="d-flex flex-column pr-2">
                 <p className="text-muted">{viewsCounter}</p>
-                <p className="text-muted">Views </p>
+                <p className="text-muted">Views</p>
               </div>
             </div>
-            {/* <Moment fromNow className="text-muted d-block font-weight-lighter">
-              {question_date}
-            </Moment> */}
           </Accordion.Toggle>
         </Card.Header>
         <Accordion.Collapse eventKey="0">
