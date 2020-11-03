@@ -86,12 +86,16 @@ export const Comment = ({
               <strong>Oh snap!</strong> Please add an answer
             </div>
           )}
-          <Button className="float-left mb-3 p-3" variant="info" type="submit">
+          <Button
+            className="secondary-color float-left mb-3 text-white"
+            variant="button"
+            type="submit"
+          >
             Submit
           </Button>
           <Button
             onClick={handleClick}
-            className="float-left mb-3 ml-3 p-3 bg-light text-info"
+            className="tertiary float-left mb-3 ml-3 bg-light"
             variant="info"
             type="submit"
           >
