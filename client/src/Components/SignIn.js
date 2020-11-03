@@ -40,7 +40,7 @@ class SignIn extends React.Component {
         <div>
           <button
             onClick={() => firebase.auth().signOut()}
-            className="btn btn-danger font-weight-bold text-white mr-4 mt-3"
+            className="secondary-color btn font-weight-bold text-white my-3 mr-4"
           >
             Sign out
           </button>
