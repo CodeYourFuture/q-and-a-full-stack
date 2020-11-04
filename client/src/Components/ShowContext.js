@@ -19,6 +19,10 @@ const ShowContext = ({
   likes,
   incrementViews,
   views,
+  deleteQuestion,
+  setRefresher,
+  refresher,
+  deleteComment,
 }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
@@ -62,6 +66,26 @@ const ShowContext = ({
     });
     event.preventDefault();
     event.stopPropagation();
+  };
+
+  const removeQuestion = (e) => {
+    e.preventDefault();
+    user
+      .getIdToken()
+      .then((token) => {
+        return deleteQuestion({
+          id: id,
+          email: user.email,
+          token: token,
+        });
+      })
+      .then((result) => {
+        setRefresher(!refresher);
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const viewsController = () => {
@@ -139,19 +163,28 @@ const ShowContext = ({
           <Card.Body>
             <Card.Text
               dangerouslySetInnerHTML={createMarkup()}
-              className="text-left py-2 ml-2 bg-white"
+              className={
+                context.length > 8
+                  ? "text-left py-2 ml-2 bg-white"
+                  : "text-left py-2 ml-2"
+              }
             />
             {user && (
               <div className="d-flex justify-content-end">
-                <a href="" className="mr-3">
+                <a href={`/edit-question/${id}`} className="mr-3">
                   edit
                 </a>
-                <a href="" className="mr-3">
+                <a href="" onClick={removeQuestion} className="mr-3">
                   delete
                 </a>
               </div>
             )}
-            <ShowComments comments={comments} />
+            <ShowComments
+              comments={comments}
+              setRefresh={setRefresh}
+              refresh={refresh}
+              deleteComment={deleteComment}
+            />
 
             <Accordion defaultActiveKey="1">
               <Accordion.Toggle

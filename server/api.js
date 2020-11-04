@@ -146,20 +146,26 @@ router.put("/question", (req, res, next) => {
       return Connection.query(checksql, [questionId]).then((result) => {
         if (result.rowCount > 0) {
           if (result.rows[0].email !== email) {
-            return "You are not the author of this question!";
+            return {
+              message: "You are not the author of this question!",
+              status: 403,
+            };
           }
           return Connection.query(updatesql, [title, context, questionId]);
         } else {
-          return null;
+          return {
+            message: "There is no such question!",
+            status: 404,
+          };
         }
       });
     })
     .then((result) => {
-      result
-        ? result.rows
-          ? res.status(200).json(result.rows)
-          : res.status(200).json({ message: result })
-        : res.status(404).json({ message: "There is no such question!" });
+      result?.rowCount > 0
+        ? res.status(200).json({
+            message: `question with ID ${result.rows[0].id} was updated successfully!`,
+          })
+        : res.status(result.status).json({ message: result.message });
     })
     .catch((e) => {
       if (e) {
@@ -185,20 +191,26 @@ router.put("/comment", (req, res, next) => {
       return Connection.query(checksql, [commentId]).then((result) => {
         if (result.rowCount > 0) {
           if (result.rows[0].email !== email) {
-            return "You are not the Author of this comment!";
+            return {
+              message: "You are not the author of this comment!",
+              status: 403,
+            };
           }
           return Connection.query(updatesql, [comment, commentId]);
         } else {
-          return null;
+          return {
+            message: "There is no such comment!",
+            status: 404,
+          };
         }
       });
     })
     .then((result) => {
-      result
-        ? result.rows
-          ? res.status(200).json(result.rows)
-          : res.status(200).json({ message: result })
-        : res.status(404).json({ message: "There is no such comment!" });
+      result?.rowCounts > 0
+        ? res.status(200).json({
+            message: `Comment with ID ${result.rows[0].id} was updated successfully!`,
+          })
+        : res.status(result.status).json({ message: result.message });
     })
     .catch((e) => {
       if (e) {
@@ -223,20 +235,26 @@ router.delete("/comment", (req, res, next) => {
       return Connection.query(checksql, [commentId]).then((result) => {
         if (result.rowCount > 0) {
           if (result.rows[0].email !== email) {
-            return "You are not the author of this comment!";
+            return {
+              message: "You are not the author of this comment!",
+              status: 403,
+            };
           }
           return Connection.query(deletesql, [commentId]);
         } else {
-          return null;
+          return {
+            message: "There is no such comment!",
+            status: 404,
+          };
         }
       });
     })
     .then((result) => {
-      result
-        ? result.rows
-          ? res.status(200).json(result.rows)
-          : res.status(200).json({ message: result })
-        : res.status(404).json({ message: "There is no such comment!" });
+      result?.rowCount > 0
+        ? res.status(200).json({
+            message: `Comment with ID ${result.rows[0].id} was deleted successfully!`,
+          })
+        : res.status(result.status).json({ message: result.message });
     })
     .catch((e) => {
       if (e) {
@@ -254,6 +272,7 @@ router.delete("/question", (req, res, next) => {
     token = req.body.token;
   let checksql = "select * from questions where id = $1";
   let deletesql = "delete from questions where id =$1 returning id";
+
   admin
     .auth()
     .verifyIdToken(token)
@@ -261,20 +280,26 @@ router.delete("/question", (req, res, next) => {
       return Connection.query(checksql, [questionId]).then((result) => {
         if (result.rowCount > 0) {
           if (result.rows[0].email !== email) {
-            return "You are not the author of this question!";
+            return {
+              message: "You are not the author of this question!",
+              status: 403,
+            };
           }
           return Connection.query(deletesql, [questionId]);
         } else {
-          return null;
+          return {
+            message: "There is no such question!",
+            status: 404,
+          };
         }
       });
     })
     .then((result) => {
-      result
-        ? result.rows
-          ? res.status(200).json(result.rows)
-          : res.status(200).json({ message: result })
-        : res.status(404).json({ message: "There is no such question!" });
+      result?.rowCount > 0
+        ? res.status(200).json({
+            message: `Question with ID ${result.rows[0].id} was deleted successfully!`,
+          })
+        : res.status(result.status).json({ message: result.message });
     })
     .catch((e) => {
       if (e) {
@@ -285,6 +310,7 @@ router.delete("/question", (req, res, next) => {
       }
     });
 });
+
 router.put("/questions/:id/increment-likes", (req, res, next) => {
   let questionId = req.params.id;
   let updateSql =

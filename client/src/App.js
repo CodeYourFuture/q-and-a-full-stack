@@ -12,13 +12,16 @@ import {
   postUser,
   incrementLikes,
   incrementViews,
+  deleteQuestion,
+  deleteComment,
+  updateQuestion,
 } from "./service";
 import NavMenu from "./Components/NavMenu";
-import SingleQuestion from "./Components/SingleQuestion";
 import ScrollHandler from "./Components/ScrollHandler";
 import * as firebase from "firebase";
 import UserContext from "./Components/Context";
 import Footer from "./Components/Footer";
+import EditQuestion from "./Components/EditQuestion";
 
 let firebaseConfig = {
   apiKey: "AIzaSyDCnn6mfzVroh7VQcln9atjfaa8nIEZUlQ",
@@ -37,6 +40,7 @@ function App() {
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState(false);
   const [user, setUser] = useState(null);
+  const [refresher, setRefresher] = useState(false);
 
   firebase.auth().onAuthStateChanged((user) => setUser(user));
 
@@ -51,7 +55,7 @@ function App() {
 
   useEffect(() => {
     getQuestions().then((questions) => setData(questions));
-  }, [formData]);
+  }, [formData, refresher]);
 
   const formMonitor = () => {
     setFormData(!formData);
@@ -79,17 +83,21 @@ function App() {
                     postComment={postComment}
                     incrementLikes={incrementLikes}
                     incrementViews={incrementViews}
+                    deleteQuestion={deleteQuestion}
+                    refresher={refresher}
+                    setRefresher={setRefresher}
+                    deleteComment={deleteComment}
                   />
                 </Route>
-                {/* <Route
-                  path="/question/:questionId"
+                <Route
+                  path="/edit-question/:questionId"
                   render={({ match }) => {
                     let question = data.find(
                       (q) => q.id === parseInt(match.params.questionId)
                     );
-                    return <SingleQuestion {...question} />;
+                    return question && <EditQuestion {...question} updateQuestion={updateQuestion} formMonitor={formMonitor} />;
                   }}
-                /> */}
+                />
               </Switch>
               <Footer />
             </div>

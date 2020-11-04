@@ -33,3 +33,27 @@ export const incrementViews = async (data) => {
   const response = await put(`questions/${data}/increment-views`);
   return response.data;
 };
+
+export const deleteQuestion = async (data) => {
+  const response = await del("/question", {
+    data: data,
+  });
+  return response.data;
+};
+
+export const deleteComment = async (data) => {
+  const response = await del("/comment", {
+    data: data,
+  });
+  return response.data;
+};
+
+export const updateQuestion = async (data) => {
+  const response = await put("/question", data);
+  return response.data;
+};
+
+export const updateComment = async (data) => {
+  const response = await put("/comment", data);
+  return response.data;
+};

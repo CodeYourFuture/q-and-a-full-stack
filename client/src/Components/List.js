@@ -12,6 +12,10 @@ const List = ({
   getComments,
   incrementLikes,
   incrementViews,
+  deleteQuestion,
+  refresher,
+  setRefresher,
+  deleteComment,
 }) => {
   let userOnlyQuestions = [];
   let filteredQuestions = [];
@@ -44,6 +48,7 @@ const List = ({
           filteredQuestions={filteredQuestions}
           userQuestions={userQuestions}
           setUserQuestions={setUserQuestions}
+          deleteQuestion={deleteQuestion}
         />
       </div>
       {filteredQuestions ? (
@@ -53,6 +58,10 @@ const List = ({
             getComments={getComments}
             incrementLikes={incrementLikes}
             incrementViews={incrementViews}
+            deleteQuestion={deleteQuestion}
+            setRefresher={setRefresher}
+            refresher={refresher}
+            deleteComment={deleteComment}
             key={item.id}
             {...item}
           />
@@ -64,6 +73,10 @@ const List = ({
             getComments={getComments}
             incrementLikes={incrementLikes}
             incrementViews={incrementViews}
+            deleteQuestion={deleteQuestion}
+            setRefresher={setRefresher}
+            refresher={refresher}
+            deleteComment={deleteComment}
             key={item.id}
             {...item}
           />
@@ -75,6 +88,10 @@ const List = ({
             getComments={getComments}
             incrementLikes={incrementLikes}
             incrementViews={incrementViews}
+            deleteQuestion={deleteQuestion}
+            setRefresher={setRefresher}
+            deleteComment={deleteComment}
+            refresher={refresher}
             key={item.id}
             {...item}
           />
