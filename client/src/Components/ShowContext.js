@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
@@ -228,6 +229,14 @@ ShowContext.propTypes = {
   getComments: PropTypes.func,
   postComment: PropTypes.func,
   question_date: PropTypes.string,
+  incrementLikes: PropTypes.func,
+  likes: PropTypes.number,
+  incrementViews: PropTypes.func,
+  views: PropTypes.number,
+  deleteQuestion: PropTypes.func,
+  setRefresher: PropTypes.func,
+  refresher: PropTypes.bool,
+  deleteComment: PropTypes.func,
 };
 
 export default ShowContext;

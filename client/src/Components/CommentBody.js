@@ -6,13 +6,11 @@ import UserContext from "./Context";
 
 export const CommentBody = ({
   id,
-  email,
-  question_id,
   comment,
   comment_date,
   deleteComment,
-  refresh,
-  setRefresh,
+  // refresh,
+  // setRefresh,
 }) => {
   const user = useContext(UserContext);
   function createMarkup(comment) {
@@ -50,10 +48,10 @@ export const CommentBody = ({
         </Moment>
         {user && (
           <div className="float-right">
-            <a href="" className="pr-3 text-sm">
+            <a href="#" className="pr-3 text-sm">
               edit
             </a>
-            <a href="" onClick={removeComment} className="">
+            <a href="#" onClick={removeComment} className="">
               delete
             </a>
           </div>
@@ -61,4 +59,15 @@ export const CommentBody = ({
       </Card.Body>
     </Card>
   );
+};
+
+CommentBody.propTypes = {
+  id: PropTypes.number,
+  // email: PropTypes.string,
+  // question_id: PropTypes.number,
+  comment: PropTypes.string,
+  comment_date: PropTypes.string,
+  deleteComment: PropTypes.func,
+  // refresh: PropTypes.bool,
+  // setRefresh: PropTypes.func,
 };

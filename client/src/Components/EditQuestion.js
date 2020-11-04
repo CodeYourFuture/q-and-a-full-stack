@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import PropTypes from "prop-types";
 import {
   ContentState,
   EditorState,
@@ -139,3 +140,11 @@ const EditQuestion = ({ id, title, context, updateQuestion, formMonitor }) => {
 };
 
 export default EditQuestion;
+
+EditQuestion.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  context: PropTypes.string,
+  updateQuestion: PropTypes.func,
+  formMonitor: PropTypes.bool,
+};
