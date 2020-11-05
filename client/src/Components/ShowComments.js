@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { CommentBody } from "./CommentBody";
 
@@ -40,4 +40,7 @@ ShowComments.propTypes = {
       comment_date: PropTypes.string,
     })
   ),
+  setRefresh: PropTypes.func,
+  refresh: PropTypes.bool,
+  deleteComment: PropTypes.func,
 };

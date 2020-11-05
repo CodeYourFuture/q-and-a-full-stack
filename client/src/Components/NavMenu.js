@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useContext } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";

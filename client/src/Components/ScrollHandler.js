@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { useEffect } from "react";

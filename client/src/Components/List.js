@@ -128,6 +128,12 @@ List.propTypes = {
   ),
   postComment: PropTypes.func,
   getComments: PropTypes.func,
+  incrementLikes: PropTypes.func,
+  incrementViews: PropTypes.func,
+  deleteQuestion: PropTypes.func,
+  refresher: PropTypes.number,
+  setRefresher: PropTypes.func,
+  deleteComment: PropTypes.func,
 };
 
 export default List;
