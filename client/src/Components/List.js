@@ -131,7 +131,7 @@ List.propTypes = {
   incrementLikes: PropTypes.func,
   incrementViews: PropTypes.func,
   deleteQuestion: PropTypes.func,
-  refresher: PropTypes.number,
+  refresher: PropTypes.bool,
   setRefresher: PropTypes.func,
   deleteComment: PropTypes.func,
 };

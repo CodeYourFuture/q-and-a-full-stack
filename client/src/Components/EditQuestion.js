@@ -4,9 +4,9 @@ import {
   ContentState,
   EditorState,
   convertFromHTML,
-  draftToHtml,
   convertToRaw,
 } from "draft-js";
+import draftToHtml from "draftjs-to-html";
 import Editor from "./Editor";
 import { Redirect, Link } from "react-router-dom";
 import UserContext from "./Context";
@@ -146,5 +146,5 @@ EditQuestion.propTypes = {
   title: PropTypes.string,
   context: PropTypes.string,
   updateQuestion: PropTypes.func,
-  formMonitor: PropTypes.bool,
+  formMonitor: PropTypes.func,
 };

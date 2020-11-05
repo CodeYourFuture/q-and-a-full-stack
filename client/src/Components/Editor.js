@@ -19,7 +19,7 @@ const Editor = ({ editorState, onEditorStateChange }) => {
 
 export default Editor;
 
-Editor.PropTypes = {
+Editor.propTypes = {
   editorState: PropTypes.object,
   onEditorStateChange: PropTypes.func,
 };
