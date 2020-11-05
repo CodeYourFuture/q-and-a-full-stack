@@ -154,3 +154,90 @@ a:hover {
 .collapse.show {
   background-color: #f8f9fa;
 }
+
+.rdw-emoji-modal {
+  left: -200px !important;
+}
+
+.rdw-image-modal {
+  left: -200px !important;
+}
+
+/* navbar media-query */
+
+@media (max-width: 575px) {
+  .WelcomeSection {
+    text-align: center;
+  }
+}
+
+/* Search-bar media queries */
+
+@media (max-width: 775px) {
+  .search-bar-container {
+    display: flex;
+    flex-flow: column;
+  }
+}
+
+@media (max-width: 775px) {
+  .item {
+    margin-top: 25px;
+  }
+}
+
+@media (max-width: 775px) {
+  .switch-key {
+    height: 48px;
+  }
+}
+
+@media (max-width: 575px) {
+  .switch-key {
+    padding-top: 12px;
+  }
+}
+
+/* navbar media queries */
+
+@media (max-width: 400px) {
+  .logo {
+    width: 110px;
+  }
+}
+
+@media (max-width: 475px) {
+  .sign-in-text {
+    display: none;
+  }
+}
+
+@media (max-width: 475px) {
+  span.firebaseui-idp-text.firebaseui-idp-text-long {
+    display: none;
+  }
+}
+
+@media (max-width: 475px) {
+  img.firebaseui-idp-icon {
+    width: 30px;
+  }
+}
+
+@media (max-width: 407px) and (min-width: 475px) {
+  span.firebaseui-idp-text.firebaseui-idp-text-long {
+    display: none;
+  }
+}
+
+@media (max-width: 475px) {
+  .firebaseui-card-content {
+    width: 35px;
+  }
+}
+
+@media (max-width: 475px) {
+  .firebaseui-card-content {
+    margin-right: 70px;
+  }
+}

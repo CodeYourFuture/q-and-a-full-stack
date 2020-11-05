@@ -14,7 +14,7 @@ const NavMenu = () => {
           <Link to="/">
             <img
               src={CYFLogo}
-              className="d-inline-block align-top"
+              className="d-inline-block align-top logo"
               alt="CYF Logo"
               width="180"
             />
@@ -25,7 +25,7 @@ const NavMenu = () => {
           <Navbar.Text>
             <SignIn />
             {!user && (
-              <p className="text-muted ml-2">
+              <p className="text-muted ml-2 sign-in-text">
                 Sign-in to ask question and post reply
               </p>
             )}
