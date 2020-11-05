@@ -93,6 +93,10 @@ a:hover {
   border-color: #ed4343;
 }
 
+.error-message {
+  color: #ed4343;
+}
+
 .primary-color:hover {
   background-color: #b71111;
   border-color: #b71111;
