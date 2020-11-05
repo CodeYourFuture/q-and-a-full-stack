@@ -1,4 +1,6 @@
+/* eslint-disable linebreak-style */
 import React from "react";
+import PropTypes from "prop-types";
 import { Editor as DraftEditor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
@@ -16,3 +18,8 @@ const Editor = ({ editorState, onEditorStateChange }) => {
 };
 
 export default Editor;
+
+Editor.propTypes = {
+  editorState: PropTypes.object,
+  onEditorStateChange: PropTypes.func,
+};

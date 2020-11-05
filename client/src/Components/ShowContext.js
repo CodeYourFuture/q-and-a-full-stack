@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
@@ -19,6 +20,10 @@ const ShowContext = ({
   likes,
   incrementViews,
   views,
+  deleteQuestion,
+  setRefresher,
+  refresher,
+  deleteComment,
 }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
@@ -62,6 +67,26 @@ const ShowContext = ({
     });
     event.preventDefault();
     event.stopPropagation();
+  };
+
+  const removeQuestion = (e) => {
+    e.preventDefault();
+    user
+      .getIdToken()
+      .then((token) => {
+        return deleteQuestion({
+          id: id,
+          email: user.email,
+          token: token,
+        });
+      })
+      .then((result) => {
+        setRefresher(!refresher);
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const viewsController = () => {
@@ -136,15 +161,20 @@ const ShowContext = ({
             )}
             {user && context.trim().length > 7 && (
               <div className="d-flex justify-content-end">
-                <a href="" className="mr-3">
+                <a href={`/edit-question/${id}`} className="mr-3">
                   edit
                 </a>
-                <a href="" className="mr-3">
+                <a href="" onClick={removeQuestion} className="mr-3">
                   delete
                 </a>
               </div>
             )}
-            <ShowComments comments={comments} />
+            <ShowComments
+              comments={comments}
+              setRefresh={setRefresh}
+              refresh={refresh}
+              deleteComment={deleteComment}
+            />
 
             <Accordion defaultActiveKey="1">
               <Accordion.Toggle
@@ -188,6 +218,14 @@ ShowContext.propTypes = {
   getComments: PropTypes.func,
   postComment: PropTypes.func,
   question_date: PropTypes.string,
+  incrementLikes: PropTypes.func,
+  likes: PropTypes.number,
+  incrementViews: PropTypes.func,
+  views: PropTypes.number,
+  deleteQuestion: PropTypes.func,
+  setRefresher: PropTypes.func,
+  refresher: PropTypes.bool,
+  deleteComment: PropTypes.func,
 };
 
 export default ShowContext;

@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useContext } from "react";
 import { Form, FormControl } from "react-bootstrap";
 import PropTypes from "prop-types";
