@@ -39,7 +39,7 @@ const Search = ({
             className="switch-key bg-dark text-white pr-2 font-weight-bold"
             type="switch"
             id="default-checkout"
-            label="Mine"
+            label="Show only mine"
             onChange={handleUserQuestions}
             value={userQuestions}
           />

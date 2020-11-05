@@ -72,76 +72,69 @@ const ShowContext = ({
 
   return (
     <Accordion className="p-2" defaultActiveKey="1">
-      <Card className=" bg-light">
-        <Card.Header
-          as="header"
+      <Card>
+        <Accordion.Toggle
+          as={Card.Header}
+          eventKey="0"
           id={`${id}`}
-          className="text-left lead font-weight-bold"
+          className="quest-title card-header"
+          onClick={() => {
+            setOpen(!open);
+            if (open) {
+              viewsController();
+            }
+          }}
         >
-          <Accordion.Toggle
-            as="div"
-            variant="link"
-            eventKey="0"
-            className="quest-title py-3 border border-light rounded px-2 mb-5"
-            onClick={() => {
-              setOpen(!open);
-              if (open) {
-                viewsController();
-              }
-            }}
-          >
-            <div className="p-2">
-              <small>
-                <a href={`/#${id}`} className="xs">
-                  <FaLink />
-                </a>
-              </small>
-              &nbsp;
-              {title}
-              {open ? (
-                <FaChevronDown className="float-right ml-5" />
+          <div className="p-2">
+            <small>
+              <a href={`/#${id}`} className="xs">
+                <FaLink />
+              </a>
+            </small>
+            &nbsp;
+            {title}
+            {open ? (
+              <FaChevronDown className="float-right ml-5" />
+            ) : (
+              <FaChevronUp className="float-right ml-5" />
+            )}
+            <Moment fromNow className="text-muted d-block font-weight-lighter">
+              {question_date}
+            </Moment>
+          </div>
+
+          <div className="d-flex flex-row float-right text-secondary text-muted mt-4 mr-5 ">
+            <div className="pl-2 d-flex flex-column text-secondary text-muted">
+              <p className="text-muted ml-3 margin-bottom">{comments.length}</p>
+              <p className="text-muted">
+                {comments.length == 1 ? `Reply` : `Replies`}
+              </p>
+            </div>
+            <div onClick={handleLikeClick} className="d-flex flex-column px-3">
+              <p className="text-muted margin-bottom pl-1">{likeCounter}</p>
+              {heartClicked ? (
+                <FcLike size={18} className="text-muted" />
               ) : (
-                <FaChevronUp className="float-right ml-5" />
+                <FaHeart size={16} className="text-muted" />
               )}
-              <Moment
-                fromNow
-                className="text-muted d-block font-weight-lighter"
-              >
-                {question_date}
-              </Moment>
             </div>
-
-            <div className="d-flex flex-row float-right text-secondary text-muted mt-4 mr-5 ">
-              <div className="pl-2 d-flex flex-column text-secondary text-muted">
-                <p className="text-muted ml-3">{comments.length} </p>
-                <p className="text-muted"> Replies </p>
-              </div>
-
-              <div
-                onClick={handleLikeClick}
-                className="d-flex flex-column px-5"
-              >
-                <p className="text-muted">{likeCounter}</p>
-                {heartClicked ? (
-                  <FcLike size={18} className="text-muted" />
-                ) : (
-                  <FaHeart size={16} className="text-muted" />
-                )}
-              </div>
-              <div className="d-flex flex-column pr-2">
-                <p className="text-muted">{viewsCounter}</p>
-                <p className="text-muted">Views</p>
-              </div>
+            <div className="d-flex flex-column pr-2">
+              <p className="text-muted margin-bottom pl-2">{viewsCounter}</p>
+              <p className="text-muted">Views</p>
             </div>
-          </Accordion.Toggle>
-        </Card.Header>
+          </div>
+        </Accordion.Toggle>
         <Accordion.Collapse eventKey="0">
-          <Card.Body>
-            <Card.Text
-              dangerouslySetInnerHTML={createMarkup()}
-              className="text-left py-2 ml-2 bg-white"
-            />
-            {user && (
+          <Card.Body className="border-top bg-light">
+            {context.trim().length > 7 ? (
+              <Card.Text
+                dangerouslySetInnerHTML={createMarkup()}
+                className="text-left py-2 bg-white px-3 card"
+              />
+            ) : (
+              <Card.Text dangerouslySetInnerHTML={createMarkup()} />
+            )}
+            {user && context.trim().length > 7 && (
               <div className="d-flex justify-content-end">
                 <a href="" className="mr-3">
                   edit
