@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
@@ -38,7 +39,7 @@ export const CommentBody = ({
 
   return (
     <Card bg="light" className="mb-2 text-left">
-      <Card.Body className="bg-white">
+      <Card.Body className="bg-white rounded">
         <Card.Text dangerouslySetInnerHTML={createMarkup(comment)} />
         <Moment
           fromNow
