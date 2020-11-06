@@ -38,8 +38,8 @@ export const CommentBody = ({
   };
 
   return (
-    <Card bg="light" className="mb-2 text-left">
-      <Card.Body className="bg-white rounded">
+    <Card bg="light" className="mb-4 text-left">
+      <Card.Body className="bg-white rounded pt-1 pb-0">
         <Card.Text dangerouslySetInnerHTML={createMarkup(comment)} />
         <Moment
           fromNow
@@ -49,9 +49,9 @@ export const CommentBody = ({
         </Moment>
         {user && (
           <div className="float-right">
-            <a href="#" className="pr-3 text-sm">
+            {/* <a href="#" className="pr-3 text-sm">
               edit
-            </a>
+            </a> */}
             <a href="#" onClick={removeComment} className="">
               delete
             </a>

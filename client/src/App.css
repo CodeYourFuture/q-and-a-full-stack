@@ -177,6 +177,11 @@ a:hover {
   .WelcomeSection {
     text-align: center;
   }
+  .btn,
+  .searchBar,
+  .input-field {
+    height: 2.5rem;
+  }
 }
 
 /* Search-bar media queries */
