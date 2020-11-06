@@ -10,8 +10,8 @@ export const CommentBody = ({
   comment,
   comment_date,
   deleteComment,
-  // refresh,
-  // setRefresh,
+  setCommentRefresher,
+  commentRefresher,
 }) => {
   const user = useContext(UserContext);
   function createMarkup(comment) {
@@ -29,7 +29,7 @@ export const CommentBody = ({
         });
       })
       .then((result) => {
-        // setRefresh(!refresh);
+        setCommentRefresher(!commentRefresher);
         console.log(result);
       })
       .catch((error) => {
@@ -64,11 +64,9 @@ export const CommentBody = ({
 
 CommentBody.propTypes = {
   id: PropTypes.number,
-  // email: PropTypes.string,
-  // question_id: PropTypes.number,
   comment: PropTypes.string,
   comment_date: PropTypes.string,
   deleteComment: PropTypes.func,
-  // refresh: PropTypes.bool,
-  // setRefresh: PropTypes.func,
+  commentRefresher: PropTypes.bool,
+  setCommentRefresher: PropTypes.func,
 };
