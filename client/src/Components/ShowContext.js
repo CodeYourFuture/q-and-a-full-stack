@@ -13,6 +13,7 @@ const ShowContext = ({
   id,
   title,
   context,
+  email,
   postComment,
   getComments,
   question_date,
@@ -166,7 +167,7 @@ const ShowContext = ({
               ) : (
                 <Card.Text dangerouslySetInnerHTML={createMarkup()} />
               )}
-              {user && context.trim().length > 7 && (
+              {user?.email === email && context.trim().length > 7 && (
                 <div className="d-flex justify-content-end">
                   <a href={`/edit-question/${id}`} className="mr-3">
                     edit
@@ -224,6 +225,7 @@ ShowContext.propTypes = {
   id: PropTypes.number,
   title: PropTypes.string,
   context: PropTypes.string,
+  email: PropTypes.string,
   getComments: PropTypes.func,
   postComment: PropTypes.func,
   question_date: PropTypes.string,
