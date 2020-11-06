@@ -33,7 +33,7 @@ const ShowContext = ({
   const [likeCounter, setLikeCounter] = useState(likes);
   const [viewsCounter, setViewsCounter] = useState(views);
   const [heartClicked, setHeartClicked] = useState(likes > 0);
-
+  const [commentRefresher, setCommentRefresher] = useState(false);
   const user = useContext(UserContext);
 
   const handleClick = () => {
@@ -49,7 +49,7 @@ const ShowContext = ({
     getComments(id).then((data) => {
       setComments(data);
     });
-  }, [refresh]);
+  }, [refresh, commentRefresher]);
 
   useEffect(() => {
     !open ? setViewsCounter(viewsCounter + 1) : setViewsCounter(viewsCounter);
@@ -171,9 +171,9 @@ const ShowContext = ({
             )}
             <ShowComments
               comments={comments}
-              setRefresh={setRefresh}
-              refresh={refresh}
               deleteComment={deleteComment}
+              setCommentRefresher={setCommentRefresher}
+              commentRefresher={commentRefresher}
             />
 
             <Accordion defaultActiveKey="1">
