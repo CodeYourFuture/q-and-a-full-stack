@@ -2,14 +2,6 @@ import React from "react";
 import { Button, Spinner } from "react-bootstrap";
 
 const Loader = () => {
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setIsLoading(true);
-  //   }, 3000);
-  // }, [isLoading]);
-
   return (
     <div>
       <Button
