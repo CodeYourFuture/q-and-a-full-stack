@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import SignIn from "./SignIn";
 import UserContext from "./Context";
 import CYFLogo from "./../Assets/CYFLogo.png";
+import PropTypes from "prop-types";
 
-const NavMenu = () => {
+const NavMenu = ({ hideAsk }) => {
   const user = useContext(UserContext);
   return (
     <div>
@@ -45,7 +46,7 @@ const NavMenu = () => {
             Please give us your feedback via{" "}
             <a href="https://forms.gle/drxvYH88GJFgo8R39"> this form </a>
           </p>
-          {user && (
+          {user && !hideAsk && (
             <Link to="/ask">
               <button
                 type="button"
@@ -59,6 +60,10 @@ const NavMenu = () => {
       </Container>
     </div>
   );
+};
+
+NavMenu.propTypes = {
+  hideAsk: PropTypes.bool,
 };
 
 export default NavMenu;

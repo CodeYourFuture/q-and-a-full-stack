@@ -11,7 +11,14 @@ import Editor from "./Editor";
 import { Redirect, Link } from "react-router-dom";
 import UserContext from "./Context";
 
-const EditQuestion = ({ id, title, context, updateQuestion, formMonitor }) => {
+const EditQuestion = ({
+  id,
+  title,
+  context,
+  updateQuestion,
+  formMonitor,
+  setHideAsk,
+}) => {
   const blocksFromHTML = convertFromHTML(context || "");
   const questionContext = ContentState.createFromBlockArray(
     blocksFromHTML.contentBlocks,
@@ -29,6 +36,8 @@ const EditQuestion = ({ id, title, context, updateQuestion, formMonitor }) => {
   const [editorState, setEditorState] = useState(
     EditorState.createWithContent(questionContext)
   );
+
+  setHideAsk(true);
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -57,11 +66,6 @@ const EditQuestion = ({ id, title, context, updateQuestion, formMonitor }) => {
         .then(() => {
           formMonitor();
           setRedirect(true);
-          //   setState({
-          //     title: "",
-          //     context: "",
-          //     email: user.email,
-          //   });
           setIsError(false);
         })
         .catch((error) => {
@@ -127,7 +131,7 @@ const EditQuestion = ({ id, title, context, updateQuestion, formMonitor }) => {
           type="submit"
           className="secondary-color btn font-weight-bold text-white"
         >
-          Submit
+          Save
         </button>
         <Link to="/">
           <button type="button" className="tertiary btn m-3 font-weight-bold">
@@ -147,4 +151,5 @@ EditQuestion.propTypes = {
   context: PropTypes.string,
   updateQuestion: PropTypes.func,
   formMonitor: PropTypes.func,
+  setHideAsk: PropTypes.func,
 };

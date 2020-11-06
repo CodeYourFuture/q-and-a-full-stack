@@ -16,12 +16,14 @@ const List = ({
   refresher,
   setRefresher,
   deleteComment,
+  setHideAsk,
 }) => {
   let userOnlyQuestions = [];
   let filteredQuestions = [];
   const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [userQuestions, setUserQuestions] = useState(false);
+  setHideAsk(false);
 
   const searchChange = (searchValue) => {
     setSearchTerm(searchValue);
@@ -134,6 +136,7 @@ List.propTypes = {
   refresher: PropTypes.bool,
   setRefresher: PropTypes.func,
   deleteComment: PropTypes.func,
+  setHideAsk: PropTypes.func,
 };
 
 export default List;

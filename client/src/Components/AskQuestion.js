@@ -8,7 +8,7 @@ import draftToHtml from "draftjs-to-html";
 import UserContext from "./Context";
 import { Link } from "react-router-dom";
 
-const AskQuestion = ({ postQuestion, formMonitor }) => {
+const AskQuestion = ({ postQuestion, formMonitor, setHideAsk }) => {
   const user = useContext(UserContext);
   const [formData, setFormData] = useState({
     title: "",
@@ -18,6 +18,8 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
   const [redirect, setRedirect] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [isError, setIsError] = useState(false);
+
+  setHideAsk(true);
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -100,9 +102,6 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
         </div>
         <div className="form-group">
           <label className="lead w-100" htmlFor="context">
-            {/* <UserContext.Consumer>
-              {(user) => user && <div>This is {user.email}</div>}
-            </UserContext.Consumer> */}
             <span className="font-weight-bold">Context</span>
             <p>
               Include all the information someone would need to answer your
@@ -134,6 +133,7 @@ const AskQuestion = ({ postQuestion, formMonitor }) => {
 AskQuestion.propTypes = {
   postQuestion: PropTypes.func,
   formMonitor: PropTypes.func,
+  setHideAsk: PropTypes.func,
 };
 
 export default AskQuestion;

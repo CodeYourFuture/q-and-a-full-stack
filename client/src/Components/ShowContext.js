@@ -151,24 +151,33 @@ const ShowContext = ({
         </Accordion.Toggle>
         <Accordion.Collapse eventKey="0">
           <Card.Body className="border-top bg-light">
-            {context.trim().length > 7 ? (
-              <Card.Text
-                dangerouslySetInnerHTML={createMarkup()}
-                className="text-left py-2 bg-white px-3 card"
-              />
-            ) : (
-              <Card.Text dangerouslySetInnerHTML={createMarkup()} />
-            )}
-            {user && context.trim().length > 7 && (
-              <div className="d-flex justify-content-end">
-                <a href={`/edit-question/${id}`} className="mr-3">
-                  edit
-                </a>
-                <a href="" onClick={removeQuestion} className="mr-3">
-                  delete
-                </a>
-              </div>
-            )}
+            <div
+              className={
+                context.trim().length > 7
+                  ? "bg-white rounded card"
+                  : "bg-white rounded"
+              }
+            >
+              {context.trim().length > 7 ? (
+                <Card.Text
+                  dangerouslySetInnerHTML={createMarkup()}
+                  className="text-left py-2 px-3"
+                />
+              ) : (
+                <Card.Text dangerouslySetInnerHTML={createMarkup()} />
+              )}
+              {user && context.trim().length > 7 && (
+                <div className="d-flex justify-content-end">
+                  <a href={`/edit-question/${id}`} className="mr-3">
+                    edit
+                  </a>
+                  <a href="" onClick={removeQuestion} className="mr-3">
+                    delete
+                  </a>
+                </div>
+              )}
+            </div>
+
             <ShowComments
               comments={comments}
               deleteComment={deleteComment}

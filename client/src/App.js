@@ -41,6 +41,7 @@ function App() {
   const [formData, setFormData] = useState(false);
   const [user, setUser] = useState(null);
   const [refresher, setRefresher] = useState(false);
+  const [hideAsk, setHideAsk] = useState(false);
 
   firebase.auth().onAuthStateChanged((user) => setUser(user));
 
@@ -66,11 +67,12 @@ function App() {
         <UserContext.Provider value={user}>
           <div className="App">
             <div className="container">
-              <NavMenu />
+              <NavMenu hideAsk={hideAsk} />
               <Switch>
                 {user && (
                   <Route exact path="/ask">
                     <AskQuestion
+                      setHideAsk={setHideAsk}
                       formMonitor={formMonitor}
                       postQuestion={postQuestion}
                     />
@@ -87,6 +89,7 @@ function App() {
                     refresher={refresher}
                     setRefresher={setRefresher}
                     deleteComment={deleteComment}
+                    setHideAsk={setHideAsk}
                   />
                 </Route>
                 <Route
@@ -95,7 +98,16 @@ function App() {
                     let question = data.find(
                       (q) => q.id === parseInt(match.params.questionId)
                     );
-                    return question && <EditQuestion {...question} updateQuestion={updateQuestion} formMonitor={formMonitor} />;
+                    return (
+                      question && (
+                        <EditQuestion
+                          {...question}
+                          updateQuestion={updateQuestion}
+                          formMonitor={formMonitor}
+                          setHideAsk={setHideAsk}
+                        />
+                      )
+                    );
                   }}
                 />
               </Switch>
