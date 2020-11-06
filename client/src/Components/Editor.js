@@ -21,7 +21,7 @@ const Editor = ({ editorState, onEditorStateChange }) => {
 
         image: {
           defaultSize: {
-            width: "150",
+            width: "100%",
           },
         },
       }}
