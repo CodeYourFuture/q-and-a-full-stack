@@ -126,6 +126,10 @@ a:hover {
   border: 0px;
 }
 
+.hint-color {
+  background-color: #ffffcc;
+}
+
 .firebaseui-idp-button {
   height: 3rem !important;
   box-shadow: none !important;

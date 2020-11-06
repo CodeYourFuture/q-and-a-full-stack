@@ -8,6 +8,7 @@ import Moment from "react-moment";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
 import UserContext from "./Context";
+import ClapButton from "./ClapButton";
 
 const ShowContext = ({
   id,
@@ -17,7 +18,7 @@ const ShowContext = ({
   getComments,
   question_date,
   incrementLikes,
-  likes,
+  likes: claps,
   incrementViews,
   views,
   deleteQuestion,
@@ -30,9 +31,9 @@ const ShowContext = ({
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
   const [hidden, setHidden] = useState(false);
-  const [likeCounter, setLikeCounter] = useState(likes);
+  const [clapCounter, setClapCounter] = useState(claps);
   const [viewsCounter, setViewsCounter] = useState(views);
-  const [heartClicked, setHeartClicked] = useState(likes > 0);
+  const [clapClicked, setClapClicked] = useState(claps > 0);
   const [commentRefresher, setCommentRefresher] = useState(false);
   const user = useContext(UserContext);
 
@@ -61,9 +62,9 @@ const ShowContext = ({
 
   const handleLikeClick = (event) => {
     incrementLikes(id).then((response) => {
-      setLikeCounter(response);
+      setClapCounter(response);
 
-      setHeartClicked(response > 0);
+      setClapClicked(response > 0);
     });
     event.preventDefault();
     event.stopPropagation();
@@ -135,13 +136,10 @@ const ShowContext = ({
                 {comments.length == 1 ? `Reply` : `Replies`}
               </p>
             </div>
+
             <div onClick={handleLikeClick} className="d-flex flex-column px-3">
-              <p className="text-muted margin-bottom pl-1">{likeCounter}</p>
-              {heartClicked ? (
-                <FcLike size={18} className="text-muted" />
-              ) : (
-                <FaHeart size={16} className="text-muted" />
-              )}
+              <p className="text-muted margin-bottom pl-1">{clapCounter}</p>
+              {clapClicked ? <ClapButton /> : <ClapButton />}
             </div>
             <div className="d-flex flex-column pr-2">
               <p className="text-muted margin-bottom pl-2">{viewsCounter}</p>
