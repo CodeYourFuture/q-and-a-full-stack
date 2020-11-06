@@ -5,14 +5,7 @@ import { Card } from "react-bootstrap";
 import Moment from "react-moment";
 import UserContext from "./Context";
 
-export const CommentBody = ({
-  id,
-  comment,
-  comment_date,
-  deleteComment,
-  // refresh,
-  // setRefresh,
-}) => {
+export const CommentBody = ({ id, comment, comment_date, deleteComment }) => {
   const user = useContext(UserContext);
   function createMarkup(comment) {
     return { __html: comment };
@@ -29,7 +22,6 @@ export const CommentBody = ({
         });
       })
       .then((result) => {
-        // setRefresh(!refresh);
         console.log(result);
       })
       .catch((error) => {
@@ -64,11 +56,7 @@ export const CommentBody = ({
 
 CommentBody.propTypes = {
   id: PropTypes.number,
-  // email: PropTypes.string,
-  // question_id: PropTypes.number,
   comment: PropTypes.string,
   comment_date: PropTypes.string,
   deleteComment: PropTypes.func,
-  // refresh: PropTypes.bool,
-  // setRefresh: PropTypes.func,
 };
