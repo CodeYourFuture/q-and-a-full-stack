@@ -97,6 +97,10 @@ a:hover {
   color: #ed4343;
 }
 
+.hint-link {
+  font-size: small;
+}
+
 .primary-color:hover {
   background-color: #b71111;
   border-color: #b71111;
