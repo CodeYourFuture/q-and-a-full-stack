@@ -97,18 +97,18 @@ const List = ({
           />
         ))
       ) : (
-        <div className="border border-danger">
+        <div className="border rounded border-danger">
           There are no questions to display
         </div>
       )}
       {searchTerm && filteredQuestions.length === 0 ? (
-        <div className="border border-danger p-2 text-center">
+        <div className="border rounded border-danger p-2 text-center error-message">
           Sorry, No match for the search.
         </div>
       ) : (
         !searchTerm &&
         questions.length === 0 && (
-          <div className="border border-danger p-2 text-center">
+          <div className="border border-danger p-2 text-center error-message">
             There are no questions to display
           </div>
         )
