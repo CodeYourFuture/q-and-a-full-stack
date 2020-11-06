@@ -24,7 +24,7 @@ import Footer from "./Components/Footer";
 import EditQuestion from "./Components/EditQuestion";
 
 if (!process.env.DATABASE_URL) {
-  let firebaseConfig = require("./Secret.json");
+  const firebaseConfig = require("./Secret.json"||"");
   firebase.initializeApp(firebaseConfig);
 } else {
   firebase.initializeApp(
