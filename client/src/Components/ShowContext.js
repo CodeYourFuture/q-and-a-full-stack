@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
-import { Accordion, Card, Button } from "react-bootstrap";
+import { Accordion, Card, Button, Modal } from "react-bootstrap";
 import { FaChevronDown, FaChevronUp, FaLink, FaHeart } from "react-icons/fa";
 import { FcLike } from "react-icons/fc";
 import Moment from "react-moment";
@@ -9,6 +9,7 @@ import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
 import UserContext from "./Context";
 import ClapButton from "./ClapButton";
+// import DeleteAlert from "./DeleteAlert";
 
 const ShowContext = ({
   id,
@@ -36,6 +37,15 @@ const ShowContext = ({
   const [clapClicked, setClapClicked] = useState(claps > 0);
   const [commentRefresher, setCommentRefresher] = useState(false);
   const user = useContext(UserContext);
+  const [alertShow, setAlertShow] = useState(false);
+  const [save, setSave] = useState(false);
+
+  // const HandleDeleteClick = () => {
+  //   setAlertShow(true);
+  //   {
+  //     save && removeQuestion();
+  //   }
+  // };
 
   const handleClick = () => {
     setShowEdit(true);
@@ -157,10 +167,35 @@ const ShowContext = ({
               }
             >
               {context.trim().length > 7 ? (
-                <Card.Text
-                  dangerouslySetInnerHTML={createMarkup()}
-                  className="text-left py-2 px-3"
-                />
+                <>
+                  <Card.Text
+                    dangerouslySetInnerHTML={createMarkup()}
+                    className="text-left py-2 px-3"
+                  />
+                  {alertShow && (
+                    <Modal.Dialog>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Modal title</Modal.Title>
+                      </Modal.Header>
+
+                      <Modal.Body>
+                        <p>Modal body text goes here.</p>
+                      </Modal.Body>
+
+                      <Modal.Footer>
+                        <Button
+                          variant="secondary"
+                          onClick={() => setAlertShow(false)}
+                        >
+                          Close
+                        </Button>
+                        <Button variant="primary" onClick={removeQuestion}>
+                          Save changes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal.Dialog>
+                  )}
+                </>
               ) : (
                 <Card.Text dangerouslySetInnerHTML={createMarkup()} />
               )}
@@ -169,7 +204,10 @@ const ShowContext = ({
                   <a href={`/edit-question/${id}`} className="mr-3">
                     edit
                   </a>
-                  <a href="" onClick={removeQuestion} className="mr-3">
+                  {/* <a href="" onClick={removeQuestion} className="mr-3">
+                    delete
+                  </a> */}
+                  <a href="#" onClick={() => setAlertShow(true)} className="">
                     delete
                   </a>
                 </div>
