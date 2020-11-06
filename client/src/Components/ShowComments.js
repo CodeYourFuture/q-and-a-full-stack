@@ -5,9 +5,9 @@ import { CommentBody } from "./CommentBody";
 
 export default function ShowComments({
   comments,
-  setRefresh,
-  refresh,
   deleteComment,
+  setCommentRefresher,
+  commentRefresher,
 }) {
   return (
     <div>
@@ -22,8 +22,8 @@ export default function ShowComments({
               {...comment}
               key={index}
               deleteComment={deleteComment}
-              refresh={refresh}
-              setRefresh={setRefresh}
+              commentRefresher={commentRefresher}
+              setCommentRefresher={setCommentRefresher}
             />
           ))
         : "No comments yet."}
@@ -40,7 +40,7 @@ ShowComments.propTypes = {
       comment_date: PropTypes.string,
     })
   ),
-  setRefresh: PropTypes.func,
-  refresh: PropTypes.bool,
+  setCommentRefresher: PropTypes.func,
+  commentRefresher: PropTypes.bool,
   deleteComment: PropTypes.func,
 };
