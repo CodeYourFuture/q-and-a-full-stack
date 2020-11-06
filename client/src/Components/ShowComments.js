@@ -11,7 +11,7 @@ export default function ShowComments({
 }) {
   return (
     <div>
-      <p className="lead text-left font-weight-bold ml-1">
+      <p className="lead text-left font-weight-bold ml-1 mt-3">
         {comments.length == 1
           ? `${comments.length} Reply`
           : `${comments.length} Replies:`}

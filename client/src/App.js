@@ -22,6 +22,7 @@ import * as firebase from "firebase";
 import UserContext from "./Components/Context";
 import Footer from "./Components/Footer";
 import EditQuestion from "./Components/EditQuestion";
+import Loader from "./Components/Loader";
 
 if (!process.env.DATABASE_URL) {
   let firebaseConfig = require("./Secret.json");
@@ -40,6 +41,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [refresher, setRefresher] = useState(false);
   const [hideAsk, setHideAsk] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   firebase.auth().onAuthStateChanged((user) => setUser(user));
 
@@ -53,7 +55,11 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    getQuestions().then((questions) => setData(questions));
+    setIsLoading(true);
+    getQuestions().then((questions) => {
+      setData(questions);
+      setIsLoading(false);
+    });
   }, [formData, refresher]);
 
   const formMonitor = () => {
@@ -66,49 +72,53 @@ function App() {
           <div className="App">
             <div className="container">
               <NavMenu hideAsk={hideAsk} />
-              <Switch>
-                {user && (
-                  <Route exact path="/ask">
-                    <AskQuestion
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <Switch>
+                  {user && (
+                    <Route exact path="/ask">
+                      <AskQuestion
+                        setHideAsk={setHideAsk}
+                        formMonitor={formMonitor}
+                        postQuestion={postQuestion}
+                      />
+                    </Route>
+                  )}
+                  <Route exact path="/">
+                    <List
+                      questions={data}
+                      getComments={getComments}
+                      postComment={postComment}
+                      incrementLikes={incrementLikes}
+                      incrementViews={incrementViews}
+                      deleteQuestion={deleteQuestion}
+                      refresher={refresher}
+                      setRefresher={setRefresher}
+                      deleteComment={deleteComment}
                       setHideAsk={setHideAsk}
-                      formMonitor={formMonitor}
-                      postQuestion={postQuestion}
                     />
                   </Route>
-                )}
-                <Route exact path="/">
-                  <List
-                    questions={data}
-                    getComments={getComments}
-                    postComment={postComment}
-                    incrementLikes={incrementLikes}
-                    incrementViews={incrementViews}
-                    deleteQuestion={deleteQuestion}
-                    refresher={refresher}
-                    setRefresher={setRefresher}
-                    deleteComment={deleteComment}
-                    setHideAsk={setHideAsk}
+                  <Route
+                    path="/edit-question/:questionId"
+                    render={({ match }) => {
+                      let question = data.find(
+                        (q) => q.id === parseInt(match.params.questionId)
+                      );
+                      return (
+                        question && (
+                          <EditQuestion
+                            {...question}
+                            updateQuestion={updateQuestion}
+                            formMonitor={formMonitor}
+                            setHideAsk={setHideAsk}
+                          />
+                        )
+                      );
+                    }}
                   />
-                </Route>
-                <Route
-                  path="/edit-question/:questionId"
-                  render={({ match }) => {
-                    let question = data.find(
-                      (q) => q.id === parseInt(match.params.questionId)
-                    );
-                    return (
-                      question && (
-                        <EditQuestion
-                          {...question}
-                          updateQuestion={updateQuestion}
-                          formMonitor={formMonitor}
-                          setHideAsk={setHideAsk}
-                        />
-                      )
-                    );
-                  }}
-                />
-              </Switch>
+                </Switch>
+              )}
               <Footer />
             </div>
           </div>
