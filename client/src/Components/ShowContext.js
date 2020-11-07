@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Card, Button } from "react-bootstrap";
@@ -12,19 +13,28 @@ const ShowContext = ({
   id,
   title,
   context,
+  email,
   postComment,
   getComments,
   question_date,
+  incrementLikes,
+  likes,
+  incrementViews,
+  views,
+  deleteQuestion,
+  setRefresher,
+  refresher,
+  deleteComment,
 }) => {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(true);
   const [showEdit, setShowEdit] = useState(false);
   const [open, setOpen] = useState(true);
   const [hidden, setHidden] = useState(false);
-  const [likeCounter, setLikeCounter] = useState(0);
-  const [viewsCounter, setViewsCounter] = useState(0);
-  const [heartClicked, setHeartClicked] = useState(false);
-
+  const [likeCounter, setLikeCounter] = useState(likes);
+  const [viewsCounter, setViewsCounter] = useState(views);
+  const [heartClicked, setHeartClicked] = useState(likes > 0);
+  const [commentRefresher, setCommentRefresher] = useState(false);
   const user = useContext(UserContext);
 
   const handleClick = () => {
@@ -40,7 +50,7 @@ const ShowContext = ({
     getComments(id).then((data) => {
       setComments(data);
     });
-  }, [refresh]);
+  }, [refresh, commentRefresher]);
 
   useEffect(() => {
     !open ? setViewsCounter(viewsCounter + 1) : setViewsCounter(viewsCounter);
@@ -51,104 +61,130 @@ const ShowContext = ({
   };
 
   const handleLikeClick = (event) => {
+    incrementLikes(id).then((response) => {
+      setLikeCounter(response);
+
+      setHeartClicked(response > 0);
+    });
     event.preventDefault();
     event.stopPropagation();
-    setLikeCounter(likeCounter + 1);
-    setHeartClicked(!heartClicked);
+  };
+
+  const removeQuestion = (e) => {
+    e.preventDefault();
+    user
+      .getIdToken()
+      .then((token) => {
+        return deleteQuestion({
+          id: id,
+          email: user.email,
+          token: token,
+        });
+      })
+      .then((result) => {
+        setRefresher(!refresher);
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const viewsController = () => {
+    incrementViews(id).then((response) => {
+      setViewsCounter(response);
+    });
   };
 
   return (
     <Accordion className="p-2" defaultActiveKey="1">
-      <Card className=" bg-light">
-        <Card.Header
-          as="header"
+      <Card>
+        <Accordion.Toggle
+          as={Card.Header}
+          eventKey="0"
           id={`${id}`}
-          className="text-left lead font-weight-bold"
+          className="quest-title card-header"
+          onClick={() => {
+            setOpen(!open);
+            if (open) {
+              viewsController();
+            }
+          }}
         >
-          <Accordion.Toggle
-            as="div"
-            variant="link"
-            eventKey="0"
-            className="quest-title py-3 border border-light rounded px-2 mb-5"
-            onClick={() => setOpen(!open)}
-          >
-            <div className="p-2">
-              <small>
-                <a href={`/#${id}`} className="xs">
-                  <FaLink />
-                </a>
-              </small>
-              &nbsp;
-              {title}
-              {open ? (
-                <FaChevronDown className="float-right ml-5" />
-              ) : (
-                <FaChevronUp className="float-right ml-5" />
-              )}
-              <Moment
-                fromNow
-                className="text-muted d-block font-weight-lighter"
-              >
-                {question_date}
-              </Moment>
-            </div>
-
-            <div className="d-flex flex-row float-right text-secondary text-muted mt-4 mr-5 ">
-              <div className="pl-2 d-flex flex-column text-secondary text-muted">
-                <p className="text-muted ml-3">{comments.length} </p>
-                <p className="text-muted"> Replies </p>
-              </div>
-
-              {!heartClicked ? (
-                <div
-                  onClick={handleLikeClick}
-                  className="d-flex flex-column px-5"
-                >
-                  <p className="text-muted">{likeCounter}</p>
-                  <FaHeart size={16} className="text-muted" />
-                </div>
-              ) : (
-                <div
-                  className="d-flex flex-column px-5"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    setLikeCounter(likeCounter - 1);
-                    setHeartClicked(!heartClicked);
-                  }}
-                >
-                  <p className="text-muted">{likeCounter}</p>
-                  <FcLike size={18} className="text-muted" />
-                </div>
-              )}
-
-              <div className="d-flex flex-column pr-2">
-                <p className="text-muted">{viewsCounter}</p>
-                <p className="text-muted">Views </p>
-              </div>
-            </div>
-            {/* <Moment fromNow className="text-muted d-block font-weight-lighter">
-              {question_date}
-            </Moment> */}
-          </Accordion.Toggle>
-        </Card.Header>
-        <Accordion.Collapse eventKey="0">
-          <Card.Body>
-            <Card.Text
-              dangerouslySetInnerHTML={createMarkup()}
-              className="text-left py-2 ml-2 bg-white"
-            />
-            {user && (
-              <div className="d-flex justify-content-end">
-                <a href="" className="mr-3">
-                  edit
-                </a>
-                <a href="" className="mr-3">
-                  delete
-                </a>
-              </div>
+          <div className="p-2">
+            <small>
+              <a href={`/#${id}`} className="xs">
+                <FaLink />
+              </a>
+            </small>
+            &nbsp;
+            {title}
+            {open ? (
+              <FaChevronDown className="float-right ml-5" />
+            ) : (
+              <FaChevronUp className="float-right ml-5" />
             )}
-            <ShowComments comments={comments} />
+            <Moment fromNow className="text-muted d-block font-weight-lighter">
+              {question_date}
+            </Moment>
+          </div>
+
+          <div className="d-flex flex-row float-right text-secondary text-muted mt-4 mr-5 ">
+            <div className="pl-2 d-flex flex-column text-secondary text-muted">
+              <p className="text-muted ml-3 margin-bottom">{comments.length}</p>
+              <p className="text-muted">
+                {comments.length == 1 ? `Reply` : `Replies`}
+              </p>
+            </div>
+            <div onClick={handleLikeClick} className="d-flex flex-column px-3">
+              <p className="text-muted margin-bottom pl-1">{likeCounter}</p>
+              {heartClicked ? (
+                <FcLike size={18} className="text-muted" />
+              ) : (
+                <FaHeart size={16} className="text-muted" />
+              )}
+            </div>
+            <div className="d-flex flex-column pr-2">
+              <p className="text-muted margin-bottom pl-2">{viewsCounter}</p>
+              <p className="text-muted">Views</p>
+            </div>
+          </div>
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey="0">
+          <Card.Body className="border-top bg-light">
+            <div
+              className={
+                context.trim().length > 7
+                  ? "bg-white rounded card"
+                  : "bg-white rounded"
+              }
+            >
+              {context.trim().length > 7 ? (
+                <Card.Text
+                  dangerouslySetInnerHTML={createMarkup()}
+                  className="text-left py-2 px-3"
+                />
+              ) : (
+                <Card.Text dangerouslySetInnerHTML={createMarkup()} />
+              )}
+              {user?.email === email && context.trim().length > 7 && (
+                <div className="d-flex justify-content-end">
+                  <a href={`/edit-question/${id}`} className="mr-3">
+                    edit
+                  </a>
+                  <a href="" onClick={removeQuestion} className="mr-3">
+                    delete
+                  </a>
+                </div>
+              )}
+            </div>
+
+            <ShowComments
+              comments={comments}
+              deleteComment={deleteComment}
+              setCommentRefresher={setCommentRefresher}
+              commentRefresher={commentRefresher}
+            />
 
             <Accordion defaultActiveKey="1">
               <Accordion.Toggle
@@ -189,9 +225,18 @@ ShowContext.propTypes = {
   id: PropTypes.number,
   title: PropTypes.string,
   context: PropTypes.string,
+  email: PropTypes.string,
   getComments: PropTypes.func,
   postComment: PropTypes.func,
   question_date: PropTypes.string,
+  incrementLikes: PropTypes.func,
+  likes: PropTypes.number,
+  incrementViews: PropTypes.func,
+  views: PropTypes.number,
+  deleteQuestion: PropTypes.func,
+  setRefresher: PropTypes.func,
+  refresher: PropTypes.bool,
+  deleteComment: PropTypes.func,
 };
 
 export default ShowContext;

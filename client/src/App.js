@@ -10,15 +10,21 @@ import {
   postComment,
   getComments,
   postUser,
+  incrementLikes,
+  incrementViews,
+  deleteQuestion,
+  deleteComment,
+  updateQuestion,
 } from "./service";
 import NavMenu from "./Components/NavMenu";
-import SingleQuestion from "./Components/SingleQuestion";
 import ScrollHandler from "./Components/ScrollHandler";
 import * as firebase from "firebase";
 import UserContext from "./Components/Context";
 import Footer from "./Components/Footer";
+import EditQuestion from "./Components/EditQuestion";
+import Loader from "./Components/Loader";
 
-let firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDCnn6mfzVroh7VQcln9atjfaa8nIEZUlQ",
   authDomain: "q-and-a-342c1.firebaseapp.com",
   databaseURL: "https://q-and-a-342c1.firebaseio.com",
@@ -35,6 +41,9 @@ function App() {
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState(false);
   const [user, setUser] = useState(null);
+  const [refresher, setRefresher] = useState(false);
+  const [hideAsk, setHideAsk] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   firebase.auth().onAuthStateChanged((user) => setUser(user));
 
@@ -48,8 +57,12 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    getQuestions().then((questions) => setData(questions));
-  }, [formData]);
+    setIsLoading(true);
+    getQuestions().then((questions) => {
+      setData(questions);
+      setIsLoading(false);
+    });
+  }, [formData, refresher]);
 
   const formMonitor = () => {
     setFormData(!formData);
@@ -60,33 +73,54 @@ function App() {
         <UserContext.Provider value={user}>
           <div className="App">
             <div className="container">
-              <NavMenu />
-              <Switch>
-                {user && (
-                  <Route exact path="/ask">
-                    <AskQuestion
-                      formMonitor={formMonitor}
-                      postQuestion={postQuestion}
+              <NavMenu hideAsk={hideAsk} />
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <Switch>
+                  {user && (
+                    <Route exact path="/ask">
+                      <AskQuestion
+                        setHideAsk={setHideAsk}
+                        formMonitor={formMonitor}
+                        postQuestion={postQuestion}
+                      />
+                    </Route>
+                  )}
+                  <Route exact path="/">
+                    <List
+                      questions={data}
+                      getComments={getComments}
+                      postComment={postComment}
+                      incrementLikes={incrementLikes}
+                      incrementViews={incrementViews}
+                      deleteQuestion={deleteQuestion}
+                      refresher={refresher}
+                      setRefresher={setRefresher}
+                      deleteComment={deleteComment}
+                      setHideAsk={setHideAsk}
                     />
                   </Route>
-                )}
-                <Route exact path="/">
-                  <List
-                    questions={data}
-                    getComments={getComments}
-                    postComment={postComment}
+                  <Route
+                    path="/edit-question/:questionId"
+                    render={({ match }) => {
+                      let question = data.find(
+                        (q) => q.id === parseInt(match.params.questionId)
+                      );
+                      return (
+                        question && (
+                          <EditQuestion
+                            {...question}
+                            updateQuestion={updateQuestion}
+                            formMonitor={formMonitor}
+                            setHideAsk={setHideAsk}
+                          />
+                        )
+                      );
+                    }}
                   />
-                </Route>
-                {/* <Route
-                  path="/question/:questionId"
-                  render={({ match }) => {
-                    let question = data.find(
-                      (q) => q.id === parseInt(match.params.questionId)
-                    );
-                    return <SingleQuestion {...question} />;
-                  }}
-                /> */}
-              </Switch>
+                </Switch>
+              )}
               <Footer />
             </div>
           </div>

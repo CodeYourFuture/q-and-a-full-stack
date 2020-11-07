@@ -6,12 +6,24 @@ import ShowContext from "./ShowContext";
 import Search from "./Search";
 import UserContext from "./Context";
 
-const List = ({ questions, postComment, getComments }) => {
+const List = ({
+  questions,
+  postComment,
+  getComments,
+  incrementLikes,
+  incrementViews,
+  deleteQuestion,
+  refresher,
+  setRefresher,
+  deleteComment,
+  setHideAsk,
+}) => {
   let userOnlyQuestions = [];
   let filteredQuestions = [];
   const user = useContext(UserContext);
   const [searchTerm, setSearchTerm] = useState("");
   const [userQuestions, setUserQuestions] = useState(false);
+  setHideAsk(false);
 
   const searchChange = (searchValue) => {
     setSearchTerm(searchValue);
@@ -38,6 +50,7 @@ const List = ({ questions, postComment, getComments }) => {
           filteredQuestions={filteredQuestions}
           userQuestions={userQuestions}
           setUserQuestions={setUserQuestions}
+          deleteQuestion={deleteQuestion}
         />
       </div>
       {filteredQuestions ? (
@@ -45,6 +58,12 @@ const List = ({ questions, postComment, getComments }) => {
           <ShowContext
             postComment={postComment}
             getComments={getComments}
+            incrementLikes={incrementLikes}
+            incrementViews={incrementViews}
+            deleteQuestion={deleteQuestion}
+            setRefresher={setRefresher}
+            refresher={refresher}
+            deleteComment={deleteComment}
             key={item.id}
             {...item}
           />
@@ -54,6 +73,12 @@ const List = ({ questions, postComment, getComments }) => {
           <ShowContext
             postComment={postComment}
             getComments={getComments}
+            incrementLikes={incrementLikes}
+            incrementViews={incrementViews}
+            deleteQuestion={deleteQuestion}
+            setRefresher={setRefresher}
+            refresher={refresher}
+            deleteComment={deleteComment}
             key={item.id}
             {...item}
           />
@@ -63,23 +88,29 @@ const List = ({ questions, postComment, getComments }) => {
           <ShowContext
             postComment={postComment}
             getComments={getComments}
+            incrementLikes={incrementLikes}
+            incrementViews={incrementViews}
+            deleteQuestion={deleteQuestion}
+            setRefresher={setRefresher}
+            deleteComment={deleteComment}
+            refresher={refresher}
             key={item.id}
             {...item}
           />
         ))
       ) : (
-        <div className="border border-danger">
+        <div className="border rounded border-danger">
           There are no questions to display
         </div>
       )}
       {searchTerm && filteredQuestions.length === 0 ? (
-        <div className="border border-danger p-2 text-center">
+        <div className="border rounded border-danger p-2 text-center error-message">
           Sorry, No match for the search.
         </div>
       ) : (
         !searchTerm &&
         questions.length === 0 && (
-          <div className="border border-danger p-2 text-center">
+          <div className="border border-danger p-2 text-center error-message">
             There are no questions to display
           </div>
         )
@@ -99,6 +130,13 @@ List.propTypes = {
   ),
   postComment: PropTypes.func,
   getComments: PropTypes.func,
+  incrementLikes: PropTypes.func,
+  incrementViews: PropTypes.func,
+  deleteQuestion: PropTypes.func,
+  refresher: PropTypes.bool,
+  setRefresher: PropTypes.func,
+  deleteComment: PropTypes.func,
+  setHideAsk: PropTypes.func,
 };
 
 export default List;

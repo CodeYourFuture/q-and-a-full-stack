@@ -1,6 +1,6 @@
+/* eslint-disable linebreak-style */
 import React from "react";
 import { Container } from "react-bootstrap";
-import CYFLogo from "./../Assets/CYFLogo.png";
 import { FaGithub } from "react-icons/fa";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";

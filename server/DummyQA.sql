@@ -14,6 +14,8 @@ CREATE TABLE questions (
   title VARCHAR(150) NOT NULL,
   context TEXT NOT NULL,	
   question_date timestamp default current_timestamp,
+  likes INTEGER NOT NULL default 0,
+  views INTEGER default 0,
   foreign key (email) references users(email)
 );
 
@@ -23,7 +25,7 @@ CREATE TABLE comments (
   question_id INTEGER,
   comment TEXT NOT NULL,
   comment_date timestamp default current_timestamp,
-  foreign key (question_id) references questions(id),
+  foreign key (question_id) references questions(id) On DELETE CASCADE,
   FOREIGN KEY (email) REFERENCES users(email)
 );
 

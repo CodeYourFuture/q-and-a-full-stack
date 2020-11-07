@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import React, { useContext } from "react";
 import { Form, FormControl } from "react-bootstrap";
 import PropTypes from "prop-types";
@@ -20,15 +21,15 @@ const Search = ({
   };
 
   return (
-    <div className="container p-2 mb-3 bg-light d-flex justify-content-between rounded">
-      <h2 className="ml-3 ">
+    <div className="container p-2 mb-3 bg-light d-flex justify-content-between rounded search-bar-container">
+      <h2 className="ml-3 item">
         {filteredQuestions
           ? `${filteredQuestions.length} Questions`
           : `${questions.length} Questions`}
       </h2>
       <Form inline>
         <FormControl
-          className="searchBar mr-1"
+          className="searchBar mr-1 item"
           type="text"
           aria-label="search bar"
           placeholder="Search questions"
@@ -36,10 +37,10 @@ const Search = ({
         />
         {user && (
           <Form.Check
-            className="switch-key bg-dark text-white pr-2 font-weight-bold"
+            className="switch-key bg-dark text-white pr-2 font-weight-bold item show-mine"
             type="switch"
             id="default-checkout"
-            label="Mine"
+            label="Show only mine"
             onChange={handleUserQuestions}
             value={userQuestions}
           />

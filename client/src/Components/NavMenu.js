@@ -1,11 +1,13 @@
+/* eslint-disable linebreak-style */
 import React, { useContext } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SignIn from "./SignIn";
 import UserContext from "./Context";
 import CYFLogo from "./../Assets/CYFLogo.png";
+import PropTypes from "prop-types";
 
-const NavMenu = () => {
+const NavMenu = ({ hideAsk }) => {
   const user = useContext(UserContext);
   return (
     <div>
@@ -14,7 +16,7 @@ const NavMenu = () => {
           <Link to="/">
             <img
               src={CYFLogo}
-              className="d-inline-block align-top"
+              className="d-inline-block align-top logo"
               alt="CYF Logo"
               width="180"
             />
@@ -25,7 +27,7 @@ const NavMenu = () => {
           <Navbar.Text>
             <SignIn />
             {!user && (
-              <p className="text-muted ml-2">
+              <p className="text-muted ml-2 sign-in-text">
                 Sign-in to ask question and post reply
               </p>
             )}
@@ -44,7 +46,7 @@ const NavMenu = () => {
             Please give us your feedback via{" "}
             <a href="https://forms.gle/drxvYH88GJFgo8R39"> this form </a>
           </p>
-          {user && (
+          {user && !hideAsk && (
             <Link to="/ask">
               <button
                 type="button"
@@ -58,6 +60,10 @@ const NavMenu = () => {
       </Container>
     </div>
   );
+};
+
+NavMenu.propTypes = {
+  hideAsk: PropTypes.bool,
 };
 
 export default NavMenu;
