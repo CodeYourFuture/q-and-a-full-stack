@@ -43,7 +43,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [refresher, setRefresher] = useState(false);
   const [hideAsk, setHideAsk] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   firebase.auth().onAuthStateChanged((user) => setUser(user));
 
@@ -57,7 +57,6 @@ function App() {
   }, [user]);
 
   useEffect(() => {
-    setIsLoading(true);
     getQuestions().then((questions) => {
       setData(questions);
       setIsLoading(false);
