@@ -8,6 +8,7 @@ import UserContext from "./Context";
 export const CommentBody = ({
   id,
   comment,
+  email,
   comment_date,
   deleteComment,
   setCommentRefresher,
@@ -47,7 +48,7 @@ export const CommentBody = ({
         >
           {comment_date}
         </Moment>
-        {user && (
+        {user?.email === email && (
           <div className="float-right">
             {/* <a href="#" className="pr-3 text-sm">
               edit
@@ -65,6 +66,7 @@ export const CommentBody = ({
 CommentBody.propTypes = {
   id: PropTypes.number,
   comment: PropTypes.string,
+  email: PropTypes.string,
   comment_date: PropTypes.string,
   deleteComment: PropTypes.func,
   commentRefresher: PropTypes.bool,

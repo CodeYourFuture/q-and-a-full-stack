@@ -25,7 +25,7 @@ CREATE TABLE comments (
   question_id INTEGER,
   comment TEXT NOT NULL,
   comment_date timestamp default current_timestamp,
-  foreign key (question_id) references questions(id),
+  foreign key (question_id) references questions(id) On DELETE CASCADE,
   FOREIGN KEY (email) REFERENCES users(email)
 );
 
