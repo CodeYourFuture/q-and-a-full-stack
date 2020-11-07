@@ -151,6 +151,10 @@ a:hover {
   border-radius: 0.25rem;
 }
 
+.hint-color {
+  background-color: #ffffcc;
+}
+
 .custom-control-label {
   margin-left: 0.5rem;
 }

@@ -29,7 +29,7 @@ const Editor = ({ editorState, onEditorStateChange }) => {
           },
         }}
       />
-      <p className="text-muted mt-2 border rounded px-1">
+      <p className="text-muted mt-2 border rounded px-1 hint-color">
         Hint: host your screenshots on &nbsp;
         <a className="hint-link" href="https://linkpicture.com/en/?set=en">
           LinkPicture,
