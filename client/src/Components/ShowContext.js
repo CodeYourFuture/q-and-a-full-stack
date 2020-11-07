@@ -177,7 +177,7 @@ const ShowContext = ({
               ) : (
                 <Card.Text dangerouslySetInnerHTML={createMarkup()} />
               )}
-              {user?.email === email && context.trim().length > 7 && (
+              {user?.email === email && (
                 <div className="d-flex justify-content-end">
                   <a href={`/edit-question/${id}`} className="mr-3">
                     edit
