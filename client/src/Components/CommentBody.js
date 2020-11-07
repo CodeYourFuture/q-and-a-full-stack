@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
 import Moment from "react-moment";
 import UserContext from "./Context";
-// import DeleteAlert from "./DeleteAlert";
 
 export const CommentBody = ({
   id,
   comment,
+  email,
   comment_date,
   deleteComment,
   setCommentRefresher,
@@ -59,8 +59,8 @@ export const CommentBody = ({
   };
 
   return (
-    <Card bg="light" className="mb-2 text-left">
-      <Card.Body className="bg-white rounded">
+    <Card bg="light" className="mb-4 text-left">
+      <Card.Body className="bg-white rounded pt-1 pb-0">
         <Card.Text dangerouslySetInnerHTML={createMarkup(comment)} />
         <Moment
           fromNow
@@ -68,7 +68,7 @@ export const CommentBody = ({
         >
           {comment_date}
         </Moment>
-        {user && (
+        {user?.email === email && (
           <div className="float-right">
             <button onClick={editComment}>edit</button>
             <a href="#" onClick={removeComment} className="">
@@ -84,6 +84,7 @@ export const CommentBody = ({
 CommentBody.propTypes = {
   id: PropTypes.number,
   comment: PropTypes.string,
+  email: PropTypes.string,
   comment_date: PropTypes.string,
   setAlertShow: PropTypes.string,
   deleteComment: PropTypes.func,
