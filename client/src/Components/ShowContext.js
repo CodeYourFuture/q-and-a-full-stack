@@ -8,6 +8,7 @@ import Moment from "react-moment";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
 import UserContext from "./Context";
+import ClapButton from "./ClapButton";
 
 const ShowContext = ({
   id,
@@ -33,7 +34,7 @@ const ShowContext = ({
   const [hidden, setHidden] = useState(false);
   const [likeCounter, setLikeCounter] = useState(likes);
   const [viewsCounter, setViewsCounter] = useState(views);
-  const [heartClicked, setHeartClicked] = useState(likes > 0);
+  const [clapClicked, setClapClicked] = useState(likes > 0);
   const [commentRefresher, setCommentRefresher] = useState(false);
   const user = useContext(UserContext);
 
@@ -64,7 +65,7 @@ const ShowContext = ({
     incrementLikes(id).then((response) => {
       setLikeCounter(response);
 
-      setHeartClicked(response > 0);
+      setClapClicked(response > 0);
     });
     event.preventDefault();
     event.stopPropagation();
@@ -138,11 +139,7 @@ const ShowContext = ({
             </div>
             <div onClick={handleLikeClick} className="d-flex flex-column px-3">
               <p className="text-muted margin-bottom pl-1">{likeCounter}</p>
-              {heartClicked ? (
-                <FcLike size={18} className="text-muted" />
-              ) : (
-                <FaHeart size={16} className="text-muted" />
-              )}
+              {clapClicked ? <ClapButton /> : <ClapButton />}
             </div>
             <div className="d-flex flex-column pr-2">
               <p className="text-muted margin-bottom pl-2">{viewsCounter}</p>
