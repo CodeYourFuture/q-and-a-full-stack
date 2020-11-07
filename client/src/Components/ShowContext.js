@@ -173,29 +173,6 @@ const ShowContext = ({
                     dangerouslySetInnerHTML={createMarkup()}
                     className="text-left py-2 px-3"
                   />
-                  {alertShow && (
-                    <Modal.Dialog>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Modal title</Modal.Title>
-                      </Modal.Header>
-
-                      <Modal.Body>
-                        <p>Modal body text goes here.</p>
-                      </Modal.Body>
-
-                      <Modal.Footer>
-                        <Button
-                          variant="secondary"
-                          onClick={() => setAlertShow(false)}
-                        >
-                          Close
-                        </Button>
-                        <Button variant="primary" onClick={removeQuestion}>
-                          Save changes
-                        </Button>
-                      </Modal.Footer>
-                    </Modal.Dialog>
-                  )}
                 </>
               ) : (
                 <Card.Text dangerouslySetInnerHTML={createMarkup()} />
@@ -205,10 +182,7 @@ const ShowContext = ({
                   <a href={`/edit-question/${id}`} className="mr-3">
                     edit
                   </a>
-                  {/* <a href="" onClick={removeQuestion} className="mr-3">
-                    delete
-                  </a> */}
-                  <a href="#" onClick={() => setAlertShow(true)} className="">
+                  <a href="" onClick={removeQuestion} className="mr-3">
                     delete
                   </a>
                 </div>

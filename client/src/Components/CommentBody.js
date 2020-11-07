@@ -70,7 +70,9 @@ export const CommentBody = ({
         </Moment>
         {user?.email === email && (
           <div className="float-right">
-            <button onClick={editComment}>edit</button>
+            <a href="#" onClick={editComment} className="mr-3">
+              edit
+            </a>
             <a href="#" onClick={removeComment} className="">
               delete
             </a>
