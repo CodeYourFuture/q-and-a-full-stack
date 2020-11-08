@@ -9,6 +9,7 @@ import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
 import UserContext from "./Context";
 import ClapButton from "./ClapButton";
+import DeleteQuestionModal from "./DeleteQuestionModal";
 
 const ShowContext = ({
   id,
@@ -37,6 +38,14 @@ const ShowContext = ({
   const [clapClicked, setClapClicked] = useState(likes > 0);
   const [commentRefresher, setCommentRefresher] = useState(false);
   const user = useContext(UserContext);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
 
   const handleClick = () => {
     setShowEdit(true);
@@ -164,12 +173,21 @@ const ShowContext = ({
               ) : (
                 <Card.Text dangerouslySetInnerHTML={createMarkup()} />
               )}
+              <DeleteQuestionModal
+                handleClose={handleClose}
+                show={show}
+                removeQuestion={removeQuestion}
+              />
+
               {user?.email === email && (
                 <div className="d-flex justify-content-end">
                   <a href={`/edit-question/${id}`} className="mr-3">
                     edit
                   </a>
-                  <a href="" onClick={removeQuestion} className="mr-3">
+                  {/* <a href="" onClick={removeQuestion} className="mr-3">
+                    delete
+                  </a> */}
+                  <a href="" onClick={handleShow} className="mr-3">
                     delete
                   </a>
                 </div>
@@ -181,6 +199,13 @@ const ShowContext = ({
               deleteComment={deleteComment}
               setCommentRefresher={setCommentRefresher}
               commentRefresher={commentRefresher}
+              handleShow={handleShow}
+              handleClose={handleClose}
+              show={show}
+              // handleShowModal={handleShowModal}
+              // handleCloseModal={handleCloseModal}
+              // showModal={showModal}
+              removeQuestion={removeQuestion}
             />
 
             <Accordion defaultActiveKey="1">

@@ -1,9 +1,10 @@
 /* eslint-disable linebreak-style */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
 import Moment from "react-moment";
 import UserContext from "./Context";
+import DeleteCommentModal from "./DeleteCommentModal";
 
 export const CommentBody = ({
   id,
@@ -18,6 +19,13 @@ export const CommentBody = ({
   function createMarkup(comment) {
     return { __html: comment };
   }
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = (e) => {
+    e.preventDefault();
+    setShowModal(true);
+  };
+
   const removeComment = (e) => {
     e.preventDefault();
     user
@@ -53,7 +61,12 @@ export const CommentBody = ({
             {/* <a href="#" className="pr-3 text-sm">
               edit
             </a> */}
-            <a href="#" onClick={removeComment} className="">
+            <DeleteCommentModal
+              handleCloseModal={handleCloseModal}
+              showModal={showModal}
+              removeComment={removeComment}
+            />
+            <a href="#" onClick={handleShowModal} className="">
               delete
             </a>
           </div>
