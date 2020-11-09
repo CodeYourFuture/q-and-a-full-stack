@@ -119,11 +119,13 @@ a:hover {
 .tertiary {
   color: #fbb03b;
   border: 0px;
+  background-color: white;
 }
 
 .tertiary:hover {
   color: #f39604;
   border: 0px;
+  background-color: #dadada;
 }
 
 .firebaseui-idp-button {
