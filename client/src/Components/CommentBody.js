@@ -23,7 +23,6 @@ export const CommentBody = ({
   const handleShowModal = (e) => {
     e.preventDefault();
     setShowModal(true);
-    console.log(showModal);
   };
   const handleCloseModal = () => setShowModal(false);
 
@@ -59,10 +58,6 @@ export const CommentBody = ({
         </Moment>
         {user?.email === email && (
           <div className="float-right">
-            {/* <a href="#" className="pr-3 text-sm">
-              edit
-            </a> */}
-
             <a href="" onClick={handleShowModal} className="">
               delete
             </a>

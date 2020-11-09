@@ -48,6 +48,7 @@ function App() {
   firebase.auth().onAuthStateChanged((user) => setUser(user));
 
   useEffect(() => {
+    // console.log(user);
     user
       ? postUser({
           userId: user.uid,

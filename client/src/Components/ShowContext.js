@@ -185,9 +185,6 @@ const ShowContext = ({
                   <a href={`/edit-question/${id}`} className="mr-3">
                     edit
                   </a>
-                  {/* <a href="" onClick={removeQuestion} className="mr-3">
-                    delete
-                  </a> */}
                   <a href="" onClick={handleShow} className="mr-3">
                     delete
                   </a>
