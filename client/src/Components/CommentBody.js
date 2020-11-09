@@ -20,11 +20,12 @@ export const CommentBody = ({
     return { __html: comment };
   }
   const [showModal, setShowModal] = useState(false);
-  const handleCloseModal = () => setShowModal(false);
   const handleShowModal = (e) => {
     e.preventDefault();
     setShowModal(true);
+    console.log(showModal);
   };
+  const handleCloseModal = () => setShowModal(false);
 
   const removeComment = (e) => {
     e.preventDefault();
@@ -61,17 +62,20 @@ export const CommentBody = ({
             {/* <a href="#" className="pr-3 text-sm">
               edit
             </a> */}
-            <DeleteCommentModal
-              handleCloseModal={handleCloseModal}
-              showModal={showModal}
-              removeComment={removeComment}
-            />
-            <a href="#" onClick={handleShowModal} className="">
+
+            <a href="" onClick={handleShowModal} className="">
               delete
             </a>
           </div>
         )}
       </Card.Body>
+      {showModal && (
+        <DeleteCommentModal
+          handleCloseModal={handleCloseModal}
+          showModal={showModal}
+          removeComment={removeComment}
+        />
+      )}
     </Card>
   );
 };
