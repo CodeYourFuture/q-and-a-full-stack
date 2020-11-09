@@ -3,14 +3,6 @@ import { Modal, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const DeleteCommentModal = ({ handleCloseModal, showModal, removeComment }) => {
-  console.log("handleCloseModal", handleCloseModal);
-  console.log("showModal", showModal);
-  console.log("removeComment", removeComment);
-
-  const [bgColor, setBgColor] = useState();
-
-  const buttonFunction = () => {};
-
   return (
     <Modal
       show={showModal}

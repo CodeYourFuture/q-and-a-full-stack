@@ -3,9 +3,6 @@ import { Modal, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const DeleteQuestionModal = ({ handleClose, show, removeQuestion }) => {
-  console.log("handleClose", handleClose);
-  console.log("show", show);
-  console.log("removeQuestion", removeQuestion);
   return (
     <>
       <Modal

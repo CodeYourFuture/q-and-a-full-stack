@@ -116,11 +116,6 @@ a:hover {
   border-color: #f39604;
 }
 
-.button-a-secondary:active {
-  background-color: #f39604;
-  border-color: #f39604;
-}
-
 .tertiary {
   color: #fbb03b;
   border: 0px;
@@ -128,12 +123,6 @@ a:hover {
 }
 
 .tertiary:hover {
-  color: #f39604;
-  border: 0px;
-  background-color: #dadada;
-}
-
-.button-a-tertiary:active {
   color: #f39604;
   border: 0px;
   background-color: #dadada;

@@ -37,11 +37,12 @@ const ShowContext = ({
   const [viewsCounter, setViewsCounter] = useState(views);
   const [clapClicked, setClapClicked] = useState(likes > 0);
   const [commentRefresher, setCommentRefresher] = useState(false);
-  const user = useContext(UserContext);
-
   const [show, setShow] = useState(false);
 
+  const user = useContext(UserContext);
+
   const handleClose = () => setShow(false);
+
   const handleShow = (e) => {
     e.preventDefault();
     setShow(true);
@@ -202,9 +203,6 @@ const ShowContext = ({
               handleShow={handleShow}
               handleClose={handleClose}
               show={show}
-              // handleShowModal={handleShowModal}
-              // handleCloseModal={handleCloseModal}
-              // showModal={showModal}
               removeQuestion={removeQuestion}
             />
 
