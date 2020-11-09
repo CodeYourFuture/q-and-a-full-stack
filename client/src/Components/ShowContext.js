@@ -122,7 +122,7 @@ const ShowContext = ({
             }
           }}
         >
-          <div className="p-2">
+          <div className="p-2 lead font-weight-bold">
             <small>
               <a href={`/#${id}`} className="xs">
                 <FaLink />
@@ -135,7 +135,10 @@ const ShowContext = ({
             ) : (
               <FaChevronUp className="float-right ml-5" />
             )}
-            <Moment fromNow className="text-muted d-block font-weight-lighter">
+            <Moment
+              fromNow
+              className="text-muted d-block font-weight-lighter mt-2"
+            >
               {question_date}
             </Moment>
           </div>
