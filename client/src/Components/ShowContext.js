@@ -122,7 +122,7 @@ const ShowContext = ({
             }
           }}
         >
-          <div className="p-2">
+          <div className="p-2 lead font-weight-bold">
             <small>
               <a href={`/#${id}`} className="xs">
                 <FaLink />
