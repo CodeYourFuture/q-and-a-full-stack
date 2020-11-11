@@ -8,6 +8,10 @@ export default function ShowComments({
   deleteComment,
   setCommentRefresher,
   commentRefresher,
+  handleShow,
+  handleClose,
+  show,
+  removeQuestion,
 }) {
   return (
     <div>
@@ -24,6 +28,10 @@ export default function ShowComments({
               deleteComment={deleteComment}
               commentRefresher={commentRefresher}
               setCommentRefresher={setCommentRefresher}
+              handleShow={handleShow}
+              handleClose={handleClose}
+              show={show}
+              removeQuestion={removeQuestion}
             />
           ))
         : "No comments yet."}

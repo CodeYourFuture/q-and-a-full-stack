@@ -8,6 +8,8 @@ import Moment from "react-moment";
 import { Comment } from "./Comment";
 import ShowComments from "./ShowComments";
 import UserContext from "./Context";
+import ClapButton from "./ClapButton";
+import DeleteQuestionModal from "./DeleteQuestionModal";
 
 const ShowContext = ({
   id,
@@ -33,9 +35,18 @@ const ShowContext = ({
   const [hidden, setHidden] = useState(false);
   const [likeCounter, setLikeCounter] = useState(likes);
   const [viewsCounter, setViewsCounter] = useState(views);
-  const [heartClicked, setHeartClicked] = useState(likes > 0);
+  const [clapClicked, setClapClicked] = useState(likes > 0);
   const [commentRefresher, setCommentRefresher] = useState(false);
+  const [show, setShow] = useState(false);
+
   const user = useContext(UserContext);
+
+  const handleClose = () => setShow(false);
+
+  const handleShow = (e) => {
+    e.preventDefault();
+    setShow(true);
+  };
 
   const handleClick = () => {
     setShowEdit(true);
@@ -64,7 +75,7 @@ const ShowContext = ({
     incrementLikes(id).then((response) => {
       setLikeCounter(response);
 
-      setHeartClicked(response > 0);
+      setClapClicked(response > 0);
     });
     event.preventDefault();
     event.stopPropagation();
@@ -111,7 +122,7 @@ const ShowContext = ({
             }
           }}
         >
-          <div className="p-2">
+          <div className="p-2 lead font-weight-bold">
             <small>
               <a href={`/#${id}`} className="xs">
                 <FaLink />
@@ -124,7 +135,10 @@ const ShowContext = ({
             ) : (
               <FaChevronUp className="float-right ml-5" />
             )}
-            <Moment fromNow className="text-muted d-block font-weight-lighter">
+            <Moment
+              fromNow
+              className="text-muted d-block font-weight-lighter mt-2"
+            >
               {question_date}
             </Moment>
           </div>
@@ -138,11 +152,7 @@ const ShowContext = ({
             </div>
             <div onClick={handleLikeClick} className="d-flex flex-column px-3">
               <p className="text-muted margin-bottom pl-1">{likeCounter}</p>
-              {heartClicked ? (
-                <FcLike size={18} className="text-muted" />
-              ) : (
-                <FaHeart size={16} className="text-muted" />
-              )}
+              {clapClicked ? <ClapButton /> : <ClapButton />}
             </div>
             <div className="d-flex flex-column pr-2">
               <p className="text-muted margin-bottom pl-2">{viewsCounter}</p>
@@ -167,12 +177,18 @@ const ShowContext = ({
               ) : (
                 <Card.Text dangerouslySetInnerHTML={createMarkup()} />
               )}
-              {user?.email === email && context.trim().length > 7 && (
+              <DeleteQuestionModal
+                handleClose={handleClose}
+                show={show}
+                removeQuestion={removeQuestion}
+              />
+
+              {user?.email === email && (
                 <div className="d-flex justify-content-end">
                   <a href={`/edit-question/${id}`} className="mr-3">
                     edit
                   </a>
-                  <a href="" onClick={removeQuestion} className="mr-3">
+                  <a href="" onClick={handleShow} className="mr-3">
                     delete
                   </a>
                 </div>
@@ -184,6 +200,10 @@ const ShowContext = ({
               deleteComment={deleteComment}
               setCommentRefresher={setCommentRefresher}
               commentRefresher={commentRefresher}
+              handleShow={handleShow}
+              handleClose={handleClose}
+              show={show}
+              removeQuestion={removeQuestion}
             />
 
             <Accordion defaultActiveKey="1">
