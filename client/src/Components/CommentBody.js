@@ -39,6 +39,7 @@ export const CommentBody = ({
       })
       .then((result) => {
         setCommentRefresher(!commentRefresher);
+        setShowModal(false);
         console.log(result);
       })
       .catch((error) => {
