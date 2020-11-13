@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import SignIn from "./SignIn";
 import UserContext from "./Context";
 import CYFLogo from "./../Assets/CYFLogo.png";
+import { ImQuotesLeft, ImQuotesRight } from "react-icons/im";
 import PropTypes from "prop-types";
 
 const NavMenu = ({ hideAsk }) => {
@@ -40,12 +41,16 @@ const NavMenu = ({ hideAsk }) => {
           <h1 className="mb-4">Welcome to the Q&A App</h1>
           <p>
             This is a centralised platform to ask and store all your technical
-            questions. This app aims at facilitating student's learning and it
-            is accessible by all CYF students and mentors.
+            questions.
           </p>
           <p>
-            "The only mistake you can make is not asking for help" - Sandeep
-            Jauhar
+            The app aims at facilitating student's learning and it is accessible
+            by all CYF students and mentors.
+          </p>
+          <p className="font-italic">
+            <ImQuotesLeft size={10} className="mb-3" />
+            The only mistake you can make is not asking for help{" "}
+            <ImQuotesRight size={10} className="mb-3" /> - Sandeep Jauhar
           </p>
           {user && !hideAsk && (
             <Link to="/ask">
